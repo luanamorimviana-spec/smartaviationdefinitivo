@@ -277,9 +277,12 @@
                         <label class="block text-sm font-semibold">Subtítulo
                             <textarea id="heroSubtitleInput" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
                         </label>
-                        <label class="block text-sm font-semibold">URL da imagem de fundo
-                            <input id="heroImageInput" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Imagem de fundo</label>
+                            <img id="heroImagePreview" class="h-32 object-cover rounded-lg mb-2 hidden border border-slate-300">
+                            <input type="file" id="heroImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
+                            <p class="text-xs text-slate-400 mt-1">Selecione uma imagem para substituir a atual.</p>
+                        </div>
                         <div class="flex items-center gap-3">
                             <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
                             <span id="heroFeedback" class="text-sm"></span>
@@ -350,9 +353,11 @@
                                 <input id="aboutFeature2DescInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
                             </label>
                         </div>
-                        <label class="block text-sm font-semibold">URL da imagem
-                            <input id="aboutImageInput" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Imagem da seção</label>
+                            <img id="aboutImagePreview" class="h-32 object-cover rounded-lg mb-2 hidden border border-slate-300">
+                            <input type="file" id="aboutImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
+                        </div>
                         <div class="flex items-center gap-3">
                             <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
                             <span id="aboutFeedback" class="text-sm"></span>
@@ -378,9 +383,11 @@
                         <label class="block text-sm font-semibold">Descrição
                             <textarea id="productDescription" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
                         </label>
-                        <label class="block text-sm font-semibold">URL da imagem
-                            <input id="productImage" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Imagem do produto</label>
+                            <img id="productImagePreview" class="h-32 object-contain bg-slate-100 rounded-lg mb-2 hidden border border-slate-300">
+                            <input type="file" id="productImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
+                        </div>
                         <div class="flex items-center gap-3">
                             <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
                             <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 px-4 py-2">Limpar</button>
@@ -448,6 +455,14 @@
         const byId = (id) => document.getElementById(id);
         const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
 
+        // ---------- Upload de Imagem ----------
+        async function uploadImage(file, folder) {
+            const storageRef = storage.ref();
+            const fileRef = storageRef.child(`${folder}/${Date.now()}_${file.name}`);
+            await fileRef.put(file);
+            return await fileRef.getDownloadURL();
+        }
+
         // ---------- Login ----------
         window.openAdminLogin = () => {
             byId("adminLoginModal").classList.remove("hidden");
@@ -479,15 +494,17 @@
                     byId("adminPassword").value
                 );
             } catch (err) {
+                console.error("Erro no login:", err);
                 const msgs = {
                     "auth/invalid-credential": "E-mail ou senha incorretos.",
                     "auth/user-not-found": "Conta não encontrada.",
                     "auth/wrong-password": "E-mail ou senha incorretos.",
                     "auth/too-many-requests": "Muitas tentativas. Aguarde.",
                     "auth/invalid-email": "E-mail inválido.",
-                    "auth/network-request-failed": "Falha de conexão."
+                    "auth/network-request-failed": "Falha de conexão.",
+                    "auth/operation-not-allowed": "Login por e-mail/senha não está ativado no Firebase Console."
                 };
-                fb.textContent = msgs[err.code] || "Não foi possível entrar.";
+                fb.textContent = msgs[err.code] || "Erro ao entrar: " + err.message;
             } finally {
                 btn.disabled = false; btn.textContent = "Entrar";
             }
@@ -504,7 +521,6 @@
             closeAdminLogin();
             byId("adminDashboard").classList.remove("hidden");
             byId("adminSignedInAs").textContent = user.email || user.uid;
-            await loadAllContent();
             switchTab("hero");
         };
         window.closeAdminDashboard = () => byId("adminDashboard").classList.add("hidden");
@@ -533,7 +549,6 @@
                 closeAdminDashboard();
                 return;
             }
-            // Verifica se é admin
             try {
                 const doc = await db.collection("admins").doc(user.uid).get();
                 if (!doc.exists || doc.data().active !== true) {
@@ -544,83 +559,75 @@
                 }
                 openAdminDashboard(user);
             } catch (err) {
-                console.error(err);
+                console.error("Erro ao validar admin:", err);
                 byId("adminLoginFeedback").textContent = "Erro ao validar admin. Verifique as regras do Firestore.";
             }
         });
 
-        // ---------- Carregar conteúdo público ----------
-        async function loadAllContent() {
-            await Promise.all([
-                loadHero(), loadStats(), loadAbout(), loadContactInfo()
-            ]);
-            await loadProducts();
+        // ---------- TEMPO REAL (Atualiza o site na hora) ----------
+        function listenContent(docId, callback) {
+            db.collection("siteContent").doc(docId).onSnapshot((doc) => {
+                callback(doc.exists ? doc.data() : {});
+            });
         }
 
-        async function loadHero() {
-            try {
-                const doc = await db.collection("siteContent").doc("hero").get();
-                const d = doc.exists ? doc.data() : {};
-                if (d.badge) byId("heroBadge").textContent = d.badge;
-                if (d.title) byId("heroTitle").textContent = d.title;
-                if (d.subtitle) byId("heroSubtitle").textContent = d.subtitle;
-                if (d.imageUrl) byId("heroBackground").style.backgroundImage = `url('${d.imageUrl}')`;
-                // preenche form admin
-                byId("heroBadgeInput").value = d.badge || byId("heroBadge").textContent;
-                byId("heroTitleInput").value = d.title || byId("heroTitle").textContent;
-                byId("heroSubtitleInput").value = d.subtitle || byId("heroSubtitle").textContent;
-                byId("heroImageInput").value = d.imageUrl || "";
-            } catch (e) { console.error(e); }
-        }
+        listenContent("hero", (d) => {
+            if (d.badge) byId("heroBadge").textContent = d.badge;
+            if (d.title) byId("heroTitle").textContent = d.title;
+            if (d.subtitle) byId("heroSubtitle").textContent = d.subtitle;
+            if (d.imageUrl) byId("heroBackground").style.backgroundImage = `url('${d.imageUrl}')`;
+            
+            // Atualiza o form do admin
+            byId("heroBadgeInput").value = d.badge || byId("heroBadge").textContent;
+            byId("heroTitleInput").value = d.title || byId("heroTitle").textContent;
+            byId("heroSubtitleInput").value = d.subtitle || byId("heroSubtitle").textContent;
+            if (d.imageUrl) {
+                byId("heroImagePreview").src = d.imageUrl;
+                byId("heroImagePreview").classList.remove("hidden");
+            }
+        });
 
-        async function loadStats() {
-            try {
-                const doc = await db.collection("siteContent").doc("stats").get();
-                const d = doc.exists ? doc.data() : {};
-                for (let i = 1; i <= 4; i++) {
-                    const v = d[`stat${i}Value`];
-                    const l = d[`stat${i}Label`];
-                    if (v) byId(`stat${i}Value`).textContent = v;
-                    if (l) byId(`stat${i}Label`).textContent = l;
-                    byId(`stat${i}ValueInput`).value = v || byId(`stat${i}Value`).textContent;
-                    byId(`stat${i}LabelInput`).value = l || byId(`stat${i}Label`).textContent;
-                }
-            } catch (e) { console.error(e); }
-        }
+        listenContent("stats", (d) => {
+            for (let i = 1; i <= 4; i++) {
+                const v = d[`stat${i}Value`];
+                const l = d[`stat${i}Label`];
+                if (v) byId(`stat${i}Value`).textContent = v;
+                if (l) byId(`stat${i}Label`).textContent = l;
+                byId(`stat${i}ValueInput`).value = v || byId(`stat${i}Value`).textContent;
+                byId(`stat${i}LabelInput`).value = l || byId(`stat${i}Label`).textContent;
+            }
+        });
 
-        async function loadAbout() {
-            try {
-                const doc = await db.collection("siteContent").doc("about").get();
-                const d = doc.exists ? doc.data() : {};
-                if (d.title) byId("aboutTitle").textContent = d.title;
-                if (d.text) byId("aboutText1").innerHTML = d.text;
-                if (d.feature1Title) byId("aboutFeature1Title").textContent = d.feature1Title;
-                if (d.feature1Desc) byId("aboutFeature1Desc").textContent = d.feature1Desc;
-                if (d.feature2Title) byId("aboutFeature2Title").textContent = d.feature2Title;
-                if (d.feature2Desc) byId("aboutFeature2Desc").textContent = d.feature2Desc;
-                if (d.imageUrl) byId("aboutImage").src = d.imageUrl;
-                byId("aboutTitleInput").value = d.title || byId("aboutTitle").textContent;
-                byId("aboutTextInput").value = d.text || byId("aboutText1").innerHTML;
-                byId("aboutFeature1TitleInput").value = d.feature1Title || byId("aboutFeature1Title").textContent;
-                byId("aboutFeature1DescInput").value = d.feature1Desc || byId("aboutFeature1Desc").textContent;
-                byId("aboutFeature2TitleInput").value = d.feature2Title || byId("aboutFeature2Title").textContent;
-                byId("aboutFeature2DescInput").value = d.feature2Desc || byId("aboutFeature2Desc").textContent;
-                byId("aboutImageInput").value = d.imageUrl || "";
-            } catch (e) { console.error(e); }
-        }
+        listenContent("about", (d) => {
+            if (d.title) byId("aboutTitle").textContent = d.title;
+            if (d.text) byId("aboutText1").innerHTML = d.text;
+            if (d.feature1Title) byId("aboutFeature1Title").textContent = d.feature1Title;
+            if (d.feature1Desc) byId("aboutFeature1Desc").textContent = d.feature1Desc;
+            if (d.feature2Title) byId("aboutFeature2Title").textContent = d.feature2Title;
+            if (d.feature2Desc) byId("aboutFeature2Desc").textContent = d.feature2Desc;
+            if (d.imageUrl) byId("aboutImage").src = d.imageUrl;
 
-        async function loadContactInfo() {
-            try {
-                const doc = await db.collection("siteContent").doc("contact").get();
-                const d = doc.exists ? doc.data() : {};
-                if (d.phone) byId("contactPhone").textContent = d.phone;
-                if (d.email) byId("contactEmail").textContent = d.email;
-                if (d.address) byId("contactAddress").textContent = d.address;
-                byId("contactPhoneInput").value = d.phone || byId("contactPhone").textContent;
-                byId("contactEmailInput").value = d.email || byId("contactEmail").textContent;
-                byId("contactAddressInput").value = d.address || byId("contactAddress").textContent;
-            } catch (e) { console.error(e); }
-        }
+            byId("aboutTitleInput").value = d.title || byId("aboutTitle").textContent;
+            byId("aboutTextInput").value = d.text || byId("aboutText1").innerHTML;
+            byId("aboutFeature1TitleInput").value = d.feature1Title || byId("aboutFeature1Title").textContent;
+            byId("aboutFeature1DescInput").value = d.feature1Desc || byId("aboutFeature1Desc").textContent;
+            byId("aboutFeature2TitleInput").value = d.feature2Title || byId("aboutFeature2Title").textContent;
+            byId("aboutFeature2DescInput").value = d.feature2Desc || byId("aboutFeature2Desc").textContent;
+            if (d.imageUrl) {
+                byId("aboutImagePreview").src = d.imageUrl;
+                byId("aboutImagePreview").classList.remove("hidden");
+            }
+        });
+
+        listenContent("contact", (d) => {
+            if (d.phone) byId("contactPhone").textContent = d.phone;
+            if (d.email) byId("contactEmail").textContent = d.email;
+            if (d.address) byId("contactAddress").textContent = d.address;
+
+            byId("contactPhoneInput").value = d.phone || byId("contactPhone").textContent;
+            byId("contactEmailInput").value = d.email || byId("contactEmail").textContent;
+            byId("contactAddressInput").value = d.address || byId("contactAddress").textContent;
+        });
 
         // ---------- Salvar seções ----------
         async function saveSection(docId, data, feedbackId) {
@@ -632,7 +639,6 @@
                 fb.textContent = "✓ Salvo com sucesso!";
                 fb.className = "text-sm text-emerald-600";
                 setTimeout(() => { fb.textContent = ""; }, 3000);
-                await loadAllContent();
             } catch (e) {
                 console.error(e);
                 fb.textContent = "Erro ao salvar. Verifique as regras do Firestore.";
@@ -640,14 +646,32 @@
             }
         }
 
-        byId("heroForm").addEventListener("submit", (e) => {
+        byId("heroForm").addEventListener("submit", async (e) => {
             e.preventDefault();
+            const fb = byId("heroFeedback");
+            const file = byId("heroImageFile").files[0];
+            let imageUrl = byId("heroImagePreview").src || "";
+            
+            if (file) {
+                fb.textContent = "Fazendo upload da imagem...";
+                fb.className = "text-sm text-slate-500";
+                try {
+                    imageUrl = await uploadImage(file, "hero");
+                } catch (err) {
+                    console.error(err);
+                    fb.textContent = "Erro no upload. Verifique as regras do Storage.";
+                    fb.className = "text-sm text-red-600";
+                    return;
+                }
+            }
+
             saveSection("hero", {
                 badge: byId("heroBadgeInput").value.trim(),
                 title: byId("heroTitleInput").value.trim(),
                 subtitle: byId("heroSubtitleInput").value.trim(),
-                imageUrl: byId("heroImageInput").value.trim()
+                imageUrl: imageUrl
             }, "heroFeedback");
+            byId("heroImageFile").value = ""; // Limpa o input file
         });
 
         byId("statsForm").addEventListener("submit", (e) => {
@@ -660,8 +684,25 @@
             saveSection("stats", data, "statsFeedback");
         });
 
-        byId("aboutForm").addEventListener("submit", (e) => {
+        byId("aboutForm").addEventListener("submit", async (e) => {
             e.preventDefault();
+            const fb = byId("aboutFeedback");
+            const file = byId("aboutImageFile").files[0];
+            let imageUrl = byId("aboutImagePreview").src || "";
+
+            if (file) {
+                fb.textContent = "Fazendo upload da imagem...";
+                fb.className = "text-sm text-slate-500";
+                try {
+                    imageUrl = await uploadImage(file, "about");
+                } catch (err) {
+                    console.error(err);
+                    fb.textContent = "Erro no upload. Verifique as regras do Storage.";
+                    fb.className = "text-sm text-red-600";
+                    return;
+                }
+            }
+
             saveSection("about", {
                 title: byId("aboutTitleInput").value.trim(),
                 text: byId("aboutTextInput").value.trim(),
@@ -669,8 +710,9 @@
                 feature1Desc: byId("aboutFeature1DescInput").value.trim(),
                 feature2Title: byId("aboutFeature2TitleInput").value.trim(),
                 feature2Desc: byId("aboutFeature2DescInput").value.trim(),
-                imageUrl: byId("aboutImageInput").value.trim()
+                imageUrl: imageUrl
             }, "aboutFeedback");
+            byId("aboutImageFile").value = "";
         });
 
         byId("contactInfoForm").addEventListener("submit", (e) => {
@@ -685,16 +727,10 @@
         // ---------- Produtos ----------
         let allProducts = [];
 
-        async function loadProducts() {
-            try {
-                const snap = await db.collection("products").orderBy("createdAt", "desc").get();
-                allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderCatalog(allProducts);
-            } catch (e) {
-                console.error(e);
-                byId("catalogContainer").innerHTML = '<p class="col-span-full text-center text-slate-500">Não foi possível carregar o catálogo.</p>';
-            }
-        }
+        db.collection("products").orderBy("createdAt", "desc").onSnapshot((snap) => {
+            allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderCatalog(allProducts);
+        });
 
         function renderCatalog(products) {
             const c = byId("catalogContainer");
@@ -706,7 +742,7 @@
                 const name = esc(p.name || "Produto");
                 const cat = esc(p.category || "Instrumentos");
                 const desc = esc(p.description || "");
-                const img = /^https:\/\//i.test(p.imageUrl || "")
+                const img = p.imageUrl
                     ? `<img src="${esc(p.imageUrl)}" alt="${name}" loading="lazy" class="w-full h-56 object-contain bg-slate-100">`
                     : '<div class="w-full h-56 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
                 return `<article data-category="${cat}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
@@ -763,8 +799,13 @@
                 byId("productName").value = p.name || "";
                 byId("productCategory").value = p.category || "Instrumentos";
                 byId("productDescription").value = p.description || "";
-                byId("productImage").value = p.imageUrl || "";
                 byId("productFeedback").textContent = "Editando produto.";
+                if (p.imageUrl) {
+                    byId("productImagePreview").src = p.imageUrl;
+                    byId("productImagePreview").classList.remove("hidden");
+                } else {
+                    byId("productImagePreview").classList.add("hidden");
+                }
                 byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
             } catch (e) { console.error(e); }
         }
@@ -774,7 +815,6 @@
             try {
                 await db.collection("products").doc(id).delete();
                 await loadAdminProducts();
-                await loadProducts();
             } catch (e) {
                 console.error(e);
                 alert("Não foi possível excluir.");
@@ -785,17 +825,30 @@
             byId("productForm").reset();
             byId("productId").value = "";
             byId("productFeedback").textContent = "";
+            byId("productImagePreview").classList.add("hidden");
+            byId("productImagePreview").src = "";
         };
 
         byId("productForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("productFeedback");
             const name = byId("productName").value.trim();
-            const imageUrl = byId("productImage").value.trim();
-            if (imageUrl && !/^https:\/\//i.test(imageUrl)) {
-                fb.textContent = "A imagem deve usar HTTPS.";
-                return;
+            const file = byId("productImageFile").files[0];
+            let imageUrl = byId("productImagePreview").src || "";
+
+            if (file) {
+                fb.textContent = "Fazendo upload da imagem...";
+                fb.className = "text-sm text-slate-500";
+                try {
+                    imageUrl = await uploadImage(file, "products");
+                } catch (err) {
+                    console.error(err);
+                    fb.textContent = "Erro no upload. Verifique as regras do Storage.";
+                    fb.className = "text-sm text-red-600";
+                    return;
+                }
             }
+
             const payload = {
                 name,
                 category: byId("productCategory").value,
@@ -815,7 +868,6 @@
                 fb.className = "text-sm text-emerald-600";
                 resetProductForm();
                 await loadAdminProducts();
-                await loadProducts();
             } catch (e) {
                 console.error(e);
                 fb.textContent = "Erro ao salvar.";
@@ -891,9 +943,6 @@
         byId("mobileMenuBtn")?.addEventListener("click", () => byId("mobileMenu").classList.toggle("hidden"));
         byId("mobileMenu")?.querySelectorAll("a").forEach(a => a.addEventListener("click", () => byId("mobileMenu").classList.add("hidden")));
         byId("footerYear").textContent = new Date().getFullYear();
-
-        // Carrega conteúdo público
-        loadAllContent();
     })();
     </script>
 </body>
