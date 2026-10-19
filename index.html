@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Smart Aviation - Soluções Aeronáuticas</title>
-    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -12,30 +11,19 @@
                 extend: {
                     colors: {
                         aero: {
-                            dark: '#05224A',
-                            primary: '#0A3B7B',
-                            light: '#1B63C0',
-                            accent: '#38BDF8',
-                            gray: '#F1F5F9',
-                            stripeGreen: '#008542',
-                            stripeYellow: '#FFCC00',
-                            stripeRed: '#DA291C'
+                            dark: '#05224A', primary: '#0A3B7B', light: '#1B63C0',
+                            accent: '#38BDF8', gray: '#F1F5F9'
                         }
                     }
                 }
             }
         }
     </script>
-    <!-- FontAwesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <!-- Firebase SDKs Compat -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
-
-    <!-- Inicialização do Firebase -->
     <script>
         const firebaseConfig = {
             apiKey: "AIzaSyD-Zs47HTWHDrZbG8wlC4ONnVGYAMxQ8r8",
@@ -51,7 +39,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-aero-primary selection:text-white flex flex-col min-h-screen">
 
-    <!-- Top Color Stripes Bar -->
+    <!-- Top Color Stripes -->
     <div class="h-2 w-full flex">
         <div class="bg-emerald-600 flex-1"></div>
         <div class="bg-amber-400 flex-1"></div>
@@ -60,10 +48,9 @@
         <div class="bg-red-600 flex-1"></div>
     </div>
 
-    <!-- Header / Navbar -->
+    <!-- Header -->
     <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo Brand -->
             <a href="#home" class="flex items-center gap-3 group">
                 <div class="flex flex-col">
                     <span class="text-2xl font-black tracking-wider text-aero-primary group-hover:text-aero-light transition">SMART</span>
@@ -81,21 +68,15 @@
                     </div>
                 </div>
             </a>
-
-            <!-- Desktop Nav -->
             <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-700">
                 <a href="#home" class="hover:text-aero-primary transition">Home</a>
                 <a href="#about" class="hover:text-aero-primary transition">Quem Somos</a>
                 <a href="#catalog" class="hover:text-aero-primary transition">Catálogo</a>
                 <a href="#contact" class="hover:text-aero-primary transition">Contato</a>
             </nav>
-
-            <!-- Right CTA & Admin Access -->
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">
-                    Solicitar Cotação
-                </a>
-                <button id="adminAccessBtn" type="button" class="p-2 text-slate-600 hover:text-aero-primary transition rounded-full hover:bg-slate-100" title="Área Administrativa" aria-label="Abrir área administrativa">
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">Solicitar Cotação</a>
+                <button id="adminAccessBtn" type="button" class="p-2 text-slate-600 hover:text-aero-primary transition rounded-full hover:bg-slate-100" title="Área Administrativa">
                     <i class="fa-solid fa-lock text-lg"></i>
                 </button>
                 <button id="mobileMenuBtn" class="md:hidden p-2 text-slate-600 hover:text-aero-primary">
@@ -103,7 +84,6 @@
                 </button>
             </div>
         </div>
-        <!-- Mobile Menu Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
             <a href="#home" class="block py-2 text-slate-700 hover:text-aero-primary">Home</a>
             <a href="#about" class="block py-2 text-slate-700 hover:text-aero-primary">Quem Somos</a>
@@ -112,84 +92,54 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow">
-        <!-- Hero Section -->
+        <!-- Hero -->
         <section id="home" class="relative bg-aero-dark text-white py-24 lg:py-32 overflow-hidden">
-            <div id="heroBg" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
+            <div id="heroBackground" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
-            
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl">
-                    <span id="heroBadge" class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-6">
-                        <i class="fa-solid fa-plane-circle-check"></i> Excelência em Manutenção e Componentes Aeronáuticos
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-6">
+                        <i class="fa-solid fa-plane-circle-check"></i> <span id="heroBadge">Excelência em Manutenção e Componentes Aeronáuticos</span>
                     </span>
-                    <h1 id="heroTitle" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
-                        Soluções Globais para a Indústria Aeronáutica
-                    </h1>
-                    <p id="heroSubtitle" class="text-lg sm:text-xl text-slate-200 mb-10 leading-relaxed">
-                        Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.
-                    </p>
+                    <h1 id="heroTitle" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">Soluções Globais para a Indústria Aeronáutica</h1>
+                    <p id="heroSubtitle" class="text-lg sm:text-xl text-slate-200 mb-10 leading-relaxed">Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.</p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#catalog" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-aero-light hover:bg-blue-600 shadow-lg shadow-blue-500/30 transition">
-                            Explorar Catálogo <i class="fa-solid fa-arrow-right ml-2"></i>
-                        </a>
-                        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">
-                            Fale com um Especialista
-                        </a>
+                        <a href="#catalog" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-aero-light hover:bg-blue-600 shadow-lg shadow-blue-500/30 transition">Explorar Catálogo <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">Fale com um Especialista</a>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Stats Bar -->
+        <!-- Stats -->
         <section class="bg-white border-b border-slate-200 py-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div>
-                    <div id="stat1Value" class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div>
-                    <div id="stat1Label" class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div>
-                </div>
-                <div>
-                    <div id="stat2Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ANAC</div>
-                    <div id="stat2Label" class="text-sm font-medium text-slate-500 mt-1">Conformidade Regulatória</div>
-                </div>
-                <div>
-                    <div id="stat3Value" class="text-3xl lg:text-4xl font-black text-aero-primary">24/7</div>
-                    <div id="stat3Label" class="text-sm font-medium text-slate-500 mt-1">Suporte AOG</div>
-                </div>
-                <div>
-                    <div id="stat4Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ISO</div>
-                    <div id="stat4Label" class="text-sm font-medium text-slate-500 mt-1">Padrão de Qualidade</div>
-                </div>
+                <div><div id="stat1Value" class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div><div id="stat1Label" class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div></div>
+                <div><div id="stat2Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ANAC</div><div id="stat2Label" class="text-sm font-medium text-slate-500 mt-1">Conformidade Regulatória</div></div>
+                <div><div id="stat3Value" class="text-3xl lg:text-4xl font-black text-aero-primary">24/7</div><div id="stat3Label" class="text-sm font-medium text-slate-500 mt-1">Suporte AOG</div></div>
+                <div><div id="stat4Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ISO</div><div id="stat4Label" class="text-sm font-medium text-slate-500 mt-1">Padrão de Qualidade</div></div>
             </div>
         </section>
 
-        <!-- About Us Section -->
+        <!-- About -->
         <section id="about" class="py-20 bg-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Quem Somos</span>
-                        <h2 id="aboutTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">
-                            Liderança técnica e compromisso absoluto com a segurança de voo.
-                        </h2>
-                        <p id="aboutText1" class="text-slate-600 mb-6 leading-relaxed">
-                            A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes altamente qualificadas e ferramentas de diagnóstico de última geração.
-                        </p>
+                        <h2 id="aboutTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">Liderança técnica e compromisso absoluto com a segurança de voo.</h2>
+                        <p id="aboutText1" class="text-slate-600 mb-6 leading-relaxed">A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo.</p>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-shield-halved"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
                                 <div>
                                     <h4 id="aboutFeature1Title" class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
                                     <p id="aboutFeature1Desc" class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
-                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-gears"></i>
-                                </div>
+                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-gears"></i></div>
                                 <div>
                                     <h4 id="aboutFeature2Title" class="font-bold text-slate-900">Tecnologia Avançada</h4>
                                     <p id="aboutFeature2Desc" class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
@@ -199,91 +149,60 @@
                     </div>
                     <div class="relative">
                         <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
-                            <img id="aboutImg" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800" alt="Manutenção Aeronáutica" class="w-full h-auto object-cover">
+                            <img id="aboutImage" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800" alt="Manutenção Aeronáutica" class="w-full h-auto object-cover">
                         </div>
                         <div class="absolute -bottom-6 -left-6 bg-aero-primary text-white p-6 rounded-2xl shadow-xl hidden sm:block">
-                            <div id="aboutBadgeVal" class="text-3xl font-black">15+</div>
-                            <div id="aboutBadgeText" class="text-sm text-sky-200">Anos de experiência no setor aeronáutico</div>
+                            <div class="text-3xl font-black">Anos</div>
+                            <div class="text-sm text-sky-200">De experiência no setor aeronáutico</div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Product Catalog Section -->
+        <!-- Catalog -->
         <section id="catalog" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Catálogo de Produtos</span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">
-                        Componentes e Instrumentos Certificados
-                    </h2>
-                    <p class="text-slate-600">
-                        Explore nosso inventário de peças e sistemas para aviação geral e comercial. Clique nas miniaturas para visualizar detalhes.
-                    </p>
-                    
-                    <!-- Category Filters -->
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">Componentes e Instrumentos Certificados</h2>
+                    <p class="text-slate-600">Explore nosso inventário de peças e sistemas para aviação geral e comercial.</p>
                     <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8">
                         <button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm">Todos</button>
                         <button onclick="filterCatalog('Aviónicos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Aviónicos</button>
                         <button onclick="filterCatalog('Instrumentos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Instrumentos</button>
                     </div>
                 </div>
-
-                <!-- Catalog Grid / Container -->
-                <div id="catalogContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <!-- Dynamic Items loaded via JS -->
-                </div>
+                <div id="catalogContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
             </div>
         </section>
 
-        <!-- Contact Section -->
+        <!-- Contact -->
         <section id="contact" class="py-20 bg-slate-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div>
                         <span class="text-sky-400 font-bold text-sm tracking-widest uppercase">Fale Conosco</span>
-                        <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-6">
-                            Solicite uma Cotação ou Atendimento AOG
-                        </h2>
-                        <p class="text-slate-300 mb-8 leading-relaxed">
-                            Nossa equipe técnica e comercial está à disposição para responder dúvidas, enviar orçamentos detalhados e atender emergências operacionais.
-                        </p>
-                        
+                        <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-6">Solicite uma Cotação ou Atendimento AOG</h2>
+                        <p class="text-slate-300 mb-8 leading-relaxed">Nossa equipe técnica e comercial está à disposição para responder dúvidas, enviar orçamentos detalhados e atender emergências operacionais.</p>
                         <div class="space-y-6">
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-phone text-lg"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-slate-400">Central de Atendimento</div>
-                                    <div id="contactPhone" class="font-bold text-lg">+55 (62) 3333-4444</div>
-                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-phone text-lg"></i></div>
+                                <div><div class="text-sm text-slate-400">Central de Atendimento</div><div id="contactPhone" class="font-bold text-lg">+55 (62) 3333-4444</div></div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-envelope text-lg"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-slate-400">E-mail Comercial</div>
-                                    <div id="contactEmail" class="font-bold text-lg">contato@smartaviation.com.br</div>
-                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-envelope text-lg"></i></div>
+                                <div><div class="text-sm text-slate-400">E-mail Comercial</div><div id="contactEmail" class="font-bold text-lg">contato@smartaviation.com.br</div></div>
                             </div>
                             <div class="flex items-center gap-4">
-                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
-                                    <i class="fa-solid fa-location-dot text-lg"></i>
-                                </div>
-                                <div>
-                                    <div class="text-sm text-slate-400">Localização</div>
-                                    <div id="contactAddress" class="font-bold text-lg">Anápolis, Goiás - Brasil</div>
-                                </div>
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-location-dot text-lg"></i></div>
+                                <div><div class="text-sm text-slate-400">Localização</div><div id="contactAddress" class="font-bold text-lg">Anápolis, Goiás - Brasil</div></div>
                             </div>
                         </div>
                     </div>
-
                     <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
                         <h3 class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
-                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                        <form id="contactForm" class="space-y-4">
                             <input name="name" required placeholder="Seu nome" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="email" type="email" required placeholder="Seu e-mail" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="phone" placeholder="Telefone (opcional)" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
@@ -301,739 +220,83 @@
         © <span id="footerYear"></span> Smart Aviation. Todos os direitos reservados.
     </footer>
 
-    <!-- Modal de Login e Painel Administrativo -->
-    <div id="adminModal" class="hidden fixed inset-0 z-[100] bg-slate-950/80 p-4 overflow-y-auto" role="dialog" aria-modal="true" aria-labelledby="adminModalTitle">
-        <div class="max-w-4xl mx-auto my-6 bg-white rounded-2xl shadow-2xl overflow-hidden">
+    <!-- ================= LOGIN MODAL ================= -->
+    <div id="adminLoginModal" class="hidden fixed inset-0 z-[100] bg-slate-950/80 p-4 overflow-y-auto" role="dialog" aria-modal="true">
+        <div class="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow-2xl overflow-hidden">
             <div class="bg-aero-dark text-white p-5 flex items-center justify-between">
                 <div>
-                    <h2 id="adminModalTitle" class="text-xl font-bold">Painel Administrativo</h2>
-                    <p class="text-sm text-slate-300">Smart Aviation Management</p>
+                    <h2 class="text-xl font-bold">Área administrativa</h2>
+                    <p class="text-sm text-slate-300">Smart Aviation</p>
                 </div>
-                <button type="button" onclick="toggleAdminModal(false)" class="text-white text-2xl px-2 hover:opacity-80" aria-label="Fechar">&times;</button>
+                <button type="button" onclick="closeAdminLogin()" class="text-white text-2xl px-2" aria-label="Fechar">&times;</button>
             </div>
-
-            <!-- Login Panel -->
-            <div id="adminLoginPanel" class="p-6 max-w-md mx-auto">
+            <div class="p-6">
                 <form id="adminLoginForm" class="space-y-4">
                     <label class="block text-sm font-semibold">E-mail
-                        <input id="adminEmail" type="email" autocomplete="username" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3 focus:outline-none focus:border-aero-primary">
+                        <input id="adminEmail" type="email" autocomplete="username" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3">
                     </label>
                     <label class="block text-sm font-semibold">Senha
-                        <input id="adminPassword" type="password" autocomplete="current-password" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3 focus:outline-none focus:border-aero-primary">
+                        <input id="adminPassword" type="password" autocomplete="current-password" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3">
                     </label>
-                    <button id="adminLoginButton" type="submit" class="w-full rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold py-3 transition">Entrar</button>
+                    <button id="adminLoginButton" type="submit" class="w-full rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold py-3">Entrar</button>
                     <p id="adminLoginFeedback" class="text-sm text-red-600" role="status"></p>
                 </form>
-            </div>
-
-            <!-- Admin Dashboard Panel -->
-            <div id="adminDashboard" class="hidden p-6">
-                <!-- Header Admin -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 mb-6 gap-3">
-                    <div>
-                        <h3 class="text-xl font-bold text-slate-900">Gerenciador de Conteúdo</h3>
-                        <p id="adminSignedInAs" class="text-xs text-slate-500"></p>
-                    </div>
-                    <button type="button" onclick="adminLogout()" class="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-red-600 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition">
-                        <i class="fa-solid fa-right-from-bracket"></i> Sair do Painel
-                    </button>
-                </div>
-
-                <!-- Admin Tabs -->
-                <div class="flex border-b border-slate-200 mb-6 gap-2 overflow-x-auto">
-                    <button id="tabBtnProducts" onclick="switchAdminTab('products')" class="px-4 py-2 text-sm font-bold text-aero-primary border-b-2 border-aero-primary">
-                        <i class="fa-solid fa-box-open mr-1"></i> Produtos / Catálogo
-                    </button>
-                    <button id="tabBtnSiteText" onclick="switchAdminTab('sitetext')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-                        <i class="fa-solid fa-pen-to-square mr-1"></i> Textos do Site
-                    </button>
-                    <button id="tabBtnBanners" onclick="switchAdminTab('banners')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-                        <i class="fa-solid fa-image mr-1"></i> Banners & Imagens
-                    </button>
-                    <button id="tabBtnInquiries" onclick="switchAdminTab('inquiries')" class="px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent">
-                        <i class="fa-solid fa-envelope-open-text mr-1"></i> Mensagens
-                    </button>
-                </div>
-
-                <!-- TAB 1: Produtos -->
-                <div id="tabProducts" class="space-y-6">
-                    <form id="productForm" class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                        <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-plus-circle text-aero-primary mr-1"></i> Cadastrar / Editar Produto</h4>
-                        <input id="productId" type="hidden">
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Nome do produto</label>
-                                <input id="productName" required maxlength="120" placeholder="Ex: Indicador de Atitude GI-275" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-aero-primary">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Categoria</label>
-                                <select id="productCategory" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-aero-primary bg-white">
-                                    <option value="Aviónicos">Aviónicos</option>
-                                    <option value="Instrumentos">Instrumentos</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Descrição Técnica</label>
-                            <textarea id="productDescription" rows="3" placeholder="Descreva detalhes, PN, especificações ou certificações do componente..." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-aero-primary"></textarea>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">URL da imagem (HTTPS)</label>
-                                <input id="productImage" type="url" placeholder="https://exemplo.com/imagem.jpg" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:border-aero-primary">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ou Enviar Imagem do Computador</label>
-                                <input id="productFile" type="file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-aero-primary file:text-white hover:file:bg-aero-dark cursor-pointer">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3 pt-2">
-                            <button type="submit" id="btnSaveProduct" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2 text-sm transition">Salvar Produto</button>
-                            <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 hover:bg-slate-300 text-slate-700 px-4 py-2 text-sm transition">Limpar</button>
-                        </div>
-                        <p id="productFeedback" class="text-xs font-semibold" role="status"></p>
-                    </form>
-
-                    <div>
-                        <h4 class="font-bold text-slate-800 mb-3">Produtos Cadastrados</h4>
-                        <div id="adminProductsList" class="space-y-2 max-h-80 overflow-y-auto pr-1">
-                            <p class="text-slate-500 text-sm">Carregando produtos...</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- TAB 2: Textos do Site -->
-                <div id="tabSiteText" class="hidden space-y-6">
-                    <form id="siteTextForm" class="space-y-4">
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                            <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-flag text-aero-primary mr-1"></i> Seção Hero (Banner Principal)</h4>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Badge Superior</label>
-                                <input id="editHeroBadge" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Título Principal</label>
-                                <input id="editHeroTitle" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Subtítulo</label>
-                                <textarea id="editHeroSubtitle" rows="2" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                            <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-circle-info text-aero-primary mr-1"></i> Quem Somos</h4>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Título</label>
-                                <input id="editAboutTitle" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Texto de Descrição</label>
-                                <textarea id="editAboutText1" rows="3" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm"></textarea>
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                            <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-address-book text-aero-primary mr-1"></i> Informações de Contato</h4>
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Telefone</label>
-                                    <input id="editContactPhone" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">E-mail</label>
-                                    <input id="editContactEmail" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                                </div>
-                                <div>
-                                    <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Endereço / Localização</label>
-                                    <input id="editContactAddress" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <button type="submit" id="btnSaveTexts" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-6 py-2.5 text-sm transition">Salvar Todos os Textos</button>
-                            <p id="siteTextFeedback" class="text-xs font-semibold" role="status"></p>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- TAB 3: Banners e Imagens -->
-                <div id="tabBanners" class="hidden space-y-6">
-                    <form id="siteBannersForm" class="space-y-4">
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                            <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-image text-aero-primary mr-1"></i> Imagem de Fundo do Banner (Hero)</h4>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">URL da Imagem de Fundo</label>
-                                <input id="editHeroBgUrl" type="url" placeholder="https://..." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ou Fazer Upload de Imagem</label>
-                                <input id="heroBgFile" type="file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-aero-primary file:text-white cursor-pointer">
-                            </div>
-                        </div>
-
-                        <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
-                            <h4 class="font-bold text-slate-800 border-b pb-2"><i class="fa-solid fa-image text-aero-primary mr-1"></i> Imagem da Seção "Quem Somos"</h4>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">URL da Imagem</label>
-                                <input id="editAboutImgUrl" type="url" placeholder="https://..." class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm">
-                            </div>
-                            <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Ou Fazer Upload de Imagem</label>
-                                <input id="aboutImgFile" type="file" accept="image/*" class="w-full text-xs text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-aero-primary file:text-white cursor-pointer">
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3">
-                            <button type="submit" id="btnSaveBanners" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-6 py-2.5 text-sm transition">Atualizar Imagens</button>
-                            <p id="bannersFeedback" class="text-xs font-semibold" role="status"></p>
-                        </div>
-                    </form>
-                </div>
-
-                <!-- TAB 4: Mensagens Recebidas -->
-                <div id="tabInquiries" class="hidden space-y-4">
-                    <div class="flex justify-between items-center mb-2">
-                        <h4 class="font-bold text-slate-800">Mensagens Recebidas pelo Formulário</h4>
-                        <button onclick="loadAdminInquiries()" class="text-xs font-semibold text-aero-primary hover:underline"><i class="fa-solid fa-rotate-right mr-1"></i> Atualizar</button>
-                    </div>
-                    <div id="adminInquiriesList" class="space-y-3 max-h-96 overflow-y-auto pr-1">
-                        <p class="text-slate-500 text-sm">Carregando mensagens...</p>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 
-    <script>
-    (() => {
-        "use strict";
-        let db = null;
-        let auth = null;
-        let storage = null;
-        let allProducts = [];
-        let authorizedAdmin = false;
+    <!-- ================= ADMIN DASHBOARD ================= -->
+    <div id="adminDashboard" class="hidden fixed inset-0 z-[100] bg-slate-100 flex flex-col">
+        <!-- Top bar -->
+        <header class="bg-aero-dark text-white px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shrink-0">
+            <div class="flex items-center gap-3">
+                <i class="fa-solid fa-plane text-xl"></i>
+                <div>
+                    <h1 class="font-bold text-base sm:text-lg leading-tight">Smart Aviation</h1>
+                    <p class="text-xs text-slate-300">Painel Administrativo</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <span id="adminSignedInAs" class="text-xs text-slate-300 hidden md:inline"></span>
+                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Sair
+                </button>
+                <button onclick="closeAdminPanel()" class="bg-slate-700 hover:bg-slate-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                    <i class="fa-solid fa-xmark mr-1"></i> Fechar
+                </button>
+            </div>
+        </header>
 
-        const byId = (id) => document.getElementById(id);
-        const safeText = (value) => String(value ?? "");
+        <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
+            <!-- Sidebar -->
+            <aside class="bg-white border-b md:border-b-0 md:border-r border-slate-200 md:w-60 md:overflow-y-auto overflow-x-auto shrink-0">
+                <nav class="flex md:flex-col gap-1 p-2 md:p-3">
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="hero"><i class="fa-solid fa-image mr-2"></i> Hero / Banner</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="stats"><i class="fa-solid fa-chart-simple mr-2"></i> Estatísticas</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="about"><i class="fa-solid fa-circle-info mr-2"></i> Quem Somos</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="contact"><i class="fa-solid fa-address-book mr-2"></i> Contato</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="inquiries"><i class="fa-solid fa-envelope mr-2"></i> Mensagens</button>
+                </nav>
+            </aside>
 
-        window.toggleAdminModal = function(show) {
-            byId("adminModal").classList.toggle("hidden", !show);
-            if (show) {
-                byId("adminLoginFeedback").textContent = "";
-                setTimeout(() => {
-                    const field = byId("adminEmail");
-                    if (field && !authorizedAdmin) field.focus();
-                }, 0);
-            }
-        };
+            <!-- Content -->
+            <main class="flex-1 overflow-y-auto p-4 sm:p-6">
 
-        byId("adminAccessBtn")?.addEventListener("click", () => window.toggleAdminModal(true));
-
-        try {
-            if (!window.firebase || typeof firebase.firestore !== "function" || typeof firebase.auth !== "function") {
-                throw new Error("Firebase SDK não foi carregado.");
-            }
-            db = firebase.firestore();
-            auth = firebase.auth();
-            storage = firebase.storage ? firebase.storage() : null;
-        } catch (error) {
-            console.error("Firebase não inicializou:", error);
-            byId("adminLoginFeedback").textContent =
-                "O painel abriu, mas o Firebase não carregou corretamente. Confira a chave e configurações.";
-            byId("adminLoginButton").disabled = true;
-            byId("adminLoginButton").textContent = "Firebase indisponível";
-            return;
-        }
-
-        const escapeHtml = (value) => safeText(value).replace(/[&<>"']/g, (ch) => ({
-            "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
-        }[ch]));
-
-        byId("adminModal").addEventListener("click", (event) => {
-            if (event.target === byId("adminModal")) window.toggleAdminModal(false);
-        });
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") window.toggleAdminModal(false);
-        });
-
-        // Alternador de Abas do Painel Administrativo
-        window.switchAdminTab = function(tabName) {
-            const tabs = ['products', 'sitetext', 'banners', 'inquiries'];
-            tabs.forEach(t => {
-                const content = byId('tab' + t.charAt(0).toUpperCase() + t.slice(1));
-                const btn = byId('tabBtn' + t.charAt(0).toUpperCase() + t.slice(1));
-                if (content && btn) {
-                    if (t === tabName) {
-                        content.classList.remove('hidden');
-                        btn.className = 'px-4 py-2 text-sm font-bold text-aero-primary border-b-2 border-aero-primary';
-                    } else {
-                        content.classList.add('hidden');
-                        btn.className = 'px-4 py-2 text-sm font-semibold text-slate-500 hover:text-slate-800 border-b-2 border-transparent';
-                    }
-                }
-            });
-            if (tabName === 'inquiries') loadAdminInquiries();
-        };
-
-        function showAdminDashboard(user) {
-            byId("adminLoginPanel").classList.add("hidden");
-            byId("adminDashboard").classList.remove("hidden");
-            byId("adminSignedInAs").textContent = `Logado como: ${user.email || user.uid}`;
-        }
-
-        function showAdminLogin(message = "") {
-            authorizedAdmin = false;
-            byId("adminDashboard").classList.add("hidden");
-            byId("adminLoginPanel").classList.remove("hidden");
-            byId("adminLoginFeedback").textContent = message;
-        }
-
-        // Upload de Imagem para Firebase Storage
-        async function uploadImageToStorage(file, folder = "uploads") {
-            if (!storage) throw new Error("Firebase Storage não configurado.");
-            const filename = `${folder}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.]/g, '_')}`;
-            const ref = storage.ref().child(filename);
-            const snapshot = await ref.put(file);
-            return await snapshot.ref.getDownloadURL();
-        }
-
-        // Monitor de Estado de Autenticação
-        auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                showAdminLogin();
-                return;
-            }
-            try {
-                const adminDoc = await db.collection("admins").doc(user.uid).get();
-                if (!adminDoc.exists || adminDoc.data().active !== true) {
-                    await auth.signOut();
-                    showAdminLogin("Esta conta não tem permissão administrativa.");
-                    return;
-                }
-                authorizedAdmin = true;
-                showAdminDashboard(user);
-                await loadAdminProducts();
-                await loadSiteSettingsIntoAdmin();
-            } catch (error) {
-                console.error("Falha ao validar administrador:", error);
-                showAdminLogin("Não foi possível validar o administrador. Verifique as regras do Firestore.");
-            }
-        });
-
-        // Form Login
-        byId("adminLoginForm").addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const button = byId("adminLoginButton");
-            const feedback = byId("adminLoginFeedback");
-            button.disabled = true;
-            button.textContent = "Entrando...";
-            feedback.textContent = "";
-            try {
-                await auth.signInWithEmailAndPassword(
-                    byId("adminEmail").value.trim(),
-                    byId("adminPassword").value
-                );
-            } catch (error) {
-                console.error("Erro de login:", error);
-                const messages = {
-                    "auth/invalid-credential": "E-mail ou senha incorretos.",
-                    "auth/user-not-found": "Conta não encontrada.",
-                    "auth/wrong-password": "E-mail ou senha incorretos.",
-                    "auth/too-many-requests": "Muitas tentativas. Aguarde e tente novamente.",
-                    "auth/invalid-email": "Informe um e-mail válido."
-                };
-                feedback.textContent = messages[error.code] || "Não foi possível entrar. Verifique os dados.";
-            } finally {
-                button.disabled = false;
-                button.textContent = "Entrar";
-            }
-        });
-
-        window.adminLogout = async function() {
-            try {
-                await auth.signOut();
-                showAdminLogin("Você saiu da área administrativa.");
-            } catch (error) {
-                console.error(error);
-                alert("Não foi possível encerrar a sessão.");
-            }
-        };
-
-        // --- CARREGAMENTO DE TEXTOS E BANNERS DINÂMICOS DO SITE ---
-        async function loadSiteSettings() {
-            try {
-                const doc = await db.collection("settings").doc("site").get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    if (data.heroBadge) byId("heroBadge").innerHTML = `<i class="fa-solid fa-plane-circle-check"></i> ${escapeHtml(data.heroBadge)}`;
-                    if (data.heroTitle) byId("heroTitle").textContent = data.heroTitle;
-                    if (data.heroSubtitle) byId("heroSubtitle").textContent = data.heroSubtitle;
-                    if (data.aboutTitle) byId("aboutTitle").textContent = data.aboutTitle;
-                    if (data.aboutText1) byId("aboutText1").textContent = data.aboutText1;
-                    if (data.contactPhone) byId("contactPhone").textContent = data.contactPhone;
-                    if (data.contactEmail) byId("contactEmail").textContent = data.contactEmail;
-                    if (data.contactAddress) byId("contactAddress").textContent = data.contactAddress;
-
-                    if (data.heroBgUrl) {
-                        byId("heroBg").style.backgroundImage = `url('${data.heroBgUrl}')`;
-                    }
-                    if (data.aboutImgUrl) {
-                        byId("aboutImg").src = data.aboutImgUrl;
-                    }
-                }
-            } catch (error) {
-                console.error("Erro ao carregar configurações do site:", error);
-            }
-        }
-
-        async function loadSiteSettingsIntoAdmin() {
-            try {
-                const doc = await db.collection("settings").doc("site").get();
-                if (doc.exists) {
-                    const data = doc.data();
-                    byId("editHeroBadge").value = data.heroBadge || "Excelência em Manutenção e Componentes Aeronáuticos";
-                    byId("editHeroTitle").value = data.heroTitle || "Soluções Globais para a Indústria Aeronáutica";
-                    byId("editHeroSubtitle").value = data.heroSubtitle || "";
-                    byId("editAboutTitle").value = data.aboutTitle || "";
-                    byId("editAboutText1").value = data.aboutText1 || "";
-                    byId("editContactPhone").value = data.contactPhone || "+55 (62) 3333-4444";
-                    byId("editContactEmail").value = data.contactEmail || "contato@smartaviation.com.br";
-                    byId("editContactAddress").value = data.contactAddress || "Anápolis, Goiás - Brasil";
-                    byId("editHeroBgUrl").value = data.heroBgUrl || "";
-                    byId("editAboutImgUrl").value = data.aboutImgUrl || "";
-                }
-            } catch (error) {
-                console.error("Erro ao carregar dados no painel admin:", error);
-            }
-        }
-
-        // Salvar Textos do Site
-        byId("siteTextForm")?.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            if (!authorizedAdmin) return;
-            const feedback = byId("siteTextFeedback");
-            feedback.textContent = "Salvando textos...";
-            feedback.className = "text-xs font-semibold text-blue-600";
-            
-            try {
-                await db.collection("settings").doc("site").set({
-                    heroBadge: byId("editHeroBadge").value.trim(),
-                    heroTitle: byId("editHeroTitle").value.trim(),
-                    heroSubtitle: byId("editHeroSubtitle").value.trim(),
-                    aboutTitle: byId("editAboutTitle").value.trim(),
-                    aboutText1: byId("editAboutText1").value.trim(),
-                    contactPhone: byId("editContactPhone").value.trim(),
-                    contactEmail: byId("editContactEmail").value.trim(),
-                    contactAddress: byId("editContactAddress").value.trim(),
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                feedback.textContent = "Textos atualizados com sucesso!";
-                feedback.className = "text-xs font-semibold text-emerald-600";
-                loadSiteSettings();
-            } catch (error) {
-                console.error("Erro ao salvar textos:", error);
-                feedback.textContent = "Erro ao salvar textos.";
-                feedback.className = "text-xs font-semibold text-red-600";
-            }
-        });
-
-        // Salvar Banners e Imagens do Site
-        byId("siteBannersForm")?.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            if (!authorizedAdmin) return;
-            const feedback = byId("bannersFeedback");
-            feedback.textContent = "Atualizando imagens...";
-            feedback.className = "text-xs font-semibold text-blue-600";
-
-            try {
-                let heroBgUrl = byId("editHeroBgUrl").value.trim();
-                let aboutImgUrl = byId("editAboutImgUrl").value.trim();
-
-                const heroFile = byId("heroBgFile").files[0];
-                if (heroFile) {
-                    heroBgUrl = await uploadImageToStorage(heroFile, "banners");
-                    byId("editHeroBgUrl").value = heroBgUrl;
-                }
-
-                const aboutFile = byId("aboutImgFile").files[0];
-                if (aboutFile) {
-                    aboutImgUrl = await uploadImageToStorage(aboutFile, "banners");
-                    byId("editAboutImgUrl").value = aboutImgUrl;
-                }
-
-                await db.collection("settings").doc("site").set({
-                    heroBgUrl,
-                    aboutImgUrl,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                }, { merge: true });
-
-                feedback.textContent = "Imagens salvas com sucesso!";
-                feedback.className = "text-xs font-semibold text-emerald-600";
-                loadSiteSettings();
-            } catch (error) {
-                console.error("Erro ao salvar imagens:", error);
-                feedback.textContent = "Erro ao fazer upload ou atualizar imagens.";
-                feedback.className = "text-xs font-semibold text-red-600";
-            }
-        });
-
-        // --- CATALOGO DE PRODUTOS ---
-        async function loadProducts() {
-            try {
-                const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
-                allProducts = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-                renderCatalog(allProducts);
-            } catch (error) {
-                console.error("Erro ao carregar catálogo:", error);
-                byId("catalogContainer").innerHTML =
-                    '<p class="col-span-full text-center text-slate-500">Não foi possível carregar o catálogo no momento.</p>';
-            }
-        }
-
-        function renderCatalog(products) {
-            const container = byId("catalogContainer");
-            if (!products.length) {
-                container.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
-                return;
-            }
-            container.innerHTML = products.map((product) => {
-                const name = escapeHtml(product.name || "Produto");
-                const category = escapeHtml(product.category || "Instrumentos");
-                const description = escapeHtml(product.description || "");
-                const imageUrl = /^https:\/\//i.test(product.imageUrl || "") ? product.imageUrl : "";
-                const image = imageUrl
-                    ? `<img src="${escapeHtml(imageUrl)}" alt="${name}" loading="lazy" class="w-full h-56 object-contain bg-slate-100">`
-                    : '<div class="w-full h-56 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
-                return `<article data-category="${category}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col justify-between">
-                    <div>
-                        ${image}
-                        <div class="p-6">
-                            <span class="text-xs font-bold uppercase tracking-wide text-sky-700">${category}</span>
-                            <h3 class="text-xl font-bold text-slate-900 mt-1">${name}</h3>
-                            <p class="text-slate-600 mt-3 text-sm whitespace-pre-line">${description}</p>
-                        </div>
-                    </div>
-                    <div class="px-6 pb-6 pt-2">
-                        <a href="#contact" class="inline-flex w-full justify-center items-center rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2.5 text-sm transition">Solicitar Cotação</a>
-                    </div>
-                </article>`;
-            }).join("");
-        }
-
-        window.filterCatalog = function(category) {
-            const filtered = category === "all" ? allProducts : allProducts.filter(p => p.category === category);
-            renderCatalog(filtered);
-            document.querySelectorAll(".cat-btn").forEach((button) => {
-                const active = (category === "all" && button.textContent.trim() === "Todos") ||
-                    button.getAttribute("onclick")?.includes(category === "all" ? "__none__" : category);
-                button.classList.toggle("bg-aero-primary", active);
-                button.classList.toggle("text-white", active);
-                button.classList.toggle("bg-slate-100", !active);
-                button.classList.toggle("text-slate-700", !active);
-            });
-        };
-
-        async function loadAdminProducts() {
-            if (!authorizedAdmin) return;
-            const list = byId("adminProductsList");
-            list.innerHTML = '<p class="text-slate-500 text-sm">Carregando...</p>';
-            try {
-                const snapshot = await db.collection("products").orderBy("createdAt", "desc").get();
-                const products = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                if (!products.length) {
-                    list.innerHTML = '<p class="text-slate-500 text-sm">Nenhum produto cadastrado.</p>';
-                    return;
-                }
-                list.innerHTML = products.map(p => `<div class="border rounded-lg p-3 flex items-center justify-between gap-3 bg-white">
-                    <div class="min-w-0 flex items-center gap-3">
-                        ${p.imageUrl ? `<img src="${escapeHtml(p.imageUrl)}" class="w-10 h-10 object-cover rounded border shrink-0">` : `<div class="w-10 h-10 bg-slate-100 rounded flex items-center justify-center shrink-0"><i class="fa-solid fa-box text-slate-400"></i></div>`}
-                        <div class="min-w-0">
-                            <p class="font-semibold text-sm break-words text-slate-800">${escapeHtml(p.name)}</p>
-                            <p class="text-xs text-slate-500">${escapeHtml(p.category || "")}</p>
-                        </div>
-                    </div>
-                    <div class="flex shrink-0 gap-3 text-xs font-semibold">
-                        <button type="button" data-edit="${escapeHtml(p.id)}" class="text-blue-700 hover:underline">Editar</button>
-                        <button type="button" data-delete="${escapeHtml(p.id)}" class="text-red-700 hover:underline">Excluir</button>
-                    </div>
-                </div>`).join("");
-                list.querySelectorAll("[data-edit]").forEach(button => button.addEventListener("click", () => editProduct(button.dataset.edit)));
-                list.querySelectorAll("[data-delete]").forEach(button => button.addEventListener("click", () => deleteProduct(button.dataset.delete)));
-            } catch (error) {
-                console.error(error);
-                list.innerHTML = '<p class="text-red-600 text-sm">Falha ao carregar produtos. Confira as regras do Firestore.</p>';
-            }
-        }
-
-        async function editProduct(id) {
-            if (!authorizedAdmin) return;
-            try {
-                const doc = await db.collection("products").doc(id).get();
-                if (!doc.exists) return;
-                const p = doc.data();
-                byId("productId").value = id;
-                byId("productName").value = p.name || "";
-                byId("productCategory").value = p.category || "Instrumentos";
-                byId("productDescription").value = p.description || "";
-                byId("productImage").value = p.imageUrl || "";
-                byId("productFeedback").textContent = "Modo de edição ativo. Altere os campos e clique em Salvar Produto.";
-                byId("productFeedback").className = "text-xs font-semibold text-blue-600";
-                byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
-            } catch (error) {
-                console.error(error);
-                byId("productFeedback").textContent = "Não foi possível carregar este produto para edição.";
-                byId("productFeedback").className = "text-xs font-semibold text-red-600";
-            }
-        }
-
-        async function deleteProduct(id) {
-            if (!authorizedAdmin || !confirm("Tem certeza de que deseja excluir este produto do catálogo?")) return;
-            try {
-                await db.collection("products").doc(id).delete();
-                await loadAdminProducts();
-                await loadProducts();
-            } catch (error) {
-                console.error(error);
-                alert("Não foi possível excluir o produto.");
-            }
-        }
-
-        window.resetProductForm = function() {
-            byId("productForm").reset();
-            byId("productId").value = "";
-            byId("productFeedback").textContent = "";
-        };
-
-        byId("productForm").addEventListener("submit", async (event) => {
-            event.preventDefault();
-            if (!authorizedAdmin || !auth.currentUser) {
-                byId("productFeedback").textContent = "Sessão não autorizada.";
-                return;
-            }
-            const feedback = byId("productFeedback");
-            const btnSave = byId("btnSaveProduct");
-            btnSave.disabled = true;
-            feedback.textContent = "Processando produto...";
-            feedback.className = "text-xs font-semibold text-blue-600";
-
-            let imageUrl = byId("productImage").value.trim();
-            const fileInput = byId("productFile").files[0];
-
-            try {
-                if (fileInput) {
-                    imageUrl = await uploadImageToStorage(fileInput, "products");
-                }
-
-                if (imageUrl && !/^https:\/\//i.test(imageUrl)) {
-                    feedback.textContent = "A URL da imagem deve utilizar HTTPS.";
-                    feedback.className = "text-xs font-semibold text-red-600";
-                    btnSave.disabled = false;
-                    return;
-                }
-
-                const payload = {
-                    name: byId("productName").value.trim(),
-                    category: byId("productCategory").value,
-                    description: byId("productDescription").value.trim(),
-                    imageUrl: imageUrl,
-                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-                };
-
-                const id = byId("productId").value;
-                if (id) {
-                    await db.collection("products").doc(id).update(payload);
-                } else {
-                    payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
-                    await db.collection("products").add(payload);
-                }
-
-                feedback.textContent = "Produto salvo com sucesso!";
-                feedback.className = "text-xs font-semibold text-emerald-600";
-                window.resetProductForm();
-                await loadAdminProducts();
-                await loadProducts();
-            } catch (error) {
-                console.error(error);
-                feedback.textContent = "Falha ao salvar produto no banco de dados.";
-                feedback.className = "text-xs font-semibold text-red-600";
-            } finally {
-                btnSave.disabled = false;
-            }
-        });
-
-        // --- MENSAGENS DE CONTATO ---
-        async function loadAdminInquiries() {
-            if (!authorizedAdmin) return;
-            const list = byId("adminInquiriesList");
-            list.innerHTML = '<p class="text-slate-500 text-sm">Carregando mensagens...</p>';
-            try {
-                const snapshot = await db.collection("inquiries").orderBy("createdAt", "desc").get();
-                const items = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-                if (!items.length) {
-                    list.innerHTML = '<p class="text-slate-500 text-sm">Nenhuma mensagem recebida ainda.</p>';
-                    return;
-                }
-                list.innerHTML = items.map(item => `
-                    <div class="border rounded-xl p-4 bg-slate-50 text-xs space-y-2">
-                        <div class="flex justify-between items-start">
-                            <div>
-                                <strong class="text-sm text-slate-800">${escapeHtml(item.name)}</strong>
-                                <span class="text-slate-500 ml-2">&lt;${escapeHtml(item.email)}&gt;</span>
-                            </div>
-                            <span class="text-slate-400 font-mono">${item.createdAt ? new Date(item.createdAt.seconds * 1000).toLocaleDateString("pt-BR") : ""}</span>
-                        </div>
-                        ${item.phone ? `<p class="text-slate-600"><i class="fa-solid fa-phone text-slate-400 mr-1"></i> ${escapeHtml(item.phone)}</p>` : ""}
-                        <p class="text-slate-700 bg-white p-3 rounded-lg border text-sm whitespace-pre-line">${escapeHtml(item.message)}</p>
-                    </div>
-                `).join("");
-            } catch (error) {
-                console.error(error);
-                list.innerHTML = '<p class="text-red-600 text-sm">Erro ao carregar mensagens.</p>';
-            }
-        }
-
-        // Formulário Público de Contato
-        byId("contactForm").addEventListener("submit", async (event) => {
-            event.preventDefault();
-            const form = event.currentTarget;
-            const feedback = byId("contactFeedback");
-            const data = new FormData(form);
-            feedback.textContent = "Enviando...";
-            feedback.className = "text-sm text-sky-400";
-            try {
-                await db.collection("inquiries").add({
-                    name: String(data.get("name") || "").trim(),
-                    email: String(data.get("email") || "").trim(),
-                    phone: String(data.get("phone") || "").trim(),
-                    message: String(data.get("message") || "").trim(),
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                });
-                form.reset();
-                feedback.textContent = "Mensagem enviada com sucesso! Em breve entraremos em contato.";
-                feedback.className = "text-sm text-emerald-400";
-            } catch (error) {
-                console.error("Falha ao enviar mensagem:", error);
-                feedback.textContent = "Não foi possível enviar no momento. Tente por e-mail.";
-                feedback.className = "text-sm text-red-400";
-            }
-        });
-
-        byId("mobileMenuBtn")?.addEventListener("click", () => byId("mobileMenu").classList.toggle("hidden"));
-        byId("mobileMenu")?.querySelectorAll("a").forEach(link => link.addEventListener("click", () => byId("mobileMenu").classList.add("hidden")));
-        byId("footerYear").textContent = new Date().getFullYear();
-
-        // Inicialização do site público
-        loadSiteSettings();
-        loadProducts();
-    })();
-    </script>
-</body>
-</html>
+                <!-- HERO -->
+                <section class="admin-section" data-section="hero">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Hero / Banner</h2>
+                    <p class="text-sm text-slate-500 mb-6">Edite o banner principal do site.</p>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
+                        <label class="block text-sm font-semibold">Badge (texto pequeno acima do título)
+                            <input id="adminHeroBadge" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">Título
+                            <input id="adminHeroTitle" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">Subtítulo
+                            <textarea id="adminHeroSubtitle" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                        </label>
+                        <div>
+                            <label class="block text-sm font-semibold mb-1">Imagem de fundo</label>
+                            <img id="adminHeroImagePreview" class="w-full h
