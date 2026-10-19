@@ -7,16 +7,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        aero: {
-                            dark: '#05224A', primary: '#0A3B7B', light: '#1B63C0',
-                            accent: '#38BDF8', gray: '#F1F5F9'
-                        }
-                    }
-                }
-            }
+            theme: { extend: { colors: { aero: {
+                dark: '#05224A', primary: '#0A3B7B', light: '#1B63C0',
+                accent: '#38BDF8', gray: '#F1F5F9'
+            }}}}
         }
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -37,9 +31,8 @@
         firebase.initializeApp(firebaseConfig);
     </script>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased selection:bg-aero-primary selection:text-white flex flex-col min-h-screen">
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen">
 
-    <!-- Top Color Stripes -->
     <div class="h-2 w-full flex">
         <div class="bg-emerald-600 flex-1"></div>
         <div class="bg-amber-400 flex-1"></div>
@@ -48,8 +41,7 @@
         <div class="bg-red-600 flex-1"></div>
     </div>
 
-    <!-- Header -->
-    <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#home" class="flex items-center gap-3 group">
                 <div class="flex flex-col">
@@ -75,7 +67,7 @@
                 <a href="#contact" class="hover:text-aero-primary transition">Contato</a>
             </nav>
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">Solicitar Cotação</a>
+                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">Solicitar Cotação</a>
                 <button id="adminAccessBtn" type="button" class="p-2 text-slate-600 hover:text-aero-primary transition rounded-full hover:bg-slate-100" title="Área Administrativa">
                     <i class="fa-solid fa-lock text-lg"></i>
                 </button>
@@ -93,7 +85,6 @@
     </header>
 
     <main class="flex-grow">
-        <!-- Hero -->
         <section id="home" class="relative bg-aero-dark text-white py-24 lg:py-32 overflow-hidden">
             <div id="heroBackground" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
@@ -112,7 +103,6 @@
             </div>
         </section>
 
-        <!-- Stats -->
         <section class="bg-white border-b border-slate-200 py-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
                 <div><div id="stat1Value" class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div><div id="stat1Label" class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div></div>
@@ -122,7 +112,6 @@
             </div>
         </section>
 
-        <!-- About -->
         <section id="about" class="py-20 bg-slate-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -151,16 +140,11 @@
                         <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
                             <img id="aboutImage" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800" alt="Manutenção Aeronáutica" class="w-full h-auto object-cover">
                         </div>
-                        <div class="absolute -bottom-6 -left-6 bg-aero-primary text-white p-6 rounded-2xl shadow-xl hidden sm:block">
-                            <div class="text-3xl font-black">Anos</div>
-                            <div class="text-sm text-sky-200">De experiência no setor aeronáutico</div>
-                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Catalog -->
         <section id="catalog" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
@@ -177,7 +161,6 @@
             </div>
         </section>
 
-        <!-- Contact -->
         <section id="contact" class="py-20 bg-slate-900 text-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -220,8 +203,8 @@
         © <span id="footerYear"></span> Smart Aviation. Todos os direitos reservados.
     </footer>
 
-    <!-- ================= LOGIN MODAL ================= -->
-    <div id="adminLoginModal" class="hidden fixed inset-0 z-[100] bg-slate-950/80 p-4 overflow-y-auto" role="dialog" aria-modal="true">
+    <!-- ============ LOGIN MODAL ============ -->
+    <div id="adminLoginModal" class="hidden fixed inset-0 z-[100] bg-slate-950/80 p-4 overflow-y-auto">
         <div class="max-w-md mx-auto mt-10 bg-white rounded-2xl shadow-2xl overflow-hidden">
             <div class="bg-aero-dark text-white p-5 flex items-center justify-between">
                 <div>
@@ -245,9 +228,8 @@
         </div>
     </div>
 
-    <!-- ================= ADMIN DASHBOARD ================= -->
+    <!-- ============ DASHBOARD ============ -->
     <div id="adminDashboard" class="hidden fixed inset-0 z-[100] bg-slate-100 flex flex-col">
-        <!-- Top bar -->
         <header class="bg-aero-dark text-white px-4 sm:px-6 py-3 flex items-center justify-between shadow-lg shrink-0">
             <div class="flex items-center gap-3">
                 <i class="fa-solid fa-plane text-xl"></i>
@@ -256,19 +238,18 @@
                     <p class="text-xs text-slate-300">Painel Administrativo</p>
                 </div>
             </div>
-            <div class="flex items-center gap-2 sm:gap-3">
+            <div class="flex items-center gap-2">
                 <span id="adminSignedInAs" class="text-xs text-slate-300 hidden md:inline"></span>
-                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
                     <i class="fa-solid fa-right-from-bracket mr-1"></i> Sair
                 </button>
-                <button onclick="closeAdminPanel()" class="bg-slate-700 hover:bg-slate-600 px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-semibold">
+                <button onclick="closeAdminDashboard()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
                     <i class="fa-solid fa-xmark mr-1"></i> Fechar
                 </button>
             </div>
         </header>
 
         <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
-            <!-- Sidebar -->
             <aside class="bg-white border-b md:border-b-0 md:border-r border-slate-200 md:w-60 md:overflow-y-auto overflow-x-auto shrink-0">
                 <nav class="flex md:flex-col gap-1 p-2 md:p-3">
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="hero"><i class="fa-solid fa-image mr-2"></i> Hero / Banner</button>
@@ -280,23 +261,640 @@
                 </nav>
             </aside>
 
-            <!-- Content -->
             <main class="flex-1 overflow-y-auto p-4 sm:p-6">
 
                 <!-- HERO -->
-                <section class="admin-section" data-section="hero">
+                <section class="admin-section hidden" data-section="hero">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Hero / Banner</h2>
                     <p class="text-sm text-slate-500 mb-6">Edite o banner principal do site.</p>
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
-                        <label class="block text-sm font-semibold">Badge (texto pequeno acima do título)
-                            <input id="adminHeroBadge" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                    <form id="heroForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
+                        <label class="block text-sm font-semibold">Badge
+                            <input id="heroBadgeInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
                         </label>
                         <label class="block text-sm font-semibold">Título
-                            <input id="adminHeroTitle" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            <input id="heroTitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
                         </label>
                         <label class="block text-sm font-semibold">Subtítulo
-                            <textarea id="adminHeroSubtitle" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                            <textarea id="heroSubtitleInput" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
                         </label>
-                        <div>
-                            <label class="block text-sm font-semibold mb-1">Imagem de fundo</label>
-                            <img id="adminHeroImagePreview" class="w-full h
+                        <label class="block text-sm font-semibold">URL da imagem de fundo
+                            <input id="heroImageInput" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
+                            <span id="heroFeedback" class="text-sm"></span>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- STATS -->
+                <section class="admin-section hidden" data-section="stats">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Estatísticas</h2>
+                    <p class="text-sm text-slate-500 mb-6">Os 4 números que aparecem abaixo do banner.</p>
+                    <form id="statsForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="block text-sm font-semibold">Stat 1 — Valor
+                                <input id="stat1ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 1 — Label
+                                <input id="stat1LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 2 — Valor
+                                <input id="stat2ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 2 — Label
+                                <input id="stat2LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 3 — Valor
+                                <input id="stat3ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 3 — Label
+                                <input id="stat3LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 4 — Valor
+                                <input id="stat4ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Stat 4 — Label
+                                <input id="stat4LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
+                            <span id="statsFeedback" class="text-sm"></span>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- ABOUT -->
+                <section class="admin-section hidden" data-section="about">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Quem Somos</h2>
+                    <p class="text-sm text-slate-500 mb-6">Conteúdo da seção "Quem Somos".</p>
+                    <form id="aboutForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
+                        <label class="block text-sm font-semibold">Título
+                            <input id="aboutTitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">Texto principal
+                            <textarea id="aboutTextInput" rows="4" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                        </label>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <label class="block text-sm font-semibold">Feature 1 — Título
+                                <input id="aboutFeature1TitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Feature 1 — Descrição
+                                <input id="aboutFeature1DescInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Feature 2 — Título
+                                <input id="aboutFeature2TitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                            <label class="block text-sm font-semibold">Feature 2 — Descrição
+                                <input id="aboutFeature2DescInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                            </label>
+                        </div>
+                        <label class="block text-sm font-semibold">URL da imagem
+                            <input id="aboutImageInput" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
+                            <span id="aboutFeedback" class="text-sm"></span>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- PRODUCTS -->
+                <section class="admin-section hidden" data-section="products">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
+                    <p class="text-sm text-slate-500 mb-6">Gerencie os produtos do catálogo.</p>
+                    <form id="productForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-3 max-w-3xl mb-6">
+                        <input id="productId" type="hidden">
+                        <label class="block text-sm font-semibold">Nome do produto
+                            <input id="productName" required maxlength="120" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">Categoria
+                            <select id="productCategory" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                                <option value="Aviónicos">Aviónicos</option>
+                                <option value="Instrumentos">Instrumentos</option>
+                            </select>
+                        </label>
+                        <label class="block text-sm font-semibold">Descrição
+                            <textarea id="productDescription" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                        </label>
+                        <label class="block text-sm font-semibold">URL da imagem
+                            <input id="productImage" type="url" placeholder="https://..." class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
+                            <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 px-4 py-2">Limpar</button>
+                            <span id="productFeedback" class="text-sm"></span>
+                        </div>
+                    </form>
+                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-3xl">
+                        <h3 class="font-bold mb-3">Produtos cadastrados</h3>
+                        <div id="adminProductsList" class="space-y-2 text-sm">
+                            <p class="text-slate-500">Carregando...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- CONTACT -->
+                <section class="admin-section hidden" data-section="contact">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Contato</h2>
+                    <p class="text-sm text-slate-500 mb-6">Informações exibidas na seção de contato.</p>
+                    <form id="contactInfoForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
+                        <label class="block text-sm font-semibold">Telefone
+                            <input id="contactPhoneInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">E-mail
+                            <input id="contactEmailInput" type="email" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <label class="block text-sm font-semibold">Endereço
+                            <input id="contactAddressInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                        </label>
+                        <div class="flex items-center gap-3">
+                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
+                            <span id="contactInfoFeedback" class="text-sm"></span>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- INQUIRIES -->
+                <section class="admin-section hidden" data-section="inquiries">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Mensagens recebidas</h2>
+                    <p class="text-sm text-slate-500 mb-6">Mensagens enviadas pelo formulário de contato.</p>
+                    <div id="inquiriesList" class="space-y-3 max-w-4xl">
+                        <p class="text-slate-500">Carregando...</p>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+    (() => {
+        "use strict";
+
+        // ---------- Firebase ----------
+        let db, auth, storage;
+        try {
+            db = firebase.firestore();
+            auth = firebase.auth();
+            storage = firebase.storage();
+        } catch (e) {
+            console.error("Firebase init falhou:", e);
+            alert("Firebase não inicializou. Confira o console.");
+            return;
+        }
+
+        const byId = (id) => document.getElementById(id);
+        const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+
+        // ---------- Login ----------
+        window.openAdminLogin = () => {
+            byId("adminLoginModal").classList.remove("hidden");
+            byId("adminLoginFeedback").textContent = "";
+            setTimeout(() => byId("adminEmail")?.focus(), 50);
+        };
+        window.closeAdminLogin = () => byId("adminLoginModal").classList.add("hidden");
+
+        byId("adminAccessBtn").addEventListener("click", () => {
+            if (auth.currentUser) {
+                openAdminDashboard(auth.currentUser);
+            } else {
+                openAdminLogin();
+            }
+        });
+
+        byId("adminLoginModal").addEventListener("click", (e) => {
+            if (e.target === byId("adminLoginModal")) closeAdminLogin();
+        });
+
+        byId("adminLoginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = byId("adminLoginButton");
+            const fb = byId("adminLoginFeedback");
+            btn.disabled = true; btn.textContent = "Entrando..."; fb.textContent = "";
+            try {
+                await auth.signInWithEmailAndPassword(
+                    byId("adminEmail").value.trim(),
+                    byId("adminPassword").value
+                );
+            } catch (err) {
+                const msgs = {
+                    "auth/invalid-credential": "E-mail ou senha incorretos.",
+                    "auth/user-not-found": "Conta não encontrada.",
+                    "auth/wrong-password": "E-mail ou senha incorretos.",
+                    "auth/too-many-requests": "Muitas tentativas. Aguarde.",
+                    "auth/invalid-email": "E-mail inválido.",
+                    "auth/network-request-failed": "Falha de conexão."
+                };
+                fb.textContent = msgs[err.code] || "Não foi possível entrar.";
+            } finally {
+                btn.disabled = false; btn.textContent = "Entrar";
+            }
+        });
+
+        window.adminLogout = async () => {
+            await auth.signOut();
+            closeAdminDashboard();
+            openAdminLogin();
+        };
+
+        // ---------- Dashboard ----------
+        window.openAdminDashboard = async (user) => {
+            closeAdminLogin();
+            byId("adminDashboard").classList.remove("hidden");
+            byId("adminSignedInAs").textContent = user.email || user.uid;
+            await loadAllContent();
+            switchTab("hero");
+        };
+        window.closeAdminDashboard = () => byId("adminDashboard").classList.add("hidden");
+
+        function switchTab(name) {
+            document.querySelectorAll(".admin-tab").forEach(b => {
+                const active = b.dataset.tab === name;
+                b.classList.toggle("bg-aero-primary", active);
+                b.classList.toggle("text-white", active);
+                b.classList.toggle("text-slate-700", !active);
+                b.classList.toggle("hover:bg-slate-100", !active);
+            });
+            document.querySelectorAll(".admin-section").forEach(s => {
+                s.classList.toggle("hidden", s.dataset.section !== name);
+            });
+            if (name === "products") loadAdminProducts();
+            if (name === "inquiries") loadInquiries();
+        }
+        document.querySelectorAll(".admin-tab").forEach(b => {
+            b.addEventListener("click", () => switchTab(b.dataset.tab));
+        });
+
+        // ---------- Auth state ----------
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) {
+                closeAdminDashboard();
+                return;
+            }
+            // Verifica se é admin
+            try {
+                const doc = await db.collection("admins").doc(user.uid).get();
+                if (!doc.exists || doc.data().active !== true) {
+                    await auth.signOut();
+                    openAdminLogin();
+                    byId("adminLoginFeedback").textContent = "Esta conta não tem permissão administrativa.";
+                    return;
+                }
+                openAdminDashboard(user);
+            } catch (err) {
+                console.error(err);
+                byId("adminLoginFeedback").textContent = "Erro ao validar admin. Verifique as regras do Firestore.";
+            }
+        });
+
+        // ---------- Carregar conteúdo público ----------
+        async function loadAllContent() {
+            await Promise.all([
+                loadHero(), loadStats(), loadAbout(), loadContactInfo()
+            ]);
+            await loadProducts();
+        }
+
+        async function loadHero() {
+            try {
+                const doc = await db.collection("siteContent").doc("hero").get();
+                const d = doc.exists ? doc.data() : {};
+                if (d.badge) byId("heroBadge").textContent = d.badge;
+                if (d.title) byId("heroTitle").textContent = d.title;
+                if (d.subtitle) byId("heroSubtitle").textContent = d.subtitle;
+                if (d.imageUrl) byId("heroBackground").style.backgroundImage = `url('${d.imageUrl}')`;
+                // preenche form admin
+                byId("heroBadgeInput").value = d.badge || byId("heroBadge").textContent;
+                byId("heroTitleInput").value = d.title || byId("heroTitle").textContent;
+                byId("heroSubtitleInput").value = d.subtitle || byId("heroSubtitle").textContent;
+                byId("heroImageInput").value = d.imageUrl || "";
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadStats() {
+            try {
+                const doc = await db.collection("siteContent").doc("stats").get();
+                const d = doc.exists ? doc.data() : {};
+                for (let i = 1; i <= 4; i++) {
+                    const v = d[`stat${i}Value`];
+                    const l = d[`stat${i}Label`];
+                    if (v) byId(`stat${i}Value`).textContent = v;
+                    if (l) byId(`stat${i}Label`).textContent = l;
+                    byId(`stat${i}ValueInput`).value = v || byId(`stat${i}Value`).textContent;
+                    byId(`stat${i}LabelInput`).value = l || byId(`stat${i}Label`).textContent;
+                }
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadAbout() {
+            try {
+                const doc = await db.collection("siteContent").doc("about").get();
+                const d = doc.exists ? doc.data() : {};
+                if (d.title) byId("aboutTitle").textContent = d.title;
+                if (d.text) byId("aboutText1").innerHTML = d.text;
+                if (d.feature1Title) byId("aboutFeature1Title").textContent = d.feature1Title;
+                if (d.feature1Desc) byId("aboutFeature1Desc").textContent = d.feature1Desc;
+                if (d.feature2Title) byId("aboutFeature2Title").textContent = d.feature2Title;
+                if (d.feature2Desc) byId("aboutFeature2Desc").textContent = d.feature2Desc;
+                if (d.imageUrl) byId("aboutImage").src = d.imageUrl;
+                byId("aboutTitleInput").value = d.title || byId("aboutTitle").textContent;
+                byId("aboutTextInput").value = d.text || byId("aboutText1").innerHTML;
+                byId("aboutFeature1TitleInput").value = d.feature1Title || byId("aboutFeature1Title").textContent;
+                byId("aboutFeature1DescInput").value = d.feature1Desc || byId("aboutFeature1Desc").textContent;
+                byId("aboutFeature2TitleInput").value = d.feature2Title || byId("aboutFeature2Title").textContent;
+                byId("aboutFeature2DescInput").value = d.feature2Desc || byId("aboutFeature2Desc").textContent;
+                byId("aboutImageInput").value = d.imageUrl || "";
+            } catch (e) { console.error(e); }
+        }
+
+        async function loadContactInfo() {
+            try {
+                const doc = await db.collection("siteContent").doc("contact").get();
+                const d = doc.exists ? doc.data() : {};
+                if (d.phone) byId("contactPhone").textContent = d.phone;
+                if (d.email) byId("contactEmail").textContent = d.email;
+                if (d.address) byId("contactAddress").textContent = d.address;
+                byId("contactPhoneInput").value = d.phone || byId("contactPhone").textContent;
+                byId("contactEmailInput").value = d.email || byId("contactEmail").textContent;
+                byId("contactAddressInput").value = d.address || byId("contactAddress").textContent;
+            } catch (e) { console.error(e); }
+        }
+
+        // ---------- Salvar seções ----------
+        async function saveSection(docId, data, feedbackId) {
+            const fb = byId(feedbackId);
+            fb.textContent = "Salvando...";
+            fb.className = "text-sm text-slate-500";
+            try {
+                await db.collection("siteContent").doc(docId).set(data, { merge: true });
+                fb.textContent = "✓ Salvo com sucesso!";
+                fb.className = "text-sm text-emerald-600";
+                setTimeout(() => { fb.textContent = ""; }, 3000);
+                await loadAllContent();
+            } catch (e) {
+                console.error(e);
+                fb.textContent = "Erro ao salvar. Verifique as regras do Firestore.";
+                fb.className = "text-sm text-red-600";
+            }
+        }
+
+        byId("heroForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            saveSection("hero", {
+                badge: byId("heroBadgeInput").value.trim(),
+                title: byId("heroTitleInput").value.trim(),
+                subtitle: byId("heroSubtitleInput").value.trim(),
+                imageUrl: byId("heroImageInput").value.trim()
+            }, "heroFeedback");
+        });
+
+        byId("statsForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            const data = {};
+            for (let i = 1; i <= 4; i++) {
+                data[`stat${i}Value`] = byId(`stat${i}ValueInput`).value.trim();
+                data[`stat${i}Label`] = byId(`stat${i}LabelInput`).value.trim();
+            }
+            saveSection("stats", data, "statsFeedback");
+        });
+
+        byId("aboutForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            saveSection("about", {
+                title: byId("aboutTitleInput").value.trim(),
+                text: byId("aboutTextInput").value.trim(),
+                feature1Title: byId("aboutFeature1TitleInput").value.trim(),
+                feature1Desc: byId("aboutFeature1DescInput").value.trim(),
+                feature2Title: byId("aboutFeature2TitleInput").value.trim(),
+                feature2Desc: byId("aboutFeature2DescInput").value.trim(),
+                imageUrl: byId("aboutImageInput").value.trim()
+            }, "aboutFeedback");
+        });
+
+        byId("contactInfoForm").addEventListener("submit", (e) => {
+            e.preventDefault();
+            saveSection("contact", {
+                phone: byId("contactPhoneInput").value.trim(),
+                email: byId("contactEmailInput").value.trim(),
+                address: byId("contactAddressInput").value.trim()
+            }, "contactInfoFeedback");
+        });
+
+        // ---------- Produtos ----------
+        let allProducts = [];
+
+        async function loadProducts() {
+            try {
+                const snap = await db.collection("products").orderBy("createdAt", "desc").get();
+                allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderCatalog(allProducts);
+            } catch (e) {
+                console.error(e);
+                byId("catalogContainer").innerHTML = '<p class="col-span-full text-center text-slate-500">Não foi possível carregar o catálogo.</p>';
+            }
+        }
+
+        function renderCatalog(products) {
+            const c = byId("catalogContainer");
+            if (!products.length) {
+                c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
+                return;
+            }
+            c.innerHTML = products.map(p => {
+                const name = esc(p.name || "Produto");
+                const cat = esc(p.category || "Instrumentos");
+                const desc = esc(p.description || "");
+                const img = /^https:\/\//i.test(p.imageUrl || "")
+                    ? `<img src="${esc(p.imageUrl)}" alt="${name}" loading="lazy" class="w-full h-56 object-contain bg-slate-100">`
+                    : '<div class="w-full h-56 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
+                return `<article data-category="${cat}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+                    ${img}<div class="p-6"><span class="text-xs font-bold uppercase tracking-wide text-sky-700">${cat}</span>
+                    <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
+                    <p class="text-slate-600 mt-3 whitespace-pre-line">${desc}</p>
+                    <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2">Solicitar cotação</a></div></article>`;
+            }).join("");
+        }
+
+        window.filterCatalog = (cat) => {
+            const filtered = cat === "all" ? allProducts : allProducts.filter(p => p.category === cat);
+            renderCatalog(filtered);
+            document.querySelectorAll(".cat-btn").forEach(b => {
+                const active = (cat === "all" && b.textContent.trim() === "Todos") ||
+                    b.getAttribute("onclick")?.includes(`'${cat}'`);
+                b.classList.toggle("bg-aero-primary", active);
+                b.classList.toggle("text-white", active);
+                b.classList.toggle("bg-slate-100", !active);
+                b.classList.toggle("text-slate-700", !active);
+            });
+        };
+
+        async function loadAdminProducts() {
+            const list = byId("adminProductsList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
+            try {
+                const snap = await db.collection("products").orderBy("createdAt", "desc").get();
+                const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                if (!products.length) {
+                    list.innerHTML = '<p class="text-slate-500">Nenhum produto cadastrado.</p>';
+                    return;
+                }
+                list.innerHTML = products.map(p => `<div class="border rounded-lg p-3 flex items-center justify-between gap-3">
+                    <div class="min-w-0"><p class="font-semibold break-words">${esc(p.name)}</p><p class="text-slate-500">${esc(p.category || "")}</p></div>
+                    <div class="flex shrink-0 gap-3">
+                        <button type="button" data-edit="${esc(p.id)}" class="text-blue-700 underline">Editar</button>
+                        <button type="button" data-delete="${esc(p.id)}" class="text-red-700 underline">Excluir</button>
+                    </div></div>`).join("");
+                list.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => editProduct(b.dataset.edit)));
+                list.querySelectorAll("[data-delete]").forEach(b => b.addEventListener("click", () => deleteProduct(b.dataset.delete)));
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+            }
+        }
+
+        async function editProduct(id) {
+            try {
+                const doc = await db.collection("products").doc(id).get();
+                if (!doc.exists) return;
+                const p = doc.data();
+                byId("productId").value = id;
+                byId("productName").value = p.name || "";
+                byId("productCategory").value = p.category || "Instrumentos";
+                byId("productDescription").value = p.description || "";
+                byId("productImage").value = p.imageUrl || "";
+                byId("productFeedback").textContent = "Editando produto.";
+                byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
+            } catch (e) { console.error(e); }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm("Excluir este produto?")) return;
+            try {
+                await db.collection("products").doc(id).delete();
+                await loadAdminProducts();
+                await loadProducts();
+            } catch (e) {
+                console.error(e);
+                alert("Não foi possível excluir.");
+            }
+        }
+
+        window.resetProductForm = () => {
+            byId("productForm").reset();
+            byId("productId").value = "";
+            byId("productFeedback").textContent = "";
+        };
+
+        byId("productForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("productFeedback");
+            const name = byId("productName").value.trim();
+            const imageUrl = byId("productImage").value.trim();
+            if (imageUrl && !/^https:\/\//i.test(imageUrl)) {
+                fb.textContent = "A imagem deve usar HTTPS.";
+                return;
+            }
+            const payload = {
+                name,
+                category: byId("productCategory").value,
+                description: byId("productDescription").value.trim(),
+                imageUrl,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+            try {
+                const id = byId("productId").value;
+                if (id) {
+                    await db.collection("products").doc(id).update(payload);
+                } else {
+                    payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await db.collection("products").add(payload);
+                }
+                fb.textContent = "✓ Salvo!";
+                fb.className = "text-sm text-emerald-600";
+                resetProductForm();
+                await loadAdminProducts();
+                await loadProducts();
+            } catch (e) {
+                console.error(e);
+                fb.textContent = "Erro ao salvar.";
+                fb.className = "text-sm text-red-600";
+            }
+        });
+
+        // ---------- Inquiries ----------
+        async function loadInquiries() {
+            const list = byId("inquiriesList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
+            try {
+                const snap = await db.collection("inquiries").orderBy("createdAt", "desc").limit(100).get();
+                if (snap.empty) {
+                    list.innerHTML = '<p class="text-slate-500">Nenhuma mensagem recebida ainda.</p>';
+                    return;
+                }
+                list.innerHTML = snap.docs.map(d => {
+                    const m = d.data();
+                    const date = m.createdAt?.toDate?.().toLocaleString("pt-BR") || "";
+                    return `<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                        <div class="flex justify-between items-start gap-3 mb-2">
+                            <div>
+                                <p class="font-bold text-slate-900">${esc(m.name || "—")}</p>
+                                <p class="text-sm text-slate-500">${esc(m.email || "")}${m.phone ? " · " + esc(m.phone) : ""}</p>
+                            </div>
+                            <span class="text-xs text-slate-400 whitespace-nowrap">${esc(date)}</span>
+                        </div>
+                        <p class="text-slate-700 whitespace-pre-line">${esc(m.message || "")}</p>
+                        <button onclick="deleteInquiry('${esc(d.id)}')" class="text-xs text-red-600 underline mt-3">Excluir</button>
+                    </div>`;
+                }).join("");
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar mensagens.</p>';
+            }
+        }
+
+        window.deleteInquiry = async (id) => {
+            if (!confirm("Excluir esta mensagem?")) return;
+            try {
+                await db.collection("inquiries").doc(id).delete();
+                await loadInquiries();
+            } catch (e) { console.error(e); }
+        };
+
+        // ---------- Contato público ----------
+        byId("contactForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget;
+            const fb = byId("contactFeedback");
+            const data = new FormData(form);
+            fb.textContent = "Enviando...";
+            try {
+                await db.collection("inquiries").add({
+                    name: String(data.get("name") || "").trim(),
+                    email: String(data.get("email") || "").trim(),
+                    phone: String(data.get("phone") || "").trim(),
+                    message: String(data.get("message") || "").trim(),
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                form.reset();
+                fb.textContent = "Mensagem enviada. Obrigado!";
+                fb.className = "text-sm text-emerald-400";
+            } catch (err) {
+                console.error(err);
+                fb.textContent = "Não foi possível enviar agora.";
+                fb.className = "text-sm text-red-400";
+            }
+        });
+
+        // ---------- Misc ----------
+        byId("mobileMenuBtn")?.addEventListener("click", () => byId("mobileMenu").classList.toggle("hidden"));
+        byId("mobileMenu")?.querySelectorAll("a").forEach(a => a.addEventListener("click", () => byId("mobileMenu").classList.add("hidden")));
+        byId("footerYear").textContent = new Date().getFullYear();
+
+        // Carrega conteúdo público
+        loadAllContent();
+    })();
+    </script>
+</body>
+</html>
