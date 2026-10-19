@@ -383,9 +383,10 @@
                             <textarea id="productDescription" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
                         </label>
                         <div>
-                            <label class="block text-sm font-semibold mb-2">Imagem do produto</label>
-                            <img id="productImagePreview" class="h-32 object-contain bg-slate-100 rounded-lg mb-2 hidden border border-slate-300">
-                            <input type="file" id="productImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
+                            <label class="block text-sm font-semibold mb-2">Imagens do produto (até 4)</label>
+                            <div id="productImagesPreviewContainer" class="flex gap-2 mb-2 flex-wrap"></div>
+                            <input type="file" id="productImageFile" accept="image/*" multiple class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
+                            <p class="text-xs text-slate-400 mt-1">Selecione até 4 imagens. A primeira será a principal.</p>
                         </div>
                         <div class="flex items-center gap-3">
                             <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
@@ -461,9 +462,10 @@
             const cloudName = "vz7fqonx"; 
             const uploadPreset = "smart_aviation"; 
 
-            if (cloudName === "SEU_CLOUD_NAME_AQUI" || uploadPreset === "SEU_UPLOAD_PRESET_AQUI") {
+            if (cloudName === "vz7fqonx" || uploadPreset === "smart_aviation") {
                 throw new Error("Você precisa configurar o Cloud Name e o Upload Preset no código!");
             }
+
 
             const formData = new FormData();
             formData.append("file", file);
@@ -778,20 +780,72 @@
                 c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
                 return;
             }
+            
             c.innerHTML = products.map(p => {
                 const name = esc(p.name || "Produto");
                 const cat = esc(p.category || "Instrumentos");
                 const desc = esc(p.description || "");
-                const img = p.imageUrl
-                    ? `<img src="${esc(p.imageUrl)}" alt="${name}" loading="lazy" class="w-full h-56 object-contain bg-slate-100">`
-                    : '<div class="w-full h-56 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
-                return `<article data-category="${cat}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
-                    ${img}<div class="p-6"><span class="text-xs font-bold uppercase tracking-wide text-sky-700">${cat}</span>
-                    <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
-                    <p class="text-slate-600 mt-3 whitespace-pre-line">${desc}</p>
-                    <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2">Solicitar cotação</a></div></article>`;
+                
+                // Pega as imagens (compatível com o modelo antigo de 1 foto)
+                const images = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
+                const mainImage = images[0] || '';
+                const thumbs = images.slice(1, 4); // Pega até 3 miniaturas
+
+                // HTML da foto principal
+                const mainImgHtml = mainImage 
+                    ? `<img id="main-img-${p.id}" src="${esc(mainImage)}" alt="${name}" class="w-full h-80 object-contain bg-white transition-opacity duration-300">`
+                    : '<div class="w-full h-80 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
+
+                // HTML das miniaturas
+                const thumbsHtml = thumbs.length > 0 ? `
+                    <div class="flex gap-2 mt-3 justify-center">
+                        ${images.map((img, idx) => `
+                            <img src="${esc(img)}" 
+                                 onclick="changeMainImage('${p.id}', '${esc(img)}')" 
+                                 class="w-16 h-16 object-contain bg-white border-2 ${idx === 0 ? 'border-aero-primary' : 'border-slate-200'} rounded cursor-pointer hover:border-aero-light transition-all">
+                        `).join('')}
+                    </div>
+                ` : '';
+
+                return `<article data-category="${cat}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+                    <div class="p-4 bg-slate-50 border-b border-slate-100">
+                        ${mainImgHtml}
+                        ${thumbsHtml}
+                    </div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="text-xs font-bold uppercase tracking-wide text-sky-700">${cat}</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
+                        <p class="text-slate-600 mt-3 whitespace-pre-line flex-grow">${desc}</p>
+                        <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center">Solicitar cotação</a>
+                    </div>
+                </article>`;
             }).join("");
         }
+
+        // Função para trocar a foto principal ao clicar na miniatura
+        window.changeMainImage = (productId, newSrc) => {
+            const mainImg = document.getElementById(`main-img-${productId}`);
+            if (mainImg) {
+                mainImg.style.opacity = 0;
+                setTimeout(() => {
+                    mainImg.src = newSrc;
+                    mainImg.style.opacity = 1;
+                }, 150);
+            }
+            
+            // Atualiza a borda da miniatura selecionada
+            const card = mainImg.closest('.product-card');
+            if (card) {
+                card.querySelectorAll('.flex.gap-2 img').forEach(img => {
+                    img.classList.remove('border-aero-primary');
+                    img.classList.add('border-slate-200');
+                    if (img.src === newSrc) {
+                        img.classList.remove('border-slate-200');
+                        img.classList.add('border-aero-primary');
+                    }
+                });
+            }
+        };
 
         window.filterCatalog = (cat) => {
             const filtered = cat === "all" ? allProducts : allProducts.filter(p => p.category === cat);
@@ -840,12 +894,15 @@
                 byId("productCategory").value = p.category || "Instrumentos";
                 byId("productDescription").value = p.description || "";
                 byId("productFeedback").textContent = "Editando produto.";
-                if (p.imageUrl) {
-                    byId("productImagePreview").src = p.imageUrl;
-                    byId("productImagePreview").classList.remove("hidden");
-                } else {
-                    byId("productImagePreview").classList.add("hidden");
-                }
+                
+                // Renderiza as fotos existentes no preview
+                const container = byId("productImagesPreviewContainer");
+                container.innerHTML = "";
+                const imgs = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
+                imgs.forEach(url => {
+                    container.innerHTML += `<img src="${url}" class="h-16 w-16 object-cover rounded border">`;
+                });
+
                 byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
             } catch (e) { console.error(e); }
         }
@@ -865,22 +922,32 @@
             byId("productForm").reset();
             byId("productId").value = "";
             byId("productFeedback").textContent = "";
-            byId("productImagePreview").classList.add("hidden");
-            byId("productImagePreview").src = "";
+            byId("productImagesPreviewContainer").innerHTML = "";
         };
 
         byId("productForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("productFeedback");
             const name = byId("productName").value.trim();
-            const file = byId("productImageFile").files[0];
-            let imageUrl = byId("productImagePreview").src || "";
+            const files = byId("productImageFile").files;
+            let imageUrls = [];
 
-            if (file) {
-                fb.textContent = "Fazendo upload da imagem...";
+            // Se estiver editando, pega as fotos que já existiam
+            const id = byId("productId").value;
+            if (id) {
+                const doc = await db.collection("products").doc(id).get();
+                const p = doc.data();
+                imageUrls = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
+            }
+
+            if (files.length > 0) {
+                fb.textContent = `Fazendo upload de ${files.length} imagem(ns)...`;
                 fb.className = "text-sm text-slate-500";
                 try {
-                    imageUrl = await uploadImage(file, "products");
+                    // Limita a 4 fotos no total
+                    const uploadPromises = Array.from(files).slice(0, 4).map(file => uploadImage(file, "products"));
+                    const newUrls = await Promise.all(uploadPromises);
+                    imageUrls = newUrls; // Substitui as antigas pelas novas
                 } catch (err) {
                     fb.textContent = `Erro no upload: ${err.message}`;
                     fb.className = "text-sm text-red-600";
@@ -892,11 +959,11 @@
                 name,
                 category: byId("productCategory").value,
                 description: byId("productDescription").value.trim(),
-                imageUrl,
+                imageUrls: imageUrls, // Salva o array de fotos
                 updatedAt: firebase.firestore.FieldValue.serverTimestamp()
             };
+
             try {
-                const id = byId("productId").value;
                 if (id) {
                     await db.collection("products").doc(id).update(payload);
                 } else {
