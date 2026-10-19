@@ -33,6 +33,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-storage-compat.js"></script>
 
     <!-- Inicialização do Firebase -->
     <script>
@@ -478,25 +479,9 @@
                     <label class="block text-sm font-medium text-slate-700 mb-1">Descrição Técnica</label>
                     <textarea id="prodDesc" rows="3" required class="w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">URL da Imagem Principal</label>
-                        <input type="url" id="prodMainImg" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 1</label>
-                        <input type="url" id="prodThumb1" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 2</label>
-                        <input type="url" id="prodThumb2" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 3</label>
-                        <input type="url" id="prodThumb3" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Enviar Imagem do Produto (Computador/Celular)</label>
+                    <input type="file" id="prodImageFile" accept="image/*" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-50 cursor-pointer">
                 </div>
                 <div class="flex justify-end gap-3 pt-4">
                     <button type="button" onclick="closeProductModal()" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg">Cancelar</button>
@@ -720,7 +705,7 @@
                 document.getElementById('adminTabProducts').classList.remove('hidden');
                 document.getElementById('tabBtnProducts').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
                 renderAdminProducts();
-            } else if(tabname === 'security') {
+            } else if(tabName === 'security') {
                 document.getElementById('adminTabSecurity').classList.remove('hidden');
                 document.getElementById('tabBtnSecurity').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
             }
@@ -745,7 +730,7 @@
             showToast("Credenciais atualizadas com sucesso!");
         }
 
-        // Funções de Gestão de Produtos
+        // Funções de Gestão de Produtos com Upload via Firebase Storage
         function openProductModal() {
             const modal = document.getElementById('productModal');
             const form = document.getElementById('productForm');
@@ -766,17 +751,35 @@
         function saveProductData(e) {
             e.preventDefault();
             
+            const fileInput = document.getElementById('prodImageFile');
+            const file = fileInput.files[0];
+            
             const id = 'prod-' + Date.now();
             const name = document.getElementById('prodName').value;
             const category = document.getElementById('prodCategory').value;
             const pn = document.getElementById('prodPN').value;
             const cert = document.getElementById('prodCert').value;
             const desc = document.getElementById('prodDesc').value;
-            const mainImg = document.getElementById('prodMainImg').value;
-            const t1 = document.getElementById('prodThumb1').value;
-            const t2 = document.getElementById('prodThumb2').value;
-            const t3 = document.getElementById('prodThumb3').value;
 
+            if (file) {
+                showToast("Enviando imagem para o Firebase Storage...");
+                const storageRef = firebase.storage().ref().child(`products/${id}_${file.name}`);
+                
+                storageRef.put(file).then((snapshot) => {
+                    return snapshot.ref.getDownloadURL();
+                }).then((downloadURL) => {
+                    finalizeProductSave(id, name, category, pn, cert, desc, downloadURL);
+                }).catch((error) => {
+                    showToast("Erro ao enviar imagem: " + error.message, true);
+                });
+            } else {
+                // Imagem padrão caso nenhuma seja selecionada
+                const defaultImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800";
+                finalizeProductSave(id, name, category, pn, cert, desc, defaultImg);
+            }
+        }
+
+        function finalizeProductSave(id, name, category, pn, cert, desc, imageUrl) {
             const newProduct = {
                 id: id,
                 name: name,
@@ -784,8 +787,8 @@
                 pn: pn,
                 cert: cert,
                 desc: desc,
-                mainImg: mainImg,
-                thumbs: [mainImg, t1, t2, t3]
+                mainImg: imageUrl,
+                thumbs: [imageUrl, imageUrl, imageUrl]
             };
 
             products.push(newProduct);
@@ -793,7 +796,7 @@
             renderAdminProducts();
             
             closeProductModal();
-            showToast("Produto adicionado com sucesso!");
+            showToast("Produto e imagem salvos com sucesso!");
         }
 
         function renderAdminProducts() {
