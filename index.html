@@ -367,37 +367,49 @@
                 <!-- PRODUCTS -->
                 <section class="admin-section hidden" data-section="products">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
-                    <p class="text-sm text-slate-500 mb-6">Gerencie os produtos do catálogo.</p>
-                    <form id="productForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-3 max-w-3xl mb-6">
-                        <input id="productId" type="hidden">
-                        <label class="block text-sm font-semibold">Nome do produto
-                            <input id="productName" required maxlength="120" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">Categoria
-                            <select id="productCategory" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                                <option value="Aviónicos">Aviónicos</option>
-                                <option value="Instrumentos">Instrumentos</option>
-                            </select>
-                        </label>
-                        <label class="block text-sm font-semibold">Descrição
-                            <textarea id="productDescription" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
-                        </label>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2">Imagens do produto (até 4)</label>
-                            <div id="productImagesPreviewContainer" class="flex gap-2 mb-2 flex-wrap"></div>
-                            <input type="file" id="productImageFile" accept="image/*" multiple class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
-                            <p class="text-xs text-slate-400 mt-1">Selecione até 4 imagens. A primeira será a principal.</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
-                            <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 px-4 py-2">Limpar</button>
-                            <span id="productFeedback" class="text-sm"></span>
-                        </div>
-                    </form>
-                    <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 max-w-3xl">
-                        <h3 class="font-bold mb-3">Produtos cadastrados</h3>
-                        <div id="adminProductsList" class="space-y-2 text-sm">
-                            <p class="text-slate-500">Carregando...</p>
+                    <p class="text-sm text-slate-500 mb-6">Cadastre produtos com 1 foto principal, 3 fotos menores e descrição.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+
+                        <form id="productForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 id="productFormTitle" class="font-bold text-lg text-slate-900">Novo produto</h3>
+                                <span id="productFeedback" class="text-sm"></span>
+                            </div>
+                            <input id="productId" type="hidden">
+
+                            <label class="block text-sm font-semibold">Nome do produto
+                                <input id="productName" required maxlength="120" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-aero-light outline-none">
+                            </label>
+
+                            <label class="block text-sm font-semibold">Categoria
+                                <select id="productCategory" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
+                                    <option value="Aviónicos">Aviónicos</option>
+                                    <option value="Instrumentos">Instrumentos</option>
+                                </select>
+                            </label>
+
+                            <div>
+                                <label class="block text-sm font-semibold mb-1">Fotos do produto</label>
+                                <p class="text-xs text-slate-400 mb-3">1 foto principal (grande) + até 3 fotos menores. Clique no quadro para escolher a imagem.</p>
+                                <div id="photoSlots" class="grid grid-cols-3 gap-3"></div>
+                            </div>
+
+                            <label class="block text-sm font-semibold">Descrição
+                                <textarea id="productDescription" rows="5" maxlength="1500" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-aero-light outline-none"></textarea>
+                                <span id="descCounter" class="text-xs text-slate-400 font-normal">0 / 1500</span>
+                            </label>
+
+                            <div class="flex items-center gap-3 pt-2">
+                                <button id="productSaveBtn" type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
+                                <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 hover:bg-slate-300 px-4 py-2">Limpar</button>
+                            </div>
+                        </form>
+
+                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
+                            <h3 class="font-bold text-lg mb-4">Produtos cadastrados</h3>
+                            <div id="adminProductsList" class="space-y-3 text-sm">
+                                <p class="text-slate-500">Carregando...</p>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -456,40 +468,27 @@
 
         // ---------- Upload de Imagem (Cloudinary) ----------
         async function uploadImage(file, folder) {
-            console.log(`Iniciando upload para o Cloudinary na pasta: ${folder}`);
-            
-            // ⚠️ COLOQUE AQUI O SEU CLOUD NAME E O PRESET NAME DO CLOUDINARY
-            const cloudName = "vz7fqonx"; 
-            const uploadPreset = "smart_aviation"; 
-
-            if (cloudName === "vz7fqonx" || uploadPreset === "smart_aviation") {
-                throw new Error("Você precisa configurar o Cloud Name e o Upload Preset no código!");
-            }
-
+            const cloudName = "vz7fqonx";
+            const uploadPreset = "smart_aviation";
 
             const formData = new FormData();
             formData.append("file", file);
             formData.append("upload_preset", uploadPreset);
             formData.append("folder", folder);
 
-            try {
-                const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                    method: "POST",
-                    body: formData
-                });
-                
-                if (!response.ok) {
-                    const errorData = await response.json();
-                    throw new Error(errorData.error?.message || "Erro no upload para o Cloudinary");
-                }
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
+                method: "POST",
+                body: formData
+            });
 
-                const data = await response.json();
-                console.log("Upload concluído. URL:", data.secure_url);
-                return data.secure_url;
-            } catch (error) {
-                console.error("Erro no upload Cloudinary:", error);
-                throw error;
+            if (!response.ok) {
+                let msg = "Erro no upload para o Cloudinary";
+                try { const errorData = await response.json(); msg = errorData.error?.message || msg; } catch (_) {}
+                throw new Error(msg);
             }
+
+            const data = await response.json();
+            return data.secure_url;
         }
 
         // ---------- Login ----------
@@ -607,7 +606,7 @@
             if (d.title) byId("heroTitle").textContent = d.title;
             if (d.subtitle) byId("heroSubtitle").textContent = d.subtitle;
             if (d.imageUrl) byId("heroBackground").style.backgroundImage = `url('${d.imageUrl}')`;
-            
+
             byId("heroBadgeInput").value = d.badge || byId("heroBadge").textContent;
             byId("heroTitleInput").value = d.title || byId("heroTitle").textContent;
             byId("heroSubtitleInput").value = d.subtitle || byId("heroSubtitle").textContent;
@@ -664,11 +663,9 @@
             const fb = byId(feedbackId);
             fb.textContent = "Salvando...";
             fb.className = "text-sm text-slate-500";
-            
+
             try {
-                console.log(`Tentando salvar no Firestore: ${docId}`, data);
-                
-                const timeout = new Promise((_, reject) => 
+                const timeout = new Promise((_, reject) =>
                     setTimeout(() => reject(new Error("Tempo esgotado. O Firestore não respondeu.")), 10000)
                 );
 
@@ -677,7 +674,6 @@
                     timeout
                 ]);
 
-                console.log(`Salvo com sucesso: ${docId}`);
                 fb.textContent = "✓ Salvo com sucesso!";
                 fb.className = "text-sm text-emerald-600";
                 setTimeout(() => { fb.textContent = ""; }, 3000);
@@ -692,8 +688,8 @@
             e.preventDefault();
             const fb = byId("heroFeedback");
             const file = byId("heroImageFile").files[0];
-            let imageUrl = byId("heroImagePreview").src || "";
-            
+            let imageUrl = byId("heroImagePreview").getAttribute("src") || "";
+
             if (file) {
                 fb.textContent = "Fazendo upload da imagem...";
                 fb.className = "text-sm text-slate-500";
@@ -729,7 +725,7 @@
             e.preventDefault();
             const fb = byId("aboutFeedback");
             const file = byId("aboutImageFile").files[0];
-            let imageUrl = byId("aboutImagePreview").src || "";
+            let imageUrl = byId("aboutImagePreview").getAttribute("src") || "";
 
             if (file) {
                 fb.textContent = "Fazendo upload da imagem...";
@@ -764,7 +760,7 @@
             }, "contactInfoFeedback");
         });
 
-        // ---------- Produtos ----------
+        // ---------- Catálogo público ----------
         let allProducts = [];
 
         db.collection("products").orderBy("createdAt", "desc").onSnapshot((snap) => {
@@ -780,28 +776,24 @@
                 c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
                 return;
             }
-            
+
             c.innerHTML = products.map(p => {
                 const name = esc(p.name || "Produto");
                 const cat = esc(p.category || "Instrumentos");
                 const desc = esc(p.description || "");
-                
-                // Pega as imagens (compatível com o modelo antigo de 1 foto)
+
                 const images = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
                 const mainImage = images[0] || '';
-                const thumbs = images.slice(1, 4); // Pega até 3 miniaturas
 
-                // HTML da foto principal
-                const mainImgHtml = mainImage 
+                const mainImgHtml = mainImage
                     ? `<img id="main-img-${p.id}" src="${esc(mainImage)}" alt="${name}" class="w-full h-80 object-contain bg-white transition-opacity duration-300">`
                     : '<div class="w-full h-80 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
 
-                // HTML das miniaturas
-                const thumbsHtml = thumbs.length > 0 ? `
+                const thumbsHtml = images.length > 1 ? `
                     <div class="flex gap-2 mt-3 justify-center">
-                        ${images.map((img, idx) => `
-                            <img src="${esc(img)}" 
-                                 onclick="changeMainImage('${p.id}', '${esc(img)}')" 
+                        ${images.slice(0, 4).map((img, idx) => `
+                            <img src="${esc(img)}"
+                                 onclick="changeMainImage('${p.id}', '${esc(img)}')"
                                  class="w-16 h-16 object-contain bg-white border-2 ${idx === 0 ? 'border-aero-primary' : 'border-slate-200'} rounded cursor-pointer hover:border-aero-light transition-all">
                         `).join('')}
                     </div>
@@ -822,27 +814,21 @@
             }).join("");
         }
 
-        // Função para trocar a foto principal ao clicar na miniatura
         window.changeMainImage = (productId, newSrc) => {
             const mainImg = document.getElementById(`main-img-${productId}`);
-            if (mainImg) {
-                mainImg.style.opacity = 0;
-                setTimeout(() => {
-                    mainImg.src = newSrc;
-                    mainImg.style.opacity = 1;
-                }, 150);
-            }
-            
-            // Atualiza a borda da miniatura selecionada
+            if (!mainImg) return;
+            mainImg.style.opacity = 0;
+            setTimeout(() => {
+                mainImg.src = newSrc;
+                mainImg.style.opacity = 1;
+            }, 150);
+
             const card = mainImg.closest('.product-card');
             if (card) {
                 card.querySelectorAll('.flex.gap-2 img').forEach(img => {
-                    img.classList.remove('border-aero-primary');
-                    img.classList.add('border-slate-200');
-                    if (img.src === newSrc) {
-                        img.classList.remove('border-slate-200');
-                        img.classList.add('border-aero-primary');
-                    }
+                    const selected = img.getAttribute('src') === newSrc;
+                    img.classList.toggle('border-aero-primary', selected);
+                    img.classList.toggle('border-slate-200', !selected);
                 });
             }
         };
@@ -860,6 +846,57 @@
             });
         };
 
+        // ---------- ADMIN: fotos do produto (1 principal + 3 menores) ----------
+        let slotUrls  = [null, null, null, null];
+        let slotFiles = [null, null, null, null];
+
+        function renderSlots() {
+            const c = byId("photoSlots");
+            c.innerHTML = [0, 1, 2, 3].map(i => {
+                const big = i === 0;
+                const src = slotFiles[i] ? URL.createObjectURL(slotFiles[i]) : slotUrls[i];
+                const box = big ? "col-span-3 h-56" : "h-28";
+                const label = big ? "Foto principal" : `Foto ${i}`;
+                return `<div class="${box} relative rounded-xl border-2 ${src ? "border-aero-primary" : "border-dashed border-slate-300"} bg-slate-50 overflow-hidden flex items-center justify-center hover:border-aero-light transition">
+                    ${src
+                        ? `<img src="${esc(src)}" class="w-full h-full object-contain bg-white">`
+                        : `<div class="text-center text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-image text-2xl block mb-1"></i>${label}</div>`}
+                    ${big ? '<span class="absolute top-2 left-2 bg-aero-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">PRINCIPAL</span>' : ""}
+                    <label class="absolute inset-0 cursor-pointer">
+                        <input type="file" accept="image/*" data-slot="${i}" class="hidden">
+                    </label>
+                    ${src ? `<button type="button" data-remove="${i}" title="Remover" class="absolute top-2 right-2 z-10 bg-red-600 hover:bg-red-700 text-white w-7 h-7 rounded-full text-sm leading-none">&times;</button>` : ""}
+                </div>`;
+            }).join("");
+        }
+
+        byId("photoSlots").addEventListener("change", (e) => {
+            const input = e.target.closest("input[data-slot]");
+            if (!input || !input.files[0]) return;
+            const file = input.files[0];
+            if (file.size > 10 * 1024 * 1024) {
+                byId("productFeedback").textContent = "Imagem maior que 10 MB.";
+                byId("productFeedback").className = "text-sm text-red-600";
+                return;
+            }
+            slotFiles[Number(input.dataset.slot)] = file;
+            renderSlots();
+        });
+
+        byId("photoSlots").addEventListener("click", (e) => {
+            const btn = e.target.closest("button[data-remove]");
+            if (!btn) return;
+            e.preventDefault();
+            const i = Number(btn.dataset.remove);
+            slotUrls[i] = null;
+            slotFiles[i] = null;
+            renderSlots();
+        });
+
+        byId("productDescription").addEventListener("input", (e) => {
+            byId("descCounter").textContent = `${e.target.value.length} / 1500`;
+        });
+
         async function loadAdminProducts() {
             const list = byId("adminProductsList");
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
@@ -870,12 +907,27 @@
                     list.innerHTML = '<p class="text-slate-500">Nenhum produto cadastrado.</p>';
                     return;
                 }
-                list.innerHTML = products.map(p => `<div class="border rounded-lg p-3 flex items-center justify-between gap-3">
-                    <div class="min-w-0"><p class="font-semibold break-words">${esc(p.name)}</p><p class="text-slate-500">${esc(p.category || "")}</p></div>
-                    <div class="flex shrink-0 gap-3">
-                        <button type="button" data-edit="${esc(p.id)}" class="text-blue-700 underline">Editar</button>
-                        <button type="button" data-delete="${esc(p.id)}" class="text-red-700 underline">Excluir</button>
-                    </div></div>`).join("");
+                list.innerHTML = products.map(p => {
+                    const imgs = p.imageUrls && p.imageUrls.length ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
+                    const main = imgs[0]
+                        ? `<img src="${esc(imgs[0])}" class="w-24 h-24 object-contain bg-white border border-slate-200 rounded-lg shrink-0">`
+                        : '<div class="w-24 h-24 bg-slate-100 rounded-lg flex items-center justify-center text-slate-300 shrink-0"><i class="fa-solid fa-plane text-2xl"></i></div>';
+                    const small = imgs.slice(1, 4).map(u =>
+                        `<img src="${esc(u)}" class="w-9 h-9 object-contain bg-white border border-slate-200 rounded">`).join("");
+                    return `<div class="border border-slate-200 rounded-xl p-3 flex gap-3 items-start">
+                        ${main}
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-slate-900 break-words">${esc(p.name)}</p>
+                            <span class="inline-block text-[10px] font-bold uppercase tracking-wide text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full mt-1">${esc(p.category || "")}</span>
+                            <p class="text-slate-500 text-xs mt-1 line-clamp-2">${esc(p.description || "")}</p>
+                            ${small ? `<div class="flex gap-1 mt-2">${small}</div>` : ""}
+                        </div>
+                        <div class="flex flex-col gap-2 shrink-0">
+                            <button type="button" data-edit="${esc(p.id)}" class="px-3 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">Editar</button>
+                            <button type="button" data-delete="${esc(p.id)}" class="px-3 py-1 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 text-xs font-semibold">Excluir</button>
+                        </div>
+                    </div>`;
+                }).join("");
                 list.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => editProduct(b.dataset.edit)));
                 list.querySelectorAll("[data-delete]").forEach(b => b.addEventListener("click", () => deleteProduct(b.dataset.delete)));
             } catch (e) {
@@ -893,15 +945,14 @@
                 byId("productName").value = p.name || "";
                 byId("productCategory").value = p.category || "Instrumentos";
                 byId("productDescription").value = p.description || "";
-                byId("productFeedback").textContent = "Editando produto.";
-                
-                // Renderiza as fotos existentes no preview
-                const container = byId("productImagesPreviewContainer");
-                container.innerHTML = "";
+                byId("descCounter").textContent = `${(p.description || "").length} / 1500`;
+                byId("productFormTitle").textContent = "Editando produto";
+                byId("productFeedback").textContent = "";
+
                 const imgs = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
-                imgs.forEach(url => {
-                    container.innerHTML += `<img src="${url}" class="h-16 w-16 object-cover rounded border">`;
-                });
+                slotUrls  = [imgs[0] || null, imgs[1] || null, imgs[2] || null, imgs[3] || null];
+                slotFiles = [null, null, null, null];
+                renderSlots();
 
                 byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
             } catch (e) { console.error(e); }
@@ -922,66 +973,68 @@
             byId("productForm").reset();
             byId("productId").value = "";
             byId("productFeedback").textContent = "";
-            byId("productImagesPreviewContainer").innerHTML = "";
+            byId("productFormTitle").textContent = "Novo produto";
+            byId("descCounter").textContent = "0 / 1500";
+            slotUrls  = [null, null, null, null];
+            slotFiles = [null, null, null, null];
+            renderSlots();
         };
 
         byId("productForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const fb = byId("productFeedback");
-            const name = byId("productName").value.trim();
-            const files = byId("productImageFile").files;
-            let imageUrls = [];
+            const fb  = byId("productFeedback");
+            const btn = byId("productSaveBtn");
+            const id  = byId("productId").value;
 
-            // Se estiver editando, pega as fotos que já existiam
-            const id = byId("productId").value;
-            if (id) {
-                const doc = await db.collection("products").doc(id).get();
-                const p = doc.data();
-                imageUrls = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
+            if (!slotUrls.some(Boolean) && !slotFiles.some(Boolean)) {
+                fb.textContent = "Adicione pelo menos a foto principal.";
+                fb.className = "text-sm text-red-600";
+                return;
             }
 
-            if (files.length > 0) {
-                fb.textContent = `Fazendo upload de ${files.length} imagem(ns)...`;
-                fb.className = "text-sm text-slate-500";
-                try {
-                    // Limita a 4 fotos no total
-                    const uploadPromises = Array.from(files).slice(0, 4).map(file => uploadImage(file, "products"));
-                    const newUrls = await Promise.all(uploadPromises);
-                    imageUrls = newUrls; // Substitui as antigas pelas novas
-                } catch (err) {
-                    fb.textContent = `Erro no upload: ${err.message}`;
-                    fb.className = "text-sm text-red-600";
-                    return;
-                }
-            }
-
-            const payload = {
-                name,
-                category: byId("productCategory").value,
-                description: byId("productDescription").value.trim(),
-                imageUrls: imageUrls, // Salva o array de fotos
-                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-            };
-
+            btn.disabled = true;
+            btn.textContent = "Salvando...";
             try {
+                fb.textContent = "Enviando imagens...";
+                fb.className = "text-sm text-slate-500";
+                const finalUrls = await Promise.all([0, 1, 2, 3].map(async (i) =>
+                    slotFiles[i] ? await uploadImage(slotFiles[i], "products") : slotUrls[i]
+                ));
+                const imageUrls = finalUrls.filter(Boolean);
+
+                const payload = {
+                    name: byId("productName").value.trim(),
+                    category: byId("productCategory").value,
+                    description: byId("productDescription").value.trim(),
+                    imageUrls,
+                    imageUrl: imageUrls[0] || "",
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
                 if (id) {
                     await db.collection("products").doc(id).update(payload);
                 } else {
                     payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
                     await db.collection("products").add(payload);
                 }
-                fb.textContent = "✓ Salvo!";
-                fb.className = "text-sm text-emerald-600";
                 resetProductForm();
+                fb.textContent = "✓ Produto salvo!";
+                fb.className = "text-sm text-emerald-600";
+                setTimeout(() => { fb.textContent = ""; }, 3000);
                 await loadAdminProducts();
-            } catch (e) {
-                console.error(e);
-                fb.textContent = `Erro ao salvar: ${e.message}`;
+            } catch (err) {
+                console.error(err);
+                fb.textContent = `Erro ao salvar: ${err.message}`;
                 fb.className = "text-sm text-red-600";
+            } finally {
+                btn.disabled = false;
+                btn.textContent = "Salvar produto";
             }
         });
 
-        // ---------- Inquiries ----------
+        renderSlots();
+
+        // ---------- Mensagens recebidas ----------
         async function loadInquiries() {
             const list = byId("inquiriesList");
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
