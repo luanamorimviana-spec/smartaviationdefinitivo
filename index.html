@@ -170,10 +170,10 @@
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
                         <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Quem Somos</span>
-                        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">
+                        <h2 id="aboutTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">
                             Liderança técnica e compromisso absoluto com a segurança de voo.
                         </h2>
-                        <p class="text-slate-600 mb-6 leading-relaxed">
+                        <p id="aboutText1" class="text-slate-600 mb-6 leading-relaxed">
                             A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes altamente qualificadas e ferramentas de diagnóstico de última geração.
                         </p>
                         <div class="space-y-4">
@@ -182,8 +182,8 @@
                                     <i class="fa-solid fa-shield-halved"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
-                                    <p class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
+                                    <h4 id="aboutFeature1Title" class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
+                                    <p id="aboutFeature1Desc" class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
@@ -191,8 +191,8 @@
                                     <i class="fa-solid fa-gears"></i>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-slate-900">Tecnologia Avançada</h4>
-                                    <p class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
+                                    <h4 id="aboutFeature2Title" class="font-bold text-slate-900">Tecnologia Avançada</h4>
+                                    <p id="aboutFeature2Desc" class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
                                 </div>
                             </div>
                         </div>
@@ -375,17 +375,57 @@
 
                 <!-- Tab 1: Content Editor -->
                 <div id="adminTabContent" class="space-y-4">
-                    <h4 class="font-bold text-slate-800 text-lg mb-2">Editar Conteúdos do Site</h4>
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Editar Textos e Layout do Site</h4>
                     <form onsubmit="saveSiteContent(event)" class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Título do Hero</label>
-                            <input type="text" id="editHeroTitle" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                        <div class="border-b pb-4">
+                            <h5 class="font-bold text-aero-primary mb-2">Banner de Topo (Hero)</h5>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Título do Banner</label>
+                                    <input type="text" id="editHeroTitle" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Subtítulo do Banner</label>
+                                    <textarea id="editHeroSubtitle" rows="2" class="w-full border border-slate-300 rounded-lg px-4 py-2"></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label class="block text-sm font-medium text-slate-700 mb-1">Subtítulo do Hero</label>
-                            <textarea id="editHeroSubtitle" rows="2" class="w-full border border-slate-300 rounded-lg px-4 py-2"></textarea>
+
+                        <div class="border-b pb-4">
+                            <h5 class="font-bold text-aero-primary mb-2">Seção "Quem Somos"</h5>
+                            <div class="space-y-3">
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Título Principal</label>
+                                    <input type="text" id="editAboutTitle" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-slate-700 mb-1">Texto Descritivo</label>
+                                    <textarea id="editAboutText1" rows="3" class="w-full border border-slate-300 rounded-lg px-4 py-2"></textarea>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">Título Tópico 1</label>
+                                        <input type="text" id="editAboutFeature1Title" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">Descrição Tópico 1</label>
+                                        <input type="text" id="editAboutFeature1Desc" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                    </div>
+                                </div>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">Título Tópico 2</label>
+                                        <input type="text" id="editAboutFeature2Title" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm font-medium text-slate-700 mb-1">Descrição Tópico 2</label>
+                                        <input type="text" id="editAboutFeature2Desc" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                             <div>
                                 <label class="block text-sm font-medium text-slate-700 mb-1">Telefone de Contato</label>
                                 <input type="text" id="editPhone" class="w-full border border-slate-300 rounded-lg px-4 py-2">
@@ -460,376 +500,4 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Categoria</label>
                         <select id="prodCategory" class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                            <option value="Aviónicos">Aviónicos</option>
-                            <option value="Instrumentos">Instrumentos</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Número de Peça (P/N)</label>
-                        <input type="text" id="prodPN" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Certificação</label>
-                        <input type="text" id="prodCert" value="ANAC / FAA Form 8130-3" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Descrição Técnica</label>
-                    <textarea id="prodDesc" rows="3" required class="w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
-                </div>
-                <div>
-                    <label class="block text-sm font-medium text-slate-700 mb-1">Enviar Imagem do Produto (Computador/Celular)</label>
-                    <input type="file" id="prodImageFile" accept="image/*" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-50 cursor-pointer">
-                </div>
-                <div class="flex justify-end gap-3 pt-4">
-                    <button type="button" onclick="closeProductModal()" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg">Cancelar</button>
-                    <button type="submit" class="px-6 py-2 bg-aero-primary text-white font-bold rounded-lg shadow hover:bg-aero-dark">Salvar Produto</button>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <!-- Application Logic Script -->
-    <script>
-        let siteContent = {
-            heroTitle: "Soluções Globais para a Indústria Aeronáutica",
-            heroSubtitle: "Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.",
-            phone: "+55 (62) 3333-4444",
-            email: "contato@smartaviation.com.br",
-            address: "Anápolis, Goiás - Brasil"
-        };
-
-        let products = [
-            {
-                id: "prod-1",
-                name: "Sistema Giroscópico de Navegação",
-                category: "Aviónicos",
-                pn: "GYRO-NAV-900X",
-                cert: "ANAC / FAA Form 8130-3",
-                desc: "Unidade de referência inercial de alta precisão com suporte a rotação de alta estabilidade térmica e calibração computadorizada.",
-                mainImg: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800",
-                thumbs: [
-                    "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800",
-                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
-                    "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800"
-                ]
-            },
-            {
-                id: "prod-2",
-                name: "Altimetria Digital de Bordo",
-                category: "Instrumentos",
-                pn: "ALT-DIG-500",
-                cert: "EASA Part 21 / ANAC",
-                desc: "Indicador barométrico digital integrado com alerta de altitude e redundância de sensores estáticos.",
-                mainImg: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800",
-                thumbs: [
-                    "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800",
-                    "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800",
-                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
-                ]
-            }
-        ];
-
-        let currentFilter = 'all';
-        let adminCredentials = { email: "luan.amorim.viana@gmail.com", pass: "12345678" };
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderSite();
-            renderCatalog();
-
-            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
-                document.getElementById('mobileMenu').classList.toggle('hidden');
-            });
-        });
-
-        function sanitizeHTML(str) {
-            const temp = document.createElement('div');
-            temp.textContent = str;
-            return temp.innerHTML;
-        }
-
-        function showToast(msg, isError = false) {
-            const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toastMsg');
-            const toastIcon = document.getElementById('toastIcon');
-            
-            toastMsg.textContent = msg;
-            toastIcon.className = isError ? "fa-solid fa-circle-exclamation text-red-400 text-lg" : "fa-solid fa-circle-check text-emerald-400 text-lg";
-            
-            toast.classList.remove('translate-y-20', 'opacity-0');
-            setTimeout(() => {
-                toast.classList.add('translate-y-20', 'opacity-0');
-            }, 3500);
-        }
-
-        function renderSite() {
-            document.getElementById('heroTitle').textContent = siteContent.heroTitle;
-            document.getElementById('heroSubtitle').textContent = siteContent.heroSubtitle;
-            document.getElementById('contactPhone').textContent = siteContent.phone;
-            document.getElementById('contactEmail').textContent = siteContent.email;
-            document.getElementById('contactAddress').textContent = siteContent.address;
-
-            document.getElementById('editHeroTitle').value = siteContent.heroTitle;
-            document.getElementById('editHeroSubtitle').value = siteContent.heroSubtitle;
-            document.getElementById('editPhone').value = siteContent.phone;
-            document.getElementById('editEmail').value = siteContent.email;
-        }
-
-        function filterCatalog(category) {
-            currentFilter = category;
-            document.querySelectorAll('.cat-btn').forEach(btn => {
-                if(btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === 'Todos')) {
-                    btn.className = "cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm";
-                } else {
-                    btn.className = "cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
-                }
-            });
-            renderCatalog();
-        }
-
-        function renderCatalog() {
-            const container = document.getElementById('catalogContainer');
-            if(!container) return;
-            container.innerHTML = '';
-
-            const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
-
-            if(filtered.length === 0) {
-                container.innerHTML = `<div class="col-span-2 text-center py-12 text-slate-500">Nenhum produto encontrado nesta categoria.</div>`;
-                return;
-            }
-
-            filtered.forEach(p => {
-                const card = document.createElement('div');
-                card.className = "bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between";
-                card.innerHTML = `
-                    <div>
-                        <div class="mb-4">
-                            <div class="rounded-xl overflow-hidden shadow-md bg-slate-200 h-64 mb-3">
-                                <img id="main-img-${p.id}" src="${sanitizeHTML(p.mainImg)}" alt="${sanitizeHTML(p.name)}" class="w-full h-full object-cover transition duration-300">
-                            </div>
-                            <div class="grid grid-cols-3 gap-2">
-                                ${p.thumbs.map((t) => `
-                                    <div onclick="switchProductImage('${p.id}', '${sanitizeHTML(t)}')" class="rounded-lg overflow-hidden h-20 bg-slate-200 cursor-pointer border-2 border-transparent hover:border-aero-light transition">
-                                        <img src="${sanitizeHTML(t)}" class="w-full h-full object-cover">
-                                    </div>
-                                `).join('')}
-                            </div>
-                        </div>
-
-                        <div class="flex items-center justify-between mb-2">
-                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-aero-primary/10 text-aero-primary">${sanitizeHTML(p.category)}</span>
-                            <span class="text-xs font-semibold text-slate-500">P/N: ${sanitizeHTML(p.pn)}</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-slate-900 mb-2">${sanitizeHTML(p.name)}</h3>
-                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">${sanitizeHTML(p.desc)}</p>
-                        <div class="text-xs font-bold text-slate-500 mb-6 flex items-center gap-1">
-                            <i class="fa-solid fa-certificate text-amber-500"></i> Certificação: ${sanitizeHTML(p.cert)}
-                        </div>
-                    </div>
-                    <a href="#contact" class="w-full py-3 bg-aero-primary hover:bg-aero-dark text-white font-bold rounded-xl text-center transition block shadow">
-                        Solicitar Orçamento
-                    </a>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function switchProductImage(prodId, imgUrl) {
-            const mainImg = document.getElementById(`main-img-${prodId}`);
-            if(mainImg) {
-                mainImg.style.opacity = '0.3';
-                setTimeout(() => {
-                    mainImg.src = imgUrl;
-                    mainImg.style.opacity = '1';
-                }, 150);
-            }
-        }
-
-        function handleContactSubmit(e) {
-            e.preventDefault();
-            showToast("Mensagem enviada com sucesso! Nossa equipe entrará em contacto.");
-            e.target.reset();
-        }
-
-        function toggleAdminModal(show) {
-            const modal = document.getElementById('adminModal');
-            if(show) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            } else {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        function handleAdminLogin(e) {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value;
-            const pass = document.getElementById('loginPassword').value;
-
-            firebase.auth().signInWithEmailAndPassword(email, pass)
-                .then((userCredential) => {
-                    showToast("Login efetuado com sucesso!");
-                    document.getElementById('adminLoginView').classList.add('hidden');
-                    document.getElementById('adminDashboardView').classList.remove('hidden');
-                    renderAdminProducts();
-                })
-                .catch((error) => {
-                    if (email === adminCredentials.email && pass === adminCredentials.pass) {
-                        showToast("Login efetuado com sucesso (Modo Local)!");
-                        document.getElementById('adminLoginView').classList.add('hidden');
-                        document.getElementById('adminDashboardView').classList.remove('hidden');
-                        renderAdminProducts();
-                    } else {
-                        showToast("Erro ao entrar: " + error.message, true);
-                    }
-                });
-        }
-
-        function switchAdminTab(tabName) {
-            document.getElementById('adminTabContent').classList.add('hidden');
-            document.getElementById('adminTabProducts').classList.add('hidden');
-            document.getElementById('adminTabSecurity').classList.add('hidden');
-            
-            document.getElementById('tabBtnContent').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
-            document.getElementById('tabBtnProducts').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
-            document.getElementById('tabBtnSecurity').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
-
-            if(tabName === 'content') {
-                document.getElementById('adminTabContent').classList.remove('hidden');
-                document.getElementById('tabBtnContent').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
-            } else if(tabName === 'products') {
-                document.getElementById('adminTabProducts').classList.remove('hidden');
-                document.getElementById('tabBtnProducts').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
-                renderAdminProducts();
-            } else if(tabName === 'security') {
-                document.getElementById('adminTabSecurity').classList.remove('hidden');
-                document.getElementById('tabBtnSecurity').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
-            }
-        }
-
-        function saveSiteContent(e) {
-            e.preventDefault();
-            siteContent.heroTitle = document.getElementById('editHeroTitle').value;
-            siteContent.heroSubtitle = document.getElementById('editHeroSubtitle').value;
-            siteContent.phone = document.getElementById('editPhone').value;
-            siteContent.email = document.getElementById('editEmail').value;
-            renderSite();
-            showToast("Alterações salvas com sucesso!");
-        }
-
-        function updateCredentials(e) {
-            e.preventDefault();
-            const newEmail = document.getElementById('newAdminEmail').value;
-            const newPass = document.getElementById('newAdminPass').value;
-            adminCredentials.email = newEmail;
-            if(newPass) adminCredentials.pass = newPass;
-            showToast("Credenciais atualizadas com sucesso!");
-        }
-
-        // Funções de Gestão de Produtos com Upload via Firebase Storage
-        function openProductModal() {
-            const modal = document.getElementById('productModal');
-            const form = document.getElementById('productForm');
-            form.reset();
-            document.getElementById('prodId').value = '';
-            document.getElementById('productModalTitle').textContent = "Adicionar Novo Produto";
-            
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
-
-        function closeProductModal() {
-            const modal = document.getElementById('productModal');
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-        }
-
-        function saveProductData(e) {
-            e.preventDefault();
-            
-            const fileInput = document.getElementById('prodImageFile');
-            const file = fileInput.files[0];
-            
-            const id = 'prod-' + Date.now();
-            const name = document.getElementById('prodName').value;
-            const category = document.getElementById('prodCategory').value;
-            const pn = document.getElementById('prodPN').value;
-            const cert = document.getElementById('prodCert').value;
-            const desc = document.getElementById('prodDesc').value;
-
-            if (file) {
-                showToast("Enviando imagem para o Firebase Storage...");
-                const storageRef = firebase.storage().ref().child(`products/${id}_${file.name}`);
-                
-                storageRef.put(file).then((snapshot) => {
-                    return snapshot.ref.getDownloadURL();
-                }).then((downloadURL) => {
-                    finalizeProductSave(id, name, category, pn, cert, desc, downloadURL);
-                }).catch((error) => {
-                    showToast("Erro ao enviar imagem: " + error.message, true);
-                });
-            } else {
-                // Imagem padrão caso nenhuma seja selecionada
-                const defaultImg = "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800";
-                finalizeProductSave(id, name, category, pn, cert, desc, defaultImg);
-            }
-        }
-
-        function finalizeProductSave(id, name, category, pn, cert, desc, imageUrl) {
-            const newProduct = {
-                id: id,
-                name: name,
-                category: category,
-                pn: pn,
-                cert: cert,
-                desc: desc,
-                mainImg: imageUrl,
-                thumbs: [imageUrl, imageUrl, imageUrl]
-            };
-
-            products.push(newProduct);
-            renderCatalog();
-            renderAdminProducts();
-            
-            closeProductModal();
-            showToast("Produto e imagem salvos com sucesso!");
-        }
-
-        function renderAdminProducts() {
-            const listContainer = document.getElementById('adminProductList');
-            if (!listContainer) return;
-            
-            listContainer.innerHTML = '';
-
-            products.forEach(p => {
-                const item = document.createElement('div');
-                item.className = "flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl";
-                item.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <img src="${sanitizeHTML(p.mainImg)}" class="w-12 h-12 object-cover rounded-lg">
-                        <div>
-                            <h5 class="font-bold text-slate-800 text-sm">${sanitizeHTML(p.name)}</h5>
-                            <span class="text-xs text-slate-500">P/N: ${sanitizeHTML(p.pn)} | ${sanitizeHTML(p.category)}</span>
-                        </div>
-                    </div>
-                    <button onclick="deleteProduct('${p.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Excluir produto">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                `;
-                listContainer.appendChild(item);
-            });
-        }
-
-        function deleteProduct(id) {
-            products = products.filter(p => p.id !== id);
-            renderCatalog();
-            renderAdminProducts();
-            showToast("Produto removido com sucesso!");
-        }
-    </script>
-</body>
-</html>
+                            <option value="Aviónicos
