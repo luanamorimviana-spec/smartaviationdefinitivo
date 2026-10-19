@@ -174,7 +174,7 @@
                             Liderança técnica e compromisso absoluto com a segurança de voo.
                         </h2>
                         <p id="aboutText1" class="text-slate-600 mb-6 leading-relaxed">
-                            A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes altamente qualificadas e ferramentas de diagnóstico de última geração.
+                            A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes highly qualificadas e ferramentas de diagnóstico de última geração.
                         </p>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4">
@@ -500,4 +500,50 @@
                     <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Categoria</label>
                         <select id="prodCategory" class="w-full border border-slate-300 rounded-lg px-3 py-2">
-                            <option value="Aviónicos
+                            <option value="Aviónicos">Aviónicos</option>
+                            <option value="Instrumentos">Instrumentos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Número de Peça (P/N)</label>
+                        <input type="text" id="prodPN" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Descrição do Produto</label>
+                    <textarea id="prodDesc" rows="3" required class="w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">1 Imagem Principal (Grande)</label>
+                        <input type="file" id="prodMainImageFile" accept="image/*" class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-50 cursor-pointer">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">3 Miniaturas Menores (Selecione juntas)</label>
+                        <input type="file" id="prodThumbFiles" accept="image/*" multiple class="w-full border border-slate-300 rounded-lg px-3 py-2 text-sm bg-slate-50 cursor-pointer">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeProductModal()" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-aero-primary text-white font-bold rounded-lg shadow hover:bg-aero-dark">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script>
+        let siteContent = {
+            heroTitle: "Soluções Globais para a Indústria Aeronáutica",
+            heroSubtitle: "Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.",
+            aboutTitle: "Liderança técnica e compromisso absoluto com a segurança de voo.",
+            aboutText1: "A Smart Aviation nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes altamente qualificadas e ferramentas de diagnóstico de última geração.",
+            aboutFeature1Title: "Segurança em Primeiro Lugar",
+            aboutFeature1Desc: "Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.",
+            aboutFeature2Title: "Tecnologia Avançada",
+            aboutFeature2Desc: "Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.",
+            phone: "+55 (62) 3333-4444",
+            email: "contato@smartaviation.com.br",
+            address: "Anápolis, Goiás - Brasil
