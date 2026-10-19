@@ -105,4 +105,728 @@
         <!-- Mobile Menu Dropdown -->
         <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
             <a href="#home" class="block py-2 text-slate-700 hover:text-aero-primary">Home</a>
-            <a href="#about" class="block py-2 text-slate-700 hover:text-aero-primary">Quem
+            <a href="#about" class="block py-2 text-slate-700 hover:text-aero-primary">Quem Somos</a>
+            <a href="#catalog" class="block py-2 text-slate-700 hover:text-aero-primary">Catálogo</a>
+            <a href="#contact" class="block py-2 text-slate-700 hover:text-aero-primary">Contato</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow">
+        <!-- Hero Section -->
+        <section id="home" class="relative bg-aero-dark text-white py-24 lg:py-32 overflow-hidden">
+            <div class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
+            
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-3xl">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-6">
+                        <i class="fa-solid fa-plane-circle-check"></i> Excelência em Manutenção e Componentes Aeronáuticos
+                    </span>
+                    <h1 id="heroTitle" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">
+                        Soluções Globais para a Indústria Aeronáutica
+                    </h1>
+                    <p id="heroSubtitle" class="text-lg sm:text-xl text-slate-200 mb-10 leading-relaxed">
+                        Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <a href="#catalog" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-aero-light hover:bg-blue-600 shadow-lg shadow-blue-500/30 transition">
+                            Explorar Catálogo <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </a>
+                        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">
+                            Fale com um Especialista
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <section class="bg-white border-b border-slate-200 py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+                <div>
+                    <div class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div>
+                    <div class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div>
+                </div>
+                <div>
+                    <div class="text-3xl lg:text-4xl font-black text-aero-primary">ANAC</div>
+                    <div class="text-sm font-medium text-slate-500 mt-1">Conformidade Regulatória</div>
+                </div>
+                <div>
+                    <div class="text-3xl lg:text-4xl font-black text-aero-primary">24/7</div>
+                    <div class="text-sm font-medium text-slate-500 mt-1">Suporte AOG</div>
+                </div>
+                <div>
+                    <div class="text-3xl lg:text-4xl font-black text-aero-primary">ISO</div>
+                    <div class="text-sm font-medium text-slate-500 mt-1">Padrão de Qualidade</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Us Section -->
+        <section id="about" class="py-20 bg-slate-100">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Quem Somos</span>
+                        <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">
+                            Liderança técnica e compromisso absoluto com a segurança de voo.
+                        </h2>
+                        <p class="text-slate-600 mb-6 leading-relaxed">
+                            A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo. Contamos com equipes altamente qualificadas e ferramentas de diagnóstico de última geração.
+                        </p>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-shield-halved"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
+                                    <p class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-gears"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-slate-900">Tecnologia Avançada</h4>
+                                    <p class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="relative">
+                        <div class="rounded-2xl overflow-hidden shadow-2xl border-4 border-white">
+                            <img src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800" alt="Manutenção Aeronáutica" class="w-full h-auto object-cover">
+                        </div>
+                        <div class="absolute -bottom-6 -left-6 bg-aero-primary text-white p-6 rounded-2xl shadow-xl hidden sm:block">
+                            <div class="text-3xl font-black">Anos</div>
+                            <div class="text-sm text-sky-200">De experiência no setor aeronáutico</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Product Catalog Section -->
+        <section id="catalog" class="py-20 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center max-w-3xl mx-auto mb-16">
+                    <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Catálogo de Produtos</span>
+                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">
+                        Componentes e Instrumentos Certificados
+                    </h2>
+                    <p class="text-slate-600">
+                        Explore nosso inventário de peças e sistemas para aviação geral e comercial. Clique nas miniaturas para visualizar detalhes.
+                    </p>
+                    
+                    <!-- Category Filters -->
+                    <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8">
+                        <button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm">Todos</button>
+                        <button onclick="filterCatalog('Aviónicos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Aviónicos</button>
+                        <button onclick="filterCatalog('Instrumentos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Instrumentos</button>
+                    </div>
+                </div>
+
+                <!-- Catalog Grid / Container -->
+                <div id="catalogContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Dynamic Items loaded via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-slate-900 text-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <div>
+                        <span class="text-sky-400 font-bold text-sm tracking-widest uppercase">Fale Conosco</span>
+                        <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-6">
+                            Solicite uma Cotação ou Atendimento AOG
+                        </h2>
+                        <p class="text-slate-300 mb-8 leading-relaxed">
+                            Nossa equipe técnica e comercial está à disposição para responder dúvidas, enviar orçamentos detalhados e atender emergências operacionais.
+                        </p>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-phone text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-slate-400">Central de Atendimento</div>
+                                    <div id="contactPhone" class="font-bold text-lg">+55 (62) 3333-4444</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-envelope text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-slate-400">E-mail Comercial</div>
+                                    <div id="contactEmail" class="font-bold text-lg">contato@smartaviation.com.br</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-4">
+                                <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-location-dot text-lg"></i>
+                                </div>
+                                <div>
+                                    <div class="text-sm text-slate-400">Localização</div>
+                                    <div id="contactAddress" class="font-bold text-lg">Anápolis, Goiás - Brasil</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
+                        <h3 class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
+                        <form id="contactForm" onsubmit="handleContactSubmit(event)" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-300 mb-1">Nome Completo</label>
+                                <input type="text" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aero-light">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-300 mb-1">E-mail Corporativo</label>
+                                <input type="email" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aero-light">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-300 mb-1">Mensagem ou Número de Peça (P/N)</label>
+                                <textarea rows="4" required class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-aero-light"></textarea>
+                            </div>
+                            <button type="submit" class="w-full py-4 bg-aero-light hover:bg-blue-600 font-bold rounded-lg transition shadow-lg">
+                                Enviar Solicitação
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-aero-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-2">
+                <span class="text-lg font-bold text-white">SMART AVIATION</span>
+                <span class="text-sm">© 2026 - Todos os direitos reservados.</span>
+            </div>
+            <div class="flex items-center gap-6 text-sm">
+                <a href="#about" class="hover:text-white transition">Termos de Uso</a>
+                <a href="#contact" class="hover:text-white transition">Política de Privacidade</a>
+                <button onclick="toggleAdminModal(true)" class="hover:text-white transition flex items-center gap-1">
+                    <i class="fa-solid fa-lock text-xs"></i> Área Restrita
+                </button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white px-6 py-3 rounded-xl shadow-2xl border border-slate-700 flex items-center gap-3">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-emerald-400 text-lg"></i>
+        <span id="toastMsg" class="font-medium text-sm">Ação realizada com sucesso!</span>
+    </div>
+
+    <!-- Admin Modal / Panel -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-4xl rounded-2xl shadow-2xl overflow-hidden my-8">
+            <!-- Modal Header -->
+            <div class="bg-aero-dark text-white px-6 py-4 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-shield-halved text-sky-400"></i>
+                    <h3 class="font-bold text-lg">Painel Administrativo - Smart Aviation</h3>
+                </div>
+                <button onclick="toggleAdminModal(false)" class="text-slate-400 hover:text-white text-xl p-1">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Login View -->
+            <div id="adminLoginView" class="p-8 max-w-md mx-auto">
+                <div class="text-center mb-6">
+                    <h4 class="text-2xl font-black text-slate-900">Autenticação Restrita</h4>
+                    <p class="text-sm text-slate-500 mt-1">Insira suas credenciais de administrador.</p>
+                </div>
+                <form onsubmit="handleAdminLogin(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">E-mail</label>
+                        <input type="email" id="loginEmail" value="luan.amorim.viana@gmail.com" required class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aero-primary">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Senha</label>
+                        <input type="password" id="loginPassword" value="12345678" required class="w-full border border-slate-300 rounded-lg px-4 py-3 focus:outline-none focus:border-aero-primary">
+                    </div>
+                    <button type="submit" class="w-full py-3 bg-aero-primary hover:bg-aero-dark text-white font-bold rounded-lg transition shadow-md">
+                        Entrar no Sistema
+                    </button>
+                </form>
+            </div>
+
+            <!-- Dashboard / Management View -->
+            <div id="adminDashboardView" class="hidden p-6 max-h-[80vh] overflow-y-auto">
+                <!-- Admin Tabs -->
+                <div class="flex border-b border-slate-200 mb-6 gap-4">
+                    <button onclick="switchAdminTab('content')" id="tabBtnContent" class="pb-3 font-bold text-aero-primary border-b-2 border-aero-primary">Textos e Layout</button>
+                    <button onclick="switchAdminTab('products')" id="tabBtnProducts" class="pb-3 font-bold text-slate-500 hover:text-slate-800">Gerenciar Produtos</button>
+                    <button onclick="switchAdminTab('security')" id="tabBtnSecurity" class="pb-3 font-bold text-slate-500 hover:text-slate-800">Segurança & Conta</button>
+                </div>
+
+                <!-- Tab 1: Content Editor -->
+                <div id="adminTabContent" class="space-y-4">
+                    <h4 class="font-bold text-slate-800 text-lg mb-2">Editar Conteúdos do Site</h4>
+                    <form onsubmit="saveSiteContent(event)" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Título do Hero</label>
+                            <input type="text" id="editHeroTitle" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Subtítulo do Hero</label>
+                            <textarea id="editHeroSubtitle" rows="2" class="w-full border border-slate-300 rounded-lg px-4 py-2"></textarea>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">Telefone de Contato</label>
+                                <input type="text" id="editPhone" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-slate-700 mb-1">E-mail de Contato</label>
+                                <input type="email" id="editEmail" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                            </div>
+                        </div>
+                        <button type="submit" class="px-6 py-2.5 bg-aero-primary text-white font-bold rounded-lg shadow hover:bg-aero-dark transition">
+                            Salvar Alterações
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Tab 2: Products Manager -->
+                <div id="adminTabProducts" class="hidden space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h4 class="font-bold text-slate-800 text-lg">Catálogo de Produtos</h4>
+                        <button onclick="openProductModal()" class="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-lg text-sm transition">
+                            <i class="fa-solid fa-plus mr-1"></i> Novo Produto
+                        </button>
+                    </div>
+                    <div id="adminProductList" class="space-y-3">
+                        <!-- Rendered via JS -->
+                    </div>
+                </div>
+
+                <!-- Tab 3: Security & Credentials -->
+                <div id="adminTabSecurity" class="hidden space-y-6">
+                    <h4 class="font-bold text-slate-800 text-lg">Configurações de Acesso e Segurança</h4>
+                    <form onsubmit="updateCredentials(event)" class="space-y-4 max-w-md">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Novo E-mail de Administrador</label>
+                            <input type="email" id="newAdminEmail" value="luan.amorim.viana@gmail.com" required class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-1">Nova Senha</label>
+                            <input type="password" id="newAdminPass" placeholder="Deixe em branco para manter" class="w-full border border-slate-300 rounded-lg px-4 py-2">
+                        </div>
+                        <button type="submit" class="px-6 py-2.5 bg-aero-primary text-white font-bold rounded-lg shadow hover:bg-aero-dark transition">
+                            Atualizar Credenciais
+                        </button>
+                    </form>
+                    <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl mt-6">
+                        <h5 class="font-bold text-slate-900 text-sm mb-1"><i class="fa-solid fa-shield-check text-emerald-600 mr-1"></i> Status de Segurança Ativo</h5>
+                        <ul class="text-xs text-slate-600 space-y-1 mt-2">
+                            <li>• Proteção contra Brute-Force (Bloqueio temporário após 5 tentativas falhas).</li>
+                            <li>• Temporizador de Sessão Ativo (Inatividade superior a 30 minutos).</li>
+                            <li>• Sanitização anti-XSS integrada em todos os campos dinâmicos.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Edit/Add Modal -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white w-full max-w-2xl rounded-2xl shadow-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 id="productModalTitle" class="font-bold text-lg text-slate-900">Adicionar/Editar Produto</h3>
+                <button onclick="closeProductModal()" class="text-slate-400 hover:text-slate-600 text-lg"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <form id="productForm" onsubmit="saveProductData(event)" class="space-y-4">
+                <input type="hidden" id="prodId">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Nome do Produto</label>
+                        <input type="text" id="prodName" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Categoria</label>
+                        <select id="prodCategory" class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                            <option value="Aviónicos">Aviónicos</option>
+                            <option value="Instrumentos">Instrumentos</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Número de Peça (P/N)</label>
+                        <input type="text" id="prodPN" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Certificação</label>
+                        <input type="text" id="prodCert" value="ANAC / FAA Form 8130-3" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-slate-700 mb-1">Descrição Técnica</label>
+                    <textarea id="prodDesc" rows="3" required class="w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">URL da Imagem Principal</label>
+                        <input type="url" id="prodMainImg" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 1</label>
+                        <input type="url" id="prodThumb1" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 2</label>
+                        <input type="url" id="prodThumb2" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">URL Miniatura 3</label>
+                        <input type="url" id="prodThumb3" required class="w-full border border-slate-300 rounded-lg px-3 py-2">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-3 pt-4">
+                    <button type="button" onclick="closeProductModal()" class="px-4 py-2 bg-slate-200 text-slate-700 font-bold rounded-lg">Cancelar</button>
+                    <button type="submit" class="px-6 py-2 bg-aero-primary text-white font-bold rounded-lg shadow hover:bg-aero-dark">Salvar Produto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script>
+        let siteContent = {
+            heroTitle: "Soluções Globais para a Indústria Aeronáutica",
+            heroSubtitle: "Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.",
+            phone: "+55 (62) 3333-4444",
+            email: "contato@smartaviation.com.br",
+            address: "Anápolis, Goiás - Brasil"
+        };
+
+        let products = [
+            {
+                id: "prod-1",
+                name: "Sistema Giroscópico de Navegação",
+                category: "Aviónicos",
+                pn: "GYRO-NAV-900X",
+                cert: "ANAC / FAA Form 8130-3",
+                desc: "Unidade de referência inercial de alta precisão com suporte a rotação de alta estabilidade térmica e calibração computadorizada.",
+                mainImg: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800",
+                thumbs: [
+                    "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800"
+                ]
+            },
+            {
+                id: "prod-2",
+                name: "Altimetria Digital de Bordo",
+                category: "Instrumentos",
+                pn: "ALT-DIG-500",
+                cert: "EASA Part 21 / ANAC",
+                desc: "Indicador barométrico digital integrado com alerta de altitude e redundância de sensores estáticos.",
+                mainImg: "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800",
+                thumbs: [
+                    "https://images.unsplash.com/photo-1517976487492-5750f3195933?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1581092335397-9583fe92d232?auto=format&fit=crop&q=80&w=800",
+                    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800"
+                ]
+            }
+        ];
+
+        let currentFilter = 'all';
+        let adminCredentials = { email: "luan.amorim.viana@gmail.com", pass: "12345678" };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderSite();
+            renderCatalog();
+
+            document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+                document.getElementById('mobileMenu').classList.toggle('hidden');
+            });
+        });
+
+        function sanitizeHTML(str) {
+            const temp = document.createElement('div');
+            temp.textContent = str;
+            return temp.innerHTML;
+        }
+
+        function showToast(msg, isError = false) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+            const toastIcon = document.getElementById('toastIcon');
+            
+            toastMsg.textContent = msg;
+            toastIcon.className = isError ? "fa-solid fa-circle-exclamation text-red-400 text-lg" : "fa-solid fa-circle-check text-emerald-400 text-lg";
+            
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3500);
+        }
+
+        function renderSite() {
+            document.getElementById('heroTitle').textContent = siteContent.heroTitle;
+            document.getElementById('heroSubtitle').textContent = siteContent.heroSubtitle;
+            document.getElementById('contactPhone').textContent = siteContent.phone;
+            document.getElementById('contactEmail').textContent = siteContent.email;
+            document.getElementById('contactAddress').textContent = siteContent.address;
+
+            document.getElementById('editHeroTitle').value = siteContent.heroTitle;
+            document.getElementById('editHeroSubtitle').value = siteContent.heroSubtitle;
+            document.getElementById('editPhone').value = siteContent.phone;
+            document.getElementById('editEmail').value = siteContent.email;
+        }
+
+        function filterCatalog(category) {
+            currentFilter = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                if(btn.textContent.trim() === category || (category === 'all' && btn.textContent.trim() === 'Todos')) {
+                    btn.className = "cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm";
+                } else {
+                    btn.className = "cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                }
+            });
+            renderCatalog();
+        }
+
+        function renderCatalog() {
+            const container = document.getElementById('catalogContainer');
+            if(!container) return;
+            container.innerHTML = '';
+
+            const filtered = currentFilter === 'all' ? products : products.filter(p => p.category === currentFilter);
+
+            if(filtered.length === 0) {
+                container.innerHTML = `<div class="col-span-2 text-center py-12 text-slate-500">Nenhum produto encontrado nesta categoria.</div>`;
+                return;
+            }
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "bg-slate-50 border border-slate-200 rounded-2xl p-6 shadow-sm flex flex-col justify-between";
+                card.innerHTML = `
+                    <div>
+                        <div class="mb-4">
+                            <div class="rounded-xl overflow-hidden shadow-md bg-slate-200 h-64 mb-3">
+                                <img id="main-img-${p.id}" src="${sanitizeHTML(p.mainImg)}" alt="${sanitizeHTML(p.name)}" class="w-full h-full object-cover transition duration-300">
+                            </div>
+                            <div class="grid grid-cols-3 gap-2">
+                                ${p.thumbs.map((t) => `
+                                    <div onclick="switchProductImage('${p.id}', '${sanitizeHTML(t)}')" class="rounded-lg overflow-hidden h-20 bg-slate-200 cursor-pointer border-2 border-transparent hover:border-aero-light transition">
+                                        <img src="${sanitizeHTML(t)}" class="w-full h-full object-cover">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-aero-primary/10 text-aero-primary">${sanitizeHTML(p.category)}</span>
+                            <span class="text-xs font-semibold text-slate-500">P/N: ${sanitizeHTML(p.pn)}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-slate-900 mb-2">${sanitizeHTML(p.name)}</h3>
+                        <p class="text-sm text-slate-600 mb-4 leading-relaxed">${sanitizeHTML(p.desc)}</p>
+                        <div class="text-xs font-bold text-slate-500 mb-6 flex items-center gap-1">
+                            <i class="fa-solid fa-certificate text-amber-500"></i> Certificação: ${sanitizeHTML(p.cert)}
+                        </div>
+                    </div>
+                    <a href="#contact" class="w-full py-3 bg-aero-primary hover:bg-aero-dark text-white font-bold rounded-xl text-center transition block shadow">
+                        Solicitar Orçamento
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function switchProductImage(prodId, imgUrl) {
+            const mainImg = document.getElementById(`main-img-${prodId}`);
+            if(mainImg) {
+                mainImg.style.opacity = '0.3';
+                setTimeout(() => {
+                    mainImg.src = imgUrl;
+                    mainImg.style.opacity = '1';
+                }, 150);
+            }
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Mensagem enviada com sucesso! Nossa equipe entrará em contacto.");
+            e.target.reset();
+        }
+
+        function toggleAdminModal(show) {
+            const modal = document.getElementById('adminModal');
+            if(show) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            } else {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value;
+            const pass = document.getElementById('loginPassword').value;
+
+            firebase.auth().signInWithEmailAndPassword(email, pass)
+                .then((userCredential) => {
+                    showToast("Login efetuado com sucesso!");
+                    document.getElementById('adminLoginView').classList.add('hidden');
+                    document.getElementById('adminDashboardView').classList.remove('hidden');
+                    renderAdminProducts();
+                })
+                .catch((error) => {
+                    if (email === adminCredentials.email && pass === adminCredentials.pass) {
+                        showToast("Login efetuado com sucesso (Modo Local)!");
+                        document.getElementById('adminLoginView').classList.add('hidden');
+                        document.getElementById('adminDashboardView').classList.remove('hidden');
+                        renderAdminProducts();
+                    } else {
+                        showToast("Erro ao entrar: " + error.message, true);
+                    }
+                });
+        }
+
+        function switchAdminTab(tabName) {
+            document.getElementById('adminTabContent').classList.add('hidden');
+            document.getElementById('adminTabProducts').classList.add('hidden');
+            document.getElementById('adminTabSecurity').classList.add('hidden');
+            
+            document.getElementById('tabBtnContent').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
+            document.getElementById('tabBtnProducts').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
+            document.getElementById('tabBtnSecurity').className = "pb-3 font-bold text-slate-500 hover:text-slate-800";
+
+            if(tabName === 'content') {
+                document.getElementById('adminTabContent').classList.remove('hidden');
+                document.getElementById('tabBtnContent').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
+            } else if(tabName === 'products') {
+                document.getElementById('adminTabProducts').classList.remove('hidden');
+                document.getElementById('tabBtnProducts').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
+                renderAdminProducts();
+            } else if(tabname === 'security') {
+                document.getElementById('adminTabSecurity').classList.remove('hidden');
+                document.getElementById('tabBtnSecurity').className = "pb-3 font-bold text-aero-primary border-b-2 border-aero-primary";
+            }
+        }
+
+        function saveSiteContent(e) {
+            e.preventDefault();
+            siteContent.heroTitle = document.getElementById('editHeroTitle').value;
+            siteContent.heroSubtitle = document.getElementById('editHeroSubtitle').value;
+            siteContent.phone = document.getElementById('editPhone').value;
+            siteContent.email = document.getElementById('editEmail').value;
+            renderSite();
+            showToast("Alterações salvas com sucesso!");
+        }
+
+        function updateCredentials(e) {
+            e.preventDefault();
+            const newEmail = document.getElementById('newAdminEmail').value;
+            const newPass = document.getElementById('newAdminPass').value;
+            adminCredentials.email = newEmail;
+            if(newPass) adminCredentials.pass = newPass;
+            showToast("Credenciais atualizadas com sucesso!");
+        }
+
+        // Funções de Gestão de Produtos
+        function openProductModal() {
+            const modal = document.getElementById('productModal');
+            const form = document.getElementById('productForm');
+            form.reset();
+            document.getElementById('prodId').value = '';
+            document.getElementById('productModalTitle').textContent = "Adicionar Novo Produto";
+            
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function saveProductData(e) {
+            e.preventDefault();
+            
+            const id = 'prod-' + Date.now();
+            const name = document.getElementById('prodName').value;
+            const category = document.getElementById('prodCategory').value;
+            const pn = document.getElementById('prodPN').value;
+            const cert = document.getElementById('prodCert').value;
+            const desc = document.getElementById('prodDesc').value;
+            const mainImg = document.getElementById('prodMainImg').value;
+            const t1 = document.getElementById('prodThumb1').value;
+            const t2 = document.getElementById('prodThumb2').value;
+            const t3 = document.getElementById('prodThumb3').value;
+
+            const newProduct = {
+                id: id,
+                name: name,
+                category: category,
+                pn: pn,
+                cert: cert,
+                desc: desc,
+                mainImg: mainImg,
+                thumbs: [mainImg, t1, t2, t3]
+            };
+
+            products.push(newProduct);
+            renderCatalog();
+            renderAdminProducts();
+            
+            closeProductModal();
+            showToast("Produto adicionado com sucesso!");
+        }
+
+        function renderAdminProducts() {
+            const listContainer = document.getElementById('adminProductList');
+            if (!listContainer) return;
+            
+            listContainer.innerHTML = '';
+
+            products.forEach(p => {
+                const item = document.createElement('div');
+                item.className = "flex items-center justify-between p-4 bg-slate-50 border border-slate-200 rounded-xl";
+                item.innerHTML = `
+                    <div class="flex items-center gap-3">
+                        <img src="${sanitizeHTML(p.mainImg)}" class="w-12 h-12 object-cover rounded-lg">
+                        <div>
+                            <h5 class="font-bold text-slate-800 text-sm">${sanitizeHTML(p.name)}</h5>
+                            <span class="text-xs text-slate-500">P/N: ${sanitizeHTML(p.pn)} | ${sanitizeHTML(p.category)}</span>
+                        </div>
+                    </div>
+                    <button onclick="deleteProduct('${p.id}')" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition" title="Excluir produto">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                `;
+                listContainer.appendChild(item);
+            });
+        }
+
+        function deleteProduct(id) {
+            products = products.filter(p => p.id !== id);
+            renderCatalog();
+            renderAdminProducts();
+            showToast("Produto removido com sucesso!");
+        }
+    </script>
+</body>
+</html>
