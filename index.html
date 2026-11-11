@@ -13,6 +13,17 @@
             }}}}
         }
     </script>
+    <style>
+        .inp { margin-top:.25rem; width:100%; border:1px solid #cbd5e1; border-radius:.5rem; padding:.5rem .75rem; font-weight:400; }
+        .inp:focus { outline:2px solid #1B63C0; }
+        .btn { background:#0A3B7B; color:#fff; font-weight:700; padding:.5rem 1.25rem; border-radius:.5rem; }
+        .btn:hover { background:#05224A; }
+        .btn:disabled { opacity:.6; }
+        .btn2 { background:#e2e8f0; font-weight:600; padding:.5rem 1rem; border-radius:.5rem; }
+        .btn2:hover { background:#cbd5e1; }
+        .card { background:#fff; border:1px solid #e2e8f0; border-radius:.75rem; padding:1.5rem; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+        .mini { padding:.25rem .75rem; border-radius:.5rem; font-size:.75rem; font-weight:600; }
+    </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
@@ -43,8 +54,9 @@
     <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
             <a href="#home" class="flex items-center gap-3 group">
-                <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-wider text-aero-primary group-hover:text-aero-light transition">SMART</span>
+                <img id="siteLogo" alt="Smart Aviation" class="hidden h-14 w-auto object-contain">
+                <div id="logoText" class="flex flex-col">
+                    <span data-t="logo.main" data-label="Logo - texto principal" class="text-2xl font-black tracking-wider text-aero-primary group-hover:text-aero-light transition">SMART</span>
                     <div class="flex items-center gap-1">
                         <div class="flex gap-0.5 h-1.5 w-8">
                             <span class="bg-emerald-600 w-1/3"></span>
@@ -55,18 +67,18 @@
                             <span class="bg-aero-primary w-1/2"></span>
                             <span class="bg-red-600 w-1/2"></span>
                         </div>
-                        <span class="text-xs font-bold tracking-widest text-slate-500 ml-1">AVIATION</span>
+                        <span data-t="logo.sub" data-label="Logo - texto secundário" class="text-xs font-bold tracking-widest text-slate-500 ml-1">AVIATION</span>
                     </div>
                 </div>
             </a>
             <nav class="hidden md:flex items-center gap-8 font-medium text-sm text-slate-700">
-                <a href="#home" class="hover:text-aero-primary transition">Home</a>
-                <a href="#about" class="hover:text-aero-primary transition">Quem Somos</a>
-                <a href="#catalog" class="hover:text-aero-primary transition">Catálogo</a>
-                <a href="#contact" class="hover:text-aero-primary transition">Contato</a>
+                <a href="#home" data-t="nav.home" data-label="Menu - Home" class="hover:text-aero-primary transition">Home</a>
+                <a href="#about" data-t="nav.about" data-label="Menu - Quem Somos" class="hover:text-aero-primary transition">Quem Somos</a>
+                <a href="#catalog" data-t="nav.catalog" data-label="Menu - Catálogo" class="hover:text-aero-primary transition">Catálogo</a>
+                <a href="#contact" data-t="nav.contact" data-label="Menu - Contato" class="hover:text-aero-primary transition">Contato</a>
             </nav>
             <div class="flex items-center gap-4">
-                <a href="#contact" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">Solicitar Cotação</a>
+                <a href="#contact" data-t="nav.cta" data-label="Botão do topo" class="hidden sm:inline-flex items-center justify-center px-4 py-2 rounded-lg shadow-sm text-sm font-medium text-white bg-aero-primary hover:bg-aero-dark transition">Solicitar Cotação</a>
                 <button id="adminAccessBtn" type="button" class="p-2 text-slate-600 hover:text-aero-primary transition rounded-full hover:bg-slate-100" title="Área Administrativa">
                     <i class="fa-solid fa-lock text-lg"></i>
                 </button>
@@ -76,10 +88,10 @@
             </div>
         </div>
         <div id="mobileMenu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2">
-            <a href="#home" class="block py-2 text-slate-700 hover:text-aero-primary">Home</a>
-            <a href="#about" class="block py-2 text-slate-700 hover:text-aero-primary">Quem Somos</a>
-            <a href="#catalog" class="block py-2 text-slate-700 hover:text-aero-primary">Catálogo</a>
-            <a href="#contact" class="block py-2 text-slate-700 hover:text-aero-primary">Contato</a>
+            <a href="#home" data-t="nav.home" class="block py-2 text-slate-700 hover:text-aero-primary">Home</a>
+            <a href="#about" data-t="nav.about" class="block py-2 text-slate-700 hover:text-aero-primary">Quem Somos</a>
+            <a href="#catalog" data-t="nav.catalog" class="block py-2 text-slate-700 hover:text-aero-primary">Catálogo</a>
+            <a href="#contact" data-t="nav.contact" class="block py-2 text-slate-700 hover:text-aero-primary">Contato</a>
         </div>
     </header>
 
@@ -90,13 +102,13 @@
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl">
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-6">
-                        <i class="fa-solid fa-plane-circle-check"></i> <span id="heroBadge">Excelência em Manutenção e Componentes Aeronáuticos</span>
+                        <i class="fa-solid fa-plane-circle-check"></i> <span data-t="hero.badge" data-label="Banner - selo">Excelência em Manutenção e Componentes Aeronáuticos</span>
                     </span>
-                    <h1 id="heroTitle" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">Soluções Globais para a Indústria Aeronáutica</h1>
-                    <p id="heroSubtitle" class="text-lg sm:text-xl text-slate-200 mb-10 leading-relaxed">Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.</p>
+                    <h1 data-t="hero.title" data-label="Banner - título" class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-tight mb-6">Soluções Globais para a Indústria Aeronáutica</h1>
+                    <p data-t="hero.subtitle" data-label="Banner - subtítulo" class="text-lg sm:text-xl text-slate-200 mb-10 leading-relaxed">Padrões rigorosos de engenharia, manutenção de instrumentos aviônicos e fornecimento certificado para garantir segurança e máxima eficiência em voo.</p>
                     <div class="flex flex-col sm:flex-row gap-4">
-                        <a href="#catalog" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-aero-light hover:bg-blue-600 shadow-lg shadow-blue-500/30 transition">Explorar Catálogo <i class="fa-solid fa-arrow-right ml-2"></i></a>
-                        <a href="#contact" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">Fale com um Especialista</a>
+                        <a href="#catalog" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-white bg-aero-light hover:bg-blue-600 shadow-lg shadow-blue-500/30 transition"><span data-t="hero.btn1" data-label="Banner - botão 1">Explorar Catálogo</span> <i class="fa-solid fa-arrow-right ml-2"></i></a>
+                        <a href="#contact" data-t="hero.btn2" data-label="Banner - botão 2" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">Fale com um Especialista</a>
                     </div>
                 </div>
             </div>
@@ -104,10 +116,10 @@
 
         <section class="bg-white border-b border-slate-200 py-8">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-                <div><div id="stat1Value" class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div><div id="stat1Label" class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div></div>
-                <div><div id="stat2Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ANAC</div><div id="stat2Label" class="text-sm font-medium text-slate-500 mt-1">Conformidade Regulatória</div></div>
-                <div><div id="stat3Value" class="text-3xl lg:text-4xl font-black text-aero-primary">24/7</div><div id="stat3Label" class="text-sm font-medium text-slate-500 mt-1">Suporte AOG</div></div>
-                <div><div id="stat4Value" class="text-3xl lg:text-4xl font-black text-aero-primary">ISO</div><div id="stat4Label" class="text-sm font-medium text-slate-500 mt-1">Padrão de Qualidade</div></div>
+                <div><div data-t="stats.1.value" data-label="Estatística 1 - valor" class="text-3xl lg:text-4xl font-black text-aero-primary">100%</div><div data-t="stats.1.label" data-label="Estatística 1 - descrição" class="text-sm font-medium text-slate-500 mt-1">Rastreabilidade</div></div>
+                <div><div data-t="stats.2.value" data-label="Estatística 2 - valor" class="text-3xl lg:text-4xl font-black text-aero-primary">ANAC</div><div data-t="stats.2.label" data-label="Estatística 2 - descrição" class="text-sm font-medium text-slate-500 mt-1">Conformidade Regulatória</div></div>
+                <div><div data-t="stats.3.value" data-label="Estatística 3 - valor" class="text-3xl lg:text-4xl font-black text-aero-primary">24/7</div><div data-t="stats.3.label" data-label="Estatística 3 - descrição" class="text-sm font-medium text-slate-500 mt-1">Suporte AOG</div></div>
+                <div><div data-t="stats.4.value" data-label="Estatística 4 - valor" class="text-3xl lg:text-4xl font-black text-aero-primary">ISO</div><div data-t="stats.4.label" data-label="Estatística 4 - descrição" class="text-sm font-medium text-slate-500 mt-1">Padrão de Qualidade</div></div>
             </div>
         </section>
 
@@ -115,22 +127,22 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     <div>
-                        <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Quem Somos</span>
-                        <h2 id="aboutTitle" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">Liderança técnica e compromisso absoluto com a segurança de voo.</h2>
-                        <p id="aboutText1" class="text-slate-600 mb-6 leading-relaxed">A <strong class="text-aero-dark">Smart Aviation</strong> nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo.</p>
+                        <span data-t="about.eyebrow" data-label="Quem Somos - etiqueta" class="text-aero-light font-bold text-sm tracking-widest uppercase">Quem Somos</span>
+                        <h2 data-t="about.title" data-label="Quem Somos - título" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-6">Liderança técnica e compromisso absoluto com a segurança de voo.</h2>
+                        <p data-t="about.text" data-label="Quem Somos - texto principal" class="text-slate-600 mb-6 leading-relaxed">A Smart Aviation nasceu da paixão pela aviação e da exigência por padrões elevados de manutenção em aviónicos e instrumentação de bordo.</p>
                         <div class="space-y-4">
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-shield-halved"></i></div>
                                 <div>
-                                    <h4 id="aboutFeature1Title" class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
-                                    <p id="aboutFeature1Desc" class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
+                                    <h4 data-t="about.f1.title" data-label="Destaque 1 - título" class="font-bold text-slate-900">Segurança em Primeiro Lugar</h4>
+                                    <p data-t="about.f1.desc" data-label="Destaque 1 - descrição" class="text-sm text-slate-600">Rigorosos testes de bancada e homologações aeronáuticas garantem confiabilidade total.</p>
                                 </div>
                             </div>
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-lg bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-gears"></i></div>
                                 <div>
-                                    <h4 id="aboutFeature2Title" class="font-bold text-slate-900">Tecnologia Avançada</h4>
-                                    <p id="aboutFeature2Desc" class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
+                                    <h4 data-t="about.f2.title" data-label="Destaque 2 - título" class="font-bold text-slate-900">Tecnologia Avançada</h4>
+                                    <p data-t="about.f2.desc" data-label="Destaque 2 - descrição" class="text-sm text-slate-600">Manutenção especializada em giroscópios, instrumentos de navegação e sistemas aviônicos.</p>
                                 </div>
                             </div>
                         </div>
@@ -147,9 +159,9 @@
         <section id="catalog" class="py-20 bg-white">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="text-aero-light font-bold text-sm tracking-widest uppercase">Catálogo de Produtos</span>
-                    <h2 class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">Componentes e Instrumentos Certificados</h2>
-                    <p class="text-slate-600">Explore nosso inventário de peças e sistemas para aviação geral e comercial.</p>
+                    <span data-t="catalog.eyebrow" data-label="Catálogo - etiqueta" class="text-aero-light font-bold text-sm tracking-widest uppercase">Catálogo de Produtos</span>
+                    <h2 data-t="catalog.title" data-label="Catálogo - título" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">Componentes e Instrumentos Certificados</h2>
+                    <p data-t="catalog.subtitle" data-label="Catálogo - subtítulo" class="text-slate-600">Explore nosso inventário de peças e sistemas para aviação geral e comercial.</p>
                     <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8">
                         <button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm">Todos</button>
                         <button onclick="filterCatalog('Aviónicos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Aviónicos</button>
@@ -164,32 +176,32 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                     <div>
-                        <span class="text-sky-400 font-bold text-sm tracking-widest uppercase">Fale Conosco</span>
-                        <h2 class="text-3xl sm:text-4xl font-black mt-2 mb-6">Solicite uma Cotação ou Atendimento AOG</h2>
-                        <p class="text-slate-300 mb-8 leading-relaxed">Nossa equipe técnica e comercial está à disposição para responder dúvidas, enviar orçamentos detalhados e atender emergências operacionais.</p>
+                        <span data-t="contact.eyebrow" data-label="Contato - etiqueta" class="text-sky-400 font-bold text-sm tracking-widest uppercase">Fale Conosco</span>
+                        <h2 data-t="contact.title" data-label="Contato - título" class="text-3xl sm:text-4xl font-black mt-2 mb-6">Solicite uma Cotação ou Atendimento AOG</h2>
+                        <p data-t="contact.text" data-label="Contato - texto" class="text-slate-300 mb-8 leading-relaxed">Nossa equipe técnica e comercial está à disposição para responder dúvidas, enviar orçamentos detalhados e atender emergências operacionais.</p>
                         <div class="space-y-6">
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-phone text-lg"></i></div>
-                                <div><div class="text-sm text-slate-400">Central de Atendimento</div><div id="contactPhone" class="font-bold text-lg">+55 (62) 3333-4444</div></div>
+                                <div><div data-t="contact.phoneLabel" data-label="Contato - rótulo telefone" class="text-sm text-slate-400">Central de Atendimento</div><div data-t="contact.phone" data-label="Contato - telefone" class="font-bold text-lg">+55 (62) 3333-4444</div></div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-envelope text-lg"></i></div>
-                                <div><div class="text-sm text-slate-400">E-mail Comercial</div><div id="contactEmail" class="font-bold text-lg">contato@smartaviation.com.br</div></div>
+                                <div><div data-t="contact.emailLabel" data-label="Contato - rótulo e-mail" class="text-sm text-slate-400">E-mail Comercial</div><div data-t="contact.email" data-label="Contato - e-mail" class="font-bold text-lg">contato@smartaviation.com.br</div></div>
                             </div>
                             <div class="flex items-center gap-4">
                                 <div class="w-12 h-12 rounded-xl bg-aero-primary text-white flex items-center justify-center shrink-0"><i class="fa-solid fa-location-dot text-lg"></i></div>
-                                <div><div class="text-sm text-slate-400">Localização</div><div id="contactAddress" class="font-bold text-lg">Anápolis, Goiás - Brasil</div></div>
+                                <div><div data-t="contact.addressLabel" data-label="Contato - rótulo localização" class="text-sm text-slate-400">Localização</div><div data-t="contact.address" data-label="Contato - endereço" class="font-bold text-lg">Anápolis, Goiás - Brasil</div></div>
                             </div>
                         </div>
                     </div>
                     <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
-                        <h3 class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
+                        <h3 data-t="form.title" data-label="Formulário - título" class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
                         <form id="contactForm" class="space-y-4">
-                            <input name="name" required placeholder="Seu nome" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
-                            <input name="email" type="email" required placeholder="Seu e-mail" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
-                            <input name="phone" placeholder="Telefone (opcional)" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
-                            <textarea name="message" required rows="4" placeholder="Como podemos ajudar?" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white"></textarea>
-                            <button type="submit" class="w-full rounded-lg bg-sky-500 hover:bg-sky-400 px-5 py-3 font-bold text-white">Enviar mensagem</button>
+                            <input name="name" required maxlength="150" placeholder="Seu nome" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
+                            <input name="email" type="email" required maxlength="150" placeholder="Seu e-mail" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
+                            <input name="phone" maxlength="40" placeholder="Telefone (opcional)" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
+                            <textarea name="message" required maxlength="2000" rows="4" placeholder="Como podemos ajudar?" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white"></textarea>
+                            <button type="submit" data-t="form.btn" data-label="Formulário - botão" class="w-full rounded-lg bg-sky-500 hover:bg-sky-400 px-5 py-3 font-bold text-white">Enviar mensagem</button>
                             <p id="contactFeedback" class="text-sm" role="status"></p>
                         </form>
                     </div>
@@ -199,7 +211,7 @@
     </main>
 
     <footer class="bg-slate-950 text-slate-400 py-6 text-center text-sm">
-        © <span id="footerYear"></span> Smart Aviation. Todos os direitos reservados.
+        © <span id="footerYear"></span> <span data-t="footer.text" data-label="Rodapé - texto">Smart Aviation. Todos os direitos reservados.</span>
     </footer>
 
     <!-- ============ LOGIN MODAL ============ -->
@@ -215,13 +227,14 @@
             <div class="p-6">
                 <form id="adminLoginForm" class="space-y-4">
                     <label class="block text-sm font-semibold">E-mail
-                        <input id="adminEmail" type="email" autocomplete="username" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3">
+                        <input id="adminEmail" type="email" autocomplete="username" required class="inp">
                     </label>
                     <label class="block text-sm font-semibold">Senha
-                        <input id="adminPassword" type="password" autocomplete="current-password" required class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-3">
+                        <input id="adminPassword" type="password" autocomplete="current-password" required class="inp">
                     </label>
-                    <button id="adminLoginButton" type="submit" class="w-full rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold py-3">Entrar</button>
+                    <button id="adminLoginButton" type="submit" class="btn w-full py-3">Entrar</button>
                     <p id="adminLoginFeedback" class="text-sm text-red-600" role="status"></p>
+                    <button type="button" id="forgotPwBtn" class="text-xs text-aero-light underline">Esqueci minha senha</button>
                 </form>
             </div>
         </div>
@@ -239,208 +252,189 @@
             </div>
             <div class="flex items-center gap-2">
                 <span id="adminSignedInAs" class="text-xs text-slate-300 hidden md:inline"></span>
-                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
-                    <i class="fa-solid fa-right-from-bracket mr-1"></i> Sair
-                </button>
-                <button onclick="closeAdminDashboard()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold">
-                    <i class="fa-solid fa-xmark mr-1"></i> Fechar
-                </button>
+                <button onclick="adminLogout()" class="bg-red-600 hover:bg-red-700 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold"><i class="fa-solid fa-right-from-bracket mr-1"></i> Sair</button>
+                <button onclick="closeAdminDashboard()" class="bg-slate-700 hover:bg-slate-600 px-3 py-2 rounded-lg text-xs sm:text-sm font-semibold"><i class="fa-solid fa-xmark mr-1"></i> Fechar</button>
             </div>
         </header>
 
         <div class="flex flex-col md:flex-row flex-1 overflow-hidden">
             <aside class="bg-white border-b md:border-b-0 md:border-r border-slate-200 md:w-60 md:overflow-y-auto overflow-x-auto shrink-0">
                 <nav class="flex md:flex-col gap-1 p-2 md:p-3">
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="hero"><i class="fa-solid fa-image mr-2"></i> Hero / Banner</button>
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="stats"><i class="fa-solid fa-chart-simple mr-2"></i> Estatísticas</button>
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="about"><i class="fa-solid fa-circle-info mr-2"></i> Quem Somos</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="texts"><i class="fa-solid fa-pen mr-2"></i> Textos do site</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="images"><i class="fa-solid fa-image mr-2"></i> Banner e logomarca</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo</button>
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="contact"><i class="fa-solid fa-address-book mr-2"></i> Contato</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="inquiries"><i class="fa-solid fa-envelope mr-2"></i> Mensagens</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="admins"><i class="fa-solid fa-users-gear mr-2"></i> Administradores</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="account"><i class="fa-solid fa-key mr-2"></i> Meu login e senha</button>
                 </nav>
             </aside>
 
             <main class="flex-1 overflow-y-auto p-4 sm:p-6">
 
-                <!-- HERO -->
-                <section class="admin-section hidden" data-section="hero">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Hero / Banner</h2>
-                    <p class="text-sm text-slate-500 mb-6">Edite o banner principal do site.</p>
-                    <form id="heroForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
-                        <label class="block text-sm font-semibold">Badge
-                            <input id="heroBadgeInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">Título
-                            <input id="heroTitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">Subtítulo
-                            <textarea id="heroSubtitleInput" rows="3" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
-                        </label>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2">Imagem de fundo</label>
-                            <img id="heroImagePreview" class="h-32 object-cover rounded-lg mb-2 hidden border border-slate-300">
-                            <input type="file" id="heroImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
-                            <p class="text-xs text-slate-400 mt-1">Selecione uma imagem para substituir a atual.</p>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
-                            <span id="heroFeedback" class="text-sm"></span>
+                <!-- TEXTOS -->
+                <section class="admin-section hidden" data-section="texts">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Textos do site</h2>
+                    <p class="text-sm text-slate-500 mb-6">Edite qualquer texto do site e clique em Salvar. Campo vazio volta ao texto original.</p>
+                    <form id="textsForm" class="space-y-5 max-w-4xl">
+                        <div id="textsFields" class="space-y-5"></div>
+                        <div class="flex items-center gap-3 sticky bottom-0 bg-slate-100 py-3">
+                            <button type="submit" class="btn">Salvar todos os textos</button>
+                            <span id="textsFeedback" class="text-sm"></span>
                         </div>
                     </form>
                 </section>
 
-                <!-- STATS -->
-                <section class="admin-section hidden" data-section="stats">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Estatísticas</h2>
-                    <p class="text-sm text-slate-500 mb-6">Os 4 números que aparecem abaixo do banner.</p>
-                    <form id="statsForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <label class="block text-sm font-semibold">Stat 1 — Valor
-                                <input id="stat1ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 1 — Label
-                                <input id="stat1LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 2 — Valor
-                                <input id="stat2ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 2 — Label
-                                <input id="stat2LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 3 — Valor
-                                <input id="stat3ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 3 — Label
-                                <input id="stat3LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 4 — Valor
-                                <input id="stat4ValueInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Stat 4 — Label
-                                <input id="stat4LabelInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
-                            <span id="statsFeedback" class="text-sm"></span>
-                        </div>
-                    </form>
-                </section>
-
-                <!-- ABOUT -->
-                <section class="admin-section hidden" data-section="about">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Quem Somos</h2>
-                    <p class="text-sm text-slate-500 mb-6">Conteúdo da seção "Quem Somos".</p>
-                    <form id="aboutForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
-                        <label class="block text-sm font-semibold">Título
-                            <input id="aboutTitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">Texto principal
-                            <textarea id="aboutTextInput" rows="4" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2"></textarea>
-                        </label>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <label class="block text-sm font-semibold">Feature 1 — Título
-                                <input id="aboutFeature1TitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Feature 1 — Descrição
-                                <input id="aboutFeature1DescInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Feature 2 — Título
-                                <input id="aboutFeature2TitleInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                            <label class="block text-sm font-semibold">Feature 2 — Descrição
-                                <input id="aboutFeature2DescInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                            </label>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-semibold mb-2">Imagem da seção</label>
-                            <img id="aboutImagePreview" class="h-32 object-cover rounded-lg mb-2 hidden border border-slate-300">
-                            <input type="file" id="aboutImageFile" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-aero-primary/10 file:text-aero-primary hover:file:bg-aero-primary/20">
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
-                            <span id="aboutFeedback" class="text-sm"></span>
-                        </div>
-                    </form>
-                </section>
-
-                <!-- PRODUCTS -->
-                <section class="admin-section hidden" data-section="products">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
-                    <p class="text-sm text-slate-500 mb-6">Cadastre produtos com 1 foto principal, 3 fotos menores e descrição.</p>
-                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
-
-                        <form id="productForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4">
-                            <div class="flex items-center justify-between">
-                                <h3 id="productFormTitle" class="font-bold text-lg text-slate-900">Novo produto</h3>
-                                <span id="productFeedback" class="text-sm"></span>
+                <!-- IMAGENS -->
+                <section class="admin-section hidden" data-section="images">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Banner e logomarca</h2>
+                    <p class="text-sm text-slate-500 mb-6">Escolha a imagem e clique em "Enviar e salvar". Para a logomarca, use PNG com fundo transparente.</p>
+                    <div class="grid gap-6 max-w-4xl">
+                        <div class="card" data-img="logo">
+                            <h3 class="font-bold text-lg mb-3">Logomarca (topo do site)</h3>
+                            <img class="img-prev hidden h-20 object-contain mb-3 border border-slate-200 rounded bg-white p-2" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Remover (voltar ao texto)</button>
+                                <span class="img-fb text-sm"></span>
                             </div>
-                            <input id="productId" type="hidden">
-
-                            <label class="block text-sm font-semibold">Nome do produto
-                                <input id="productName" required maxlength="120" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-aero-light outline-none">
-                            </label>
-
-                            <label class="block text-sm font-semibold">Categoria
-                                <select id="productCategory" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                                    <option value="Aviónicos">Aviónicos</option>
-                                    <option value="Instrumentos">Instrumentos</option>
-                                </select>
-                            </label>
-
-                            <div>
-                                <label class="block text-sm font-semibold mb-1">Fotos do produto</label>
-                                <p class="text-xs text-slate-400 mb-3">1 foto principal (grande) + até 3 fotos menores. Clique no quadro para escolher a imagem.</p>
-                                <div id="photoSlots" class="grid grid-cols-3 gap-3"></div>
+                        </div>
+                        <div class="card" data-img="hero">
+                            <h3 class="font-bold text-lg mb-3">Banner superior (imagem de fundo)</h3>
+                            <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Voltar à imagem original</button>
+                                <span class="img-fb text-sm"></span>
                             </div>
-
-                            <label class="block text-sm font-semibold">Descrição
-                                <textarea id="productDescription" rows="5" maxlength="1500" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-aero-light outline-none"></textarea>
-                                <span id="descCounter" class="text-xs text-slate-400 font-normal">0 / 1500</span>
-                            </label>
-
-                            <div class="flex items-center gap-3 pt-2">
-                                <button id="productSaveBtn" type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar produto</button>
-                                <button type="button" onclick="resetProductForm()" class="rounded-lg bg-slate-200 hover:bg-slate-300 px-4 py-2">Limpar</button>
-                            </div>
-                        </form>
-
-                        <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6">
-                            <h3 class="font-bold text-lg mb-4">Produtos cadastrados</h3>
-                            <div id="adminProductsList" class="space-y-3 text-sm">
-                                <p class="text-slate-500">Carregando...</p>
+                        </div>
+                        <div class="card" data-img="about">
+                            <h3 class="font-bold text-lg mb-3">Imagem da seção "Quem Somos"</h3>
+                            <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Voltar à imagem original</button>
+                                <span class="img-fb text-sm"></span>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- CONTACT -->
-                <section class="admin-section hidden" data-section="contact">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Contato</h2>
-                    <p class="text-sm text-slate-500 mb-6">Informações exibidas na seção de contato.</p>
-                    <form id="contactInfoForm" class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 space-y-4 max-w-3xl">
-                        <label class="block text-sm font-semibold">Telefone
-                            <input id="contactPhoneInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">E-mail
-                            <input id="contactEmailInput" type="email" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <label class="block text-sm font-semibold">Endereço
-                            <input id="contactAddressInput" class="mt-1 w-full border border-slate-300 rounded-lg px-3 py-2">
-                        </label>
-                        <div class="flex items-center gap-3">
-                            <button type="submit" class="rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-bold px-5 py-2">Salvar</button>
-                            <span id="contactInfoFeedback" class="text-sm"></span>
+                <!-- PRODUTOS -->
+                <section class="admin-section hidden" data-section="products">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
+                    <p class="text-sm text-slate-500 mb-6">Cada produto: identificação, 1 foto principal, 3 fotos menores e descrição.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="productForm" class="card space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 id="productFormTitle" class="font-bold text-lg text-slate-900">Novo produto</h3>
+                                <span id="productFeedback" class="text-sm"></span>
+                            </div>
+                            <input id="productId" type="hidden">
+                            <label class="block text-sm font-semibold">Nome do produto
+                                <input id="productName" required maxlength="120" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Identificação (código / Part Number)
+                                <input id="productCode" maxlength="80" placeholder="Ex.: P/N 1234-ABC" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Categoria
+                                <select id="productCategory" class="inp">
+                                    <option value="Aviónicos">Aviónicos</option>
+                                    <option value="Instrumentos">Instrumentos</option>
+                                </select>
+                            </label>
+                            <div>
+                                <label class="block text-sm font-semibold mb-1">Fotos do produto</label>
+                                <p class="text-xs text-slate-400 mb-3">1 foto principal (grande) + até 3 fotos menores. Clique no quadro para escolher a imagem.</p>
+                                <div id="photoSlots" class="grid grid-cols-3 gap-3"></div>
+                            </div>
+                            <label class="block text-sm font-semibold">Descrição
+                                <textarea id="productDescription" rows="5" maxlength="1500" class="inp"></textarea>
+                                <span id="descCounter" class="text-xs text-slate-400 font-normal">0 / 1500</span>
+                            </label>
+                            <div class="flex items-center gap-3 pt-2">
+                                <button id="productSaveBtn" type="submit" class="btn">Salvar produto</button>
+                                <button type="button" onclick="resetProductForm()" class="btn2">Limpar</button>
+                            </div>
+                        </form>
+                        <div class="card">
+                            <h3 class="font-bold text-lg mb-4">Produtos cadastrados</h3>
+                            <div id="adminProductsList" class="space-y-3 text-sm"><p class="text-slate-500">Carregando...</p></div>
                         </div>
-                    </form>
+                    </div>
                 </section>
 
-                <!-- INQUIRIES -->
+                <!-- MENSAGENS -->
                 <section class="admin-section hidden" data-section="inquiries">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Mensagens recebidas</h2>
                     <p class="text-sm text-slate-500 mb-6">Mensagens enviadas pelo formulário de contato.</p>
-                    <div id="inquiriesList" class="space-y-3 max-w-4xl">
-                        <p class="text-slate-500">Carregando...</p>
+                    <div id="inquiriesList" class="space-y-3 max-w-4xl"><p class="text-slate-500">Carregando...</p></div>
+                </section>
+
+                <!-- ADMINISTRADORES -->
+                <section class="admin-section hidden" data-section="admins">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Administradores</h2>
+                    <p class="text-sm text-slate-500 mb-6">Quem pode entrar neste painel.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="addAdminForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Adicionar administrador</h3>
+                            <label class="block text-sm font-semibold">E-mail
+                                <input id="newAdminEmail" type="email" required class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Senha (mínimo 6 caracteres)
+                                <input id="newAdminPassword" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <button id="addAdminBtn" type="submit" class="btn">Adicionar</button>
+                                <span id="addAdminFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
+                        <div class="card">
+                            <h3 class="font-bold text-lg mb-1">Administradores cadastrados</h3>
+                            <p class="text-xs text-slate-400 mb-4">Para trocar a senha de outro administrador, envie o e-mail de redefinição. "Remover" tira o acesso ao painel.</p>
+                            <div id="adminsList" class="space-y-3 text-sm"><p class="text-slate-500">Carregando...</p></div>
+                            <p id="adminsFeedback" class="text-sm mt-3"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MINHA CONTA -->
+                <section class="admin-section hidden" data-section="account">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Meu login e senha</h2>
+                    <p class="text-sm text-slate-500 mb-6">Por segurança, informe sua senha atual para qualquer alteração.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="changePwForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Trocar senha</h3>
+                            <label class="block text-sm font-semibold">Senha atual
+                                <input id="pwCurrent" type="password" required autocomplete="current-password" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Nova senha (mínimo 6 caracteres)
+                                <input id="pwNew" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Repita a nova senha
+                                <input id="pwNew2" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <button type="submit" class="btn">Trocar senha</button>
+                                <span id="changePwFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
+                        <form id="changeEmailForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Trocar e-mail de login</h3>
+                            <label class="block text-sm font-semibold">Novo e-mail
+                                <input id="emailNew" type="email" required class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Senha atual
+                                <input id="emailPw" type="password" required autocomplete="current-password" class="inp">
+                            </label>
+                            <p class="text-xs text-slate-400">Enviaremos um link de confirmação para o novo e-mail. O login só muda depois de clicar no link.</p>
+                            <div class="flex items-center gap-3">
+                                <button type="submit" class="btn">Trocar e-mail</button>
+                                <span id="changeEmailFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
                     </div>
                 </section>
 
@@ -464,29 +458,40 @@
         }
 
         const byId = (id) => document.getElementById(id);
+        const $$ = (s, r = document) => [...r.querySelectorAll(s)];
         const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+        const setFb = (el, msg, kind) => {
+            el.textContent = msg;
+            el.className = "text-sm " + (kind === "ok" ? "text-emerald-600" : kind === "err" ? "text-red-600" : "text-slate-500");
+        };
+        const authMsg = (err) => ({
+            "auth/invalid-credential": "E-mail ou senha incorretos.",
+            "auth/wrong-password": "Senha incorreta.",
+            "auth/user-not-found": "Conta não encontrada.",
+            "auth/too-many-requests": "Muitas tentativas. Aguarde um pouco.",
+            "auth/invalid-email": "E-mail inválido.",
+            "auth/weak-password": "Senha fraca: use pelo menos 6 caracteres.",
+            "auth/email-already-in-use": "Este e-mail já está em uso.",
+            "auth/requires-recent-login": "Saia e entre de novo antes de fazer esta alteração.",
+            "auth/network-request-failed": "Falha de conexão.",
+            "auth/operation-not-allowed": "Login por e-mail/senha não está ativado no Firebase Console.",
+            "permission-denied": "Sem permissão. Confira as regras do Firestore."
+        }[err.code] || ("Erro: " + (err.message || err.code)));
 
         // ---------- Upload de Imagem (Cloudinary) ----------
         async function uploadImage(file, folder) {
             const cloudName = "vz7fqonx";
             const uploadPreset = "smart_aviation";
-
             const formData = new FormData();
             formData.append("file", file);
             formData.append("upload_preset", uploadPreset);
             formData.append("folder", folder);
-
-            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, {
-                method: "POST",
-                body: formData
-            });
-
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: "POST", body: formData });
             if (!response.ok) {
                 let msg = "Erro no upload para o Cloudinary";
                 try { const errorData = await response.json(); msg = errorData.error?.message || msg; } catch (_) {}
                 throw new Error(msg);
             }
-
             const data = await response.json();
             return data.secure_url;
         }
@@ -500,42 +505,36 @@
         window.closeAdminLogin = () => byId("adminLoginModal").classList.add("hidden");
 
         byId("adminAccessBtn").addEventListener("click", () => {
-            if (auth.currentUser) {
-                openAdminDashboard(auth.currentUser);
-            } else {
-                openAdminLogin();
-            }
+            if (auth.currentUser) openAdminDashboard(auth.currentUser); else openAdminLogin();
         });
-
         byId("adminLoginModal").addEventListener("click", (e) => {
             if (e.target === byId("adminLoginModal")) closeAdminLogin();
         });
 
         byId("adminLoginForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const btn = byId("adminLoginButton");
-            const fb = byId("adminLoginFeedback");
+            const btn = byId("adminLoginButton"), fb = byId("adminLoginFeedback");
             btn.disabled = true; btn.textContent = "Entrando..."; fb.textContent = "";
             try {
-                await auth.signInWithEmailAndPassword(
-                    byId("adminEmail").value.trim(),
-                    byId("adminPassword").value
-                );
+                await auth.signInWithEmailAndPassword(byId("adminEmail").value.trim(), byId("adminPassword").value);
+                byId("adminPassword").value = "";
             } catch (err) {
                 console.error("Erro no login:", err);
-                const msgs = {
-                    "auth/invalid-credential": "E-mail ou senha incorretos.",
-                    "auth/user-not-found": "Conta não encontrada.",
-                    "auth/wrong-password": "E-mail ou senha incorretos.",
-                    "auth/too-many-requests": "Muitas tentativas. Aguarde.",
-                    "auth/invalid-email": "E-mail inválido.",
-                    "auth/network-request-failed": "Falha de conexão.",
-                    "auth/operation-not-allowed": "Login por e-mail/senha não está ativado no Firebase Console."
-                };
-                fb.textContent = msgs[err.code] || "Erro ao entrar: " + err.message;
+                fb.className = "text-sm text-red-600";
+                fb.textContent = authMsg(err);
             } finally {
                 btn.disabled = false; btn.textContent = "Entrar";
             }
+        });
+
+        byId("forgotPwBtn").addEventListener("click", async () => {
+            const fb = byId("adminLoginFeedback"), email = byId("adminEmail").value.trim();
+            if (!email) { fb.className = "text-sm text-red-600"; fb.textContent = "Digite seu e-mail acima primeiro."; return; }
+            try {
+                await auth.sendPasswordResetEmail(email);
+                fb.className = "text-sm text-emerald-600";
+                fb.textContent = "Se o e-mail existir, enviamos um link para redefinir a senha.";
+            } catch (err) { fb.className = "text-sm text-red-600"; fb.textContent = authMsg(err); }
         });
 
         window.adminLogout = async () => {
@@ -545,46 +544,43 @@
         };
 
         // ---------- Dashboard ----------
-        window.openAdminDashboard = async (user) => {
+        window.openAdminDashboard = (user) => {
             closeAdminLogin();
             byId("adminDashboard").classList.remove("hidden");
             byId("adminSignedInAs").textContent = user.email || user.uid;
-            switchTab("hero");
+            switchTab("texts");
         };
         window.closeAdminDashboard = () => byId("adminDashboard").classList.add("hidden");
 
         function switchTab(name) {
-            document.querySelectorAll(".admin-tab").forEach(b => {
+            $$(".admin-tab").forEach(b => {
                 const active = b.dataset.tab === name;
                 b.classList.toggle("bg-aero-primary", active);
                 b.classList.toggle("text-white", active);
                 b.classList.toggle("text-slate-700", !active);
                 b.classList.toggle("hover:bg-slate-100", !active);
             });
-            document.querySelectorAll(".admin-section").forEach(s => {
-                s.classList.toggle("hidden", s.dataset.section !== name);
-            });
+            $$(".admin-section").forEach(s => s.classList.toggle("hidden", s.dataset.section !== name));
             if (name === "products") loadAdminProducts();
             if (name === "inquiries") loadInquiries();
+            if (name === "admins") loadAdmins();
         }
-        document.querySelectorAll(".admin-tab").forEach(b => {
-            b.addEventListener("click", () => switchTab(b.dataset.tab));
-        });
+        $$(".admin-tab").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
 
         // ---------- Auth state ----------
         auth.onAuthStateChanged(async (user) => {
-            if (!user) {
-                closeAdminDashboard();
-                return;
-            }
+            if (!user) { closeAdminDashboard(); return; }
             try {
-                const doc = await db.collection("admins").doc(user.uid).get();
+                const ref = db.collection("admins").doc(user.uid);
+                const doc = await ref.get();
                 if (!doc.exists || doc.data().active !== true) {
                     await auth.signOut();
                     openAdminLogin();
+                    byId("adminLoginFeedback").className = "text-sm text-red-600";
                     byId("adminLoginFeedback").textContent = "Esta conta não tem permissão administrativa.";
                     return;
                 }
+                if (doc.data().email !== user.email) ref.update({ email: user.email }).catch(() => {});
                 openAdminDashboard(user);
             } catch (err) {
                 console.error("Erro ao validar admin:", err);
@@ -592,253 +588,189 @@
             }
         });
 
-        // ---------- TEMPO REAL ----------
-        function listenContent(docId, callback) {
-            db.collection("siteContent").doc(docId).onSnapshot((doc) => {
-                callback(doc.exists ? doc.data() : {});
-            }, (error) => {
-                console.error(`Erro ao ouvir ${docId}:`, error);
-            });
+        // ---------- TEXTOS EDITÁVEIS ----------
+        const GROUPS = { logo:"Logomarca (texto)", nav:"Menu e topo", hero:"Banner superior", stats:"Estatísticas", about:"Quem Somos", catalog:"Catálogo", contact:"Contato", form:"Formulário de contato", footer:"Rodapé" };
+        const defaults = {}, labels = {};
+        $$("[data-t]").forEach(el => {
+            const k = el.dataset.t;
+            if (!(k in defaults)) { defaults[k] = el.textContent.trim(); labels[k] = el.dataset.label || k; }
+        });
+        defaults["catalog.quote"] = "Solicitar cotação";
+        labels["catalog.quote"] = "Botão dos cartões de produto";
+
+        let texts = {};
+        const T = (k) => (texts[k] && String(texts[k]).trim()) || defaults[k] || "";
+        function applyTexts() {
+            $$("[data-t]").forEach(el => { el.textContent = T(el.dataset.t); });
+            renderCatalog();
+            fillTextsForm();
         }
 
-        listenContent("hero", (d) => {
-            if (d.badge) byId("heroBadge").textContent = d.badge;
-            if (d.title) byId("heroTitle").textContent = d.title;
-            if (d.subtitle) byId("heroSubtitle").textContent = d.subtitle;
-            if (d.imageUrl) byId("heroBackground").style.backgroundImage = `url('${d.imageUrl}')`;
+        function buildTextsForm() {
+            const groups = {};
+            Object.keys(defaults).forEach(k => { (groups[k.split(".")[0]] ||= []).push(k); });
+            byId("textsFields").innerHTML = Object.entries(groups).map(([g, keys]) => `
+                <fieldset class="card">
+                    <legend class="px-2 font-bold text-aero-primary">${esc(GROUPS[g] || g)}</legend>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        ${keys.map(k => {
+                            const long = defaults[k].length > 70;
+                            return `<label class="block text-sm font-semibold ${long ? "sm:col-span-2" : ""}">${esc(labels[k])}
+                                ${long ? `<textarea data-key="${esc(k)}" rows="3" class="inp"></textarea>` : `<input data-key="${esc(k)}" class="inp">`}
+                            </label>`;
+                        }).join("")}
+                    </div>
+                </fieldset>`).join("");
+            fillTextsForm();
+        }
+        function fillTextsForm() {
+            $$("[data-key]", byId("textsForm")).forEach(i => { if (document.activeElement !== i) i.value = T(i.dataset.key); });
+        }
 
-            byId("heroBadgeInput").value = d.badge || byId("heroBadge").textContent;
-            byId("heroTitleInput").value = d.title || byId("heroTitle").textContent;
-            byId("heroSubtitleInput").value = d.subtitle || byId("heroSubtitle").textContent;
-            if (d.imageUrl) {
-                byId("heroImagePreview").src = d.imageUrl;
-                byId("heroImagePreview").classList.remove("hidden");
-            }
-        });
+        db.collection("siteContent").doc("texts").onSnapshot((doc) => {
+            const d = doc.exists ? doc.data() : {};
+            texts = {};
+            Object.keys(d).forEach(f => { texts[f.replace(/__/g, ".")] = d[f]; });
+            applyTexts();
+        }, (error) => console.error("Erro ao ouvir textos:", error));
 
-        listenContent("stats", (d) => {
-            for (let i = 1; i <= 4; i++) {
-                const v = d[`stat${i}Value`];
-                const l = d[`stat${i}Label`];
-                if (v) byId(`stat${i}Value`).textContent = v;
-                if (l) byId(`stat${i}Label`).textContent = l;
-                byId(`stat${i}ValueInput`).value = v || byId(`stat${i}Value`).textContent;
-                byId(`stat${i}LabelInput`).value = l || byId(`stat${i}Label`).textContent;
-            }
-        });
-
-        listenContent("about", (d) => {
-            if (d.title) byId("aboutTitle").textContent = d.title;
-            if (d.text) byId("aboutText1").innerHTML = d.text;
-            if (d.feature1Title) byId("aboutFeature1Title").textContent = d.feature1Title;
-            if (d.feature1Desc) byId("aboutFeature1Desc").textContent = d.feature1Desc;
-            if (d.feature2Title) byId("aboutFeature2Title").textContent = d.feature2Title;
-            if (d.feature2Desc) byId("aboutFeature2Desc").textContent = d.feature2Desc;
-            if (d.imageUrl) byId("aboutImage").src = d.imageUrl;
-
-            byId("aboutTitleInput").value = d.title || byId("aboutTitle").textContent;
-            byId("aboutTextInput").value = d.text || byId("aboutText1").innerHTML;
-            byId("aboutFeature1TitleInput").value = d.feature1Title || byId("aboutFeature1Title").textContent;
-            byId("aboutFeature1DescInput").value = d.feature1Desc || byId("aboutFeature1Desc").textContent;
-            byId("aboutFeature2TitleInput").value = d.feature2Title || byId("aboutFeature2Title").textContent;
-            byId("aboutFeature2DescInput").value = d.feature2Desc || byId("aboutFeature2Desc").textContent;
-            if (d.imageUrl) {
-                byId("aboutImagePreview").src = d.imageUrl;
-                byId("aboutImagePreview").classList.remove("hidden");
-            }
-        });
-
-        listenContent("contact", (d) => {
-            if (d.phone) byId("contactPhone").textContent = d.phone;
-            if (d.email) byId("contactEmail").textContent = d.email;
-            if (d.address) byId("contactAddress").textContent = d.address;
-
-            byId("contactPhoneInput").value = d.phone || byId("contactPhone").textContent;
-            byId("contactEmailInput").value = d.email || byId("contactEmail").textContent;
-            byId("contactAddressInput").value = d.address || byId("contactAddress").textContent;
-        });
-
-        // ---------- Salvar seções ----------
         async function saveSection(docId, data, feedbackId) {
             const fb = byId(feedbackId);
-            fb.textContent = "Salvando...";
-            fb.className = "text-sm text-slate-500";
-
+            setFb(fb, "Salvando...");
             try {
-                const timeout = new Promise((_, reject) =>
-                    setTimeout(() => reject(new Error("Tempo esgotado. O Firestore não respondeu.")), 10000)
-                );
-
-                await Promise.race([
-                    db.collection("siteContent").doc(docId).set(data, { merge: true }),
-                    timeout
-                ]);
-
-                fb.textContent = "✓ Salvo com sucesso!";
-                fb.className = "text-sm text-emerald-600";
+                const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Tempo esgotado. O Firestore não respondeu.")), 10000));
+                await Promise.race([db.collection("siteContent").doc(docId).set(data, { merge: true }), timeout]);
+                setFb(fb, "✓ Salvo com sucesso!", "ok");
                 setTimeout(() => { fb.textContent = ""; }, 3000);
             } catch (e) {
-                console.error("Erro ao salvar no Firestore:", e);
-                fb.textContent = `Erro: ${e.message}`;
-                fb.className = "text-sm text-red-600";
+                console.error("Erro ao salvar:", e);
+                setFb(fb, authMsg(e), "err");
             }
         }
 
-        byId("heroForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fb = byId("heroFeedback");
-            const file = byId("heroImageFile").files[0];
-            let imageUrl = byId("heroImagePreview").getAttribute("src") || "";
-
-            if (file) {
-                fb.textContent = "Fazendo upload da imagem...";
-                fb.className = "text-sm text-slate-500";
-                try {
-                    imageUrl = await uploadImage(file, "hero");
-                } catch (err) {
-                    fb.textContent = `Erro no upload: ${err.message}`;
-                    fb.className = "text-sm text-red-600";
-                    return;
-                }
-            }
-
-            await saveSection("hero", {
-                badge: byId("heroBadgeInput").value.trim(),
-                title: byId("heroTitleInput").value.trim(),
-                subtitle: byId("heroSubtitleInput").value.trim(),
-                imageUrl: imageUrl
-            }, "heroFeedback");
-            byId("heroImageFile").value = "";
-        });
-
-        byId("statsForm").addEventListener("submit", async (e) => {
+        byId("textsForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const data = {};
-            for (let i = 1; i <= 4; i++) {
-                data[`stat${i}Value`] = byId(`stat${i}ValueInput`).value.trim();
-                data[`stat${i}Label`] = byId(`stat${i}LabelInput`).value.trim();
-            }
-            await saveSection("stats", data, "statsFeedback");
+            $$("[data-key]", e.currentTarget).forEach(i => { data[i.dataset.key.replace(/\./g, "__")] = i.value.trim(); });
+            await saveSection("texts", data, "textsFeedback");
         });
 
-        byId("aboutForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const fb = byId("aboutFeedback");
-            const file = byId("aboutImageFile").files[0];
-            let imageUrl = byId("aboutImagePreview").getAttribute("src") || "";
+        // ---------- IMAGENS (logo, banner, quem somos) ----------
+        const heroDefaultBg = byId("heroBackground").style.backgroundImage;
+        const aboutDefaultSrc = byId("aboutImage").getAttribute("src");
+        let images = {};
+        function applyImages() {
+            const logo = byId("siteLogo");
+            if (images.logoUrl) {
+                logo.src = images.logoUrl;
+                logo.classList.remove("hidden");
+                byId("logoText").classList.add("hidden");
+            } else {
+                logo.classList.add("hidden");
+                byId("logoText").classList.remove("hidden");
+            }
+            byId("heroBackground").style.backgroundImage = images.heroUrl ? `url("${images.heroUrl}")` : heroDefaultBg;
+            byId("aboutImage").src = images.aboutUrl || aboutDefaultSrc;
+            $$("[data-img]").forEach(card => {
+                const u = images[card.dataset.img + "Url"], p = card.querySelector(".img-prev");
+                if (u) { p.src = u; p.classList.remove("hidden"); } else p.classList.add("hidden");
+            });
+        }
+        db.collection("siteContent").doc("images").onSnapshot((doc) => {
+            images = doc.exists ? doc.data() : {};
+            applyImages();
+        }, (error) => console.error("Erro ao ouvir imagens:", error));
 
-            if (file) {
-                fb.textContent = "Fazendo upload da imagem...";
-                fb.className = "text-sm text-slate-500";
+        $$("[data-img]").forEach(card => {
+            const key = card.dataset.img + "Url", fb = card.querySelector(".img-fb");
+            card.querySelector(".img-save").addEventListener("click", async () => {
+                const file = card.querySelector(".img-file").files[0];
+                if (!file) { setFb(fb, "Escolha uma imagem primeiro.", "err"); return; }
+                if (file.size > 10 * 1024 * 1024) { setFb(fb, "Imagem maior que 10 MB.", "err"); return; }
                 try {
-                    imageUrl = await uploadImage(file, "about");
-                } catch (err) {
-                    fb.textContent = `Erro no upload: ${err.message}`;
-                    fb.className = "text-sm text-red-600";
-                    return;
-                }
-            }
-
-            await saveSection("about", {
-                title: byId("aboutTitleInput").value.trim(),
-                text: byId("aboutTextInput").value.trim(),
-                feature1Title: byId("aboutFeature1TitleInput").value.trim(),
-                feature1Desc: byId("aboutFeature1DescInput").value.trim(),
-                feature2Title: byId("aboutFeature2TitleInput").value.trim(),
-                feature2Desc: byId("aboutFeature2DescInput").value.trim(),
-                imageUrl: imageUrl
-            }, "aboutFeedback");
-            byId("aboutImageFile").value = "";
-        });
-
-        byId("contactInfoForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
-            await saveSection("contact", {
-                phone: byId("contactPhoneInput").value.trim(),
-                email: byId("contactEmailInput").value.trim(),
-                address: byId("contactAddressInput").value.trim()
-            }, "contactInfoFeedback");
+                    setFb(fb, "Enviando imagem...");
+                    const url = await uploadImage(file, card.dataset.img);
+                    await db.collection("siteContent").doc("images").set({ [key]: url }, { merge: true });
+                    card.querySelector(".img-file").value = "";
+                    setFb(fb, "✓ Salvo!", "ok");
+                    setTimeout(() => { fb.textContent = ""; }, 3000);
+                } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+            });
+            card.querySelector(".img-clear").addEventListener("click", async () => {
+                try {
+                    await db.collection("siteContent").doc("images").set({ [key]: firebase.firestore.FieldValue.delete() }, { merge: true });
+                    setFb(fb, "✓ Removido.", "ok");
+                    setTimeout(() => { fb.textContent = ""; }, 3000);
+                } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+            });
         });
 
         // ---------- Catálogo público ----------
         let allProducts = [];
+        let currentFilter = "all";
 
         db.collection("products").orderBy("createdAt", "desc").onSnapshot((snap) => {
             allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-            renderCatalog(allProducts);
-        }, (error) => {
-            console.error("Erro ao ouvir produtos:", error);
-        });
+            renderCatalog();
+        }, (error) => console.error("Erro ao ouvir produtos:", error));
 
-        function renderCatalog(products) {
+        function renderCatalog() {
             const c = byId("catalogContainer");
+            const products = currentFilter === "all" ? allProducts : allProducts.filter(p => p.category === currentFilter);
             if (!products.length) {
                 c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
                 return;
             }
-
             c.innerHTML = products.map(p => {
                 const name = esc(p.name || "Produto");
                 const cat = esc(p.category || "Instrumentos");
                 const desc = esc(p.description || "");
-
+                const code = p.code ? `<p class="text-xs font-semibold text-slate-500 mt-1">${esc(p.code)}</p>` : "";
                 const images = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
-                const mainImage = images[0] || '';
-
+                const mainImage = images[0] || "";
                 const mainImgHtml = mainImage
-                    ? `<img id="main-img-${p.id}" src="${esc(mainImage)}" alt="${name}" class="w-full h-80 object-contain bg-white transition-opacity duration-300">`
+                    ? `<img id="main-img-${esc(p.id)}" src="${esc(mainImage)}" alt="${name}" class="w-full h-80 object-contain bg-white transition-opacity duration-300">`
                     : '<div class="w-full h-80 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
-
                 const thumbsHtml = images.length > 1 ? `
                     <div class="flex gap-2 mt-3 justify-center">
                         ${images.slice(0, 4).map((img, idx) => `
-                            <img src="${esc(img)}"
-                                 onclick="changeMainImage('${p.id}', '${esc(img)}')"
-                                 class="w-16 h-16 object-contain bg-white border-2 ${idx === 0 ? 'border-aero-primary' : 'border-slate-200'} rounded cursor-pointer hover:border-aero-light transition-all">
-                        `).join('')}
-                    </div>
-                ` : '';
-
-                return `<article data-category="${cat}" class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
-                    <div class="p-4 bg-slate-50 border-b border-slate-100">
-                        ${mainImgHtml}
-                        ${thumbsHtml}
-                    </div>
+                            <img src="${esc(img)}" data-thumb data-pid="${esc(p.id)}" data-src="${esc(img)}" alt=""
+                                 class="w-16 h-16 object-contain bg-white border-2 ${idx === 0 ? "border-aero-primary" : "border-slate-200"} rounded cursor-pointer hover:border-aero-light transition-all">`).join("")}
+                    </div>` : "";
+                return `<article class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+                    <div class="p-4 bg-slate-50 border-b border-slate-100">${mainImgHtml}${thumbsHtml}</div>
                     <div class="p-6 flex-grow flex flex-col">
                         <span class="text-xs font-bold uppercase tracking-wide text-sky-700">${cat}</span>
                         <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
+                        ${code}
                         <p class="text-slate-600 mt-3 whitespace-pre-line flex-grow">${desc}</p>
-                        <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center">Solicitar cotação</a>
+                        <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center">${esc(T("catalog.quote"))}</a>
                     </div>
                 </article>`;
             }).join("");
         }
 
-        window.changeMainImage = (productId, newSrc) => {
-            const mainImg = document.getElementById(`main-img-${productId}`);
+        byId("catalogContainer").addEventListener("click", (e) => {
+            const t = e.target.closest("[data-thumb]");
+            if (!t) return;
+            const mainImg = byId(`main-img-${t.dataset.pid}`);
             if (!mainImg) return;
+            const newSrc = t.dataset.src;
             mainImg.style.opacity = 0;
-            setTimeout(() => {
-                mainImg.src = newSrc;
-                mainImg.style.opacity = 1;
-            }, 150);
-
-            const card = mainImg.closest('.product-card');
-            if (card) {
-                card.querySelectorAll('.flex.gap-2 img').forEach(img => {
-                    const selected = img.getAttribute('src') === newSrc;
-                    img.classList.toggle('border-aero-primary', selected);
-                    img.classList.toggle('border-slate-200', !selected);
-                });
-            }
-        };
+            setTimeout(() => { mainImg.src = newSrc; mainImg.style.opacity = 1; }, 150);
+            const card = t.closest(".product-card");
+            $$("[data-thumb]", card).forEach(img => {
+                const sel = img.dataset.src === newSrc;
+                img.classList.toggle("border-aero-primary", sel);
+                img.classList.toggle("border-slate-200", !sel);
+            });
+        });
 
         window.filterCatalog = (cat) => {
-            const filtered = cat === "all" ? allProducts : allProducts.filter(p => p.category === cat);
-            renderCatalog(filtered);
-            document.querySelectorAll(".cat-btn").forEach(b => {
-                const active = (cat === "all" && b.textContent.trim() === "Todos") ||
-                    b.getAttribute("onclick")?.includes(`'${cat}'`);
+            currentFilter = cat;
+            renderCatalog();
+            $$(".cat-btn").forEach(b => {
+                const active = (cat === "all" && b.textContent.trim() === "Todos") || b.getAttribute("onclick")?.includes(`'${cat}'`);
                 b.classList.toggle("bg-aero-primary", active);
                 b.classList.toggle("text-white", active);
                 b.classList.toggle("bg-slate-100", !active);
@@ -846,25 +778,21 @@
             });
         };
 
-        // ---------- ADMIN: fotos do produto (1 principal + 3 menores) ----------
-        let slotUrls  = [null, null, null, null];
+        // ---------- ADMIN: produtos (1 principal + 3 menores) ----------
+        let slotUrls = [null, null, null, null];
         let slotFiles = [null, null, null, null];
 
         function renderSlots() {
-            const c = byId("photoSlots");
-            c.innerHTML = [0, 1, 2, 3].map(i => {
+            byId("photoSlots").innerHTML = [0, 1, 2, 3].map(i => {
                 const big = i === 0;
                 const src = slotFiles[i] ? URL.createObjectURL(slotFiles[i]) : slotUrls[i];
                 const box = big ? "col-span-3 h-56" : "h-28";
                 const label = big ? "Foto principal" : `Foto ${i}`;
                 return `<div class="${box} relative rounded-xl border-2 ${src ? "border-aero-primary" : "border-dashed border-slate-300"} bg-slate-50 overflow-hidden flex items-center justify-center hover:border-aero-light transition">
-                    ${src
-                        ? `<img src="${esc(src)}" class="w-full h-full object-contain bg-white">`
-                        : `<div class="text-center text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-image text-2xl block mb-1"></i>${label}</div>`}
+                    ${src ? `<img src="${esc(src)}" class="w-full h-full object-contain bg-white">`
+                          : `<div class="text-center text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-image text-2xl block mb-1"></i>${label}</div>`}
                     ${big ? '<span class="absolute top-2 left-2 bg-aero-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">PRINCIPAL</span>' : ""}
-                    <label class="absolute inset-0 cursor-pointer">
-                        <input type="file" accept="image/*" data-slot="${i}" class="hidden">
-                    </label>
+                    <label class="absolute inset-0 cursor-pointer"><input type="file" accept="image/*" data-slot="${i}" class="hidden"></label>
                     ${src ? `<button type="button" data-remove="${i}" title="Remover" class="absolute top-2 right-2 z-10 bg-red-600 hover:bg-red-700 text-white w-7 h-7 rounded-full text-sm leading-none">&times;</button>` : ""}
                 </div>`;
             }).join("");
@@ -874,25 +802,18 @@
             const input = e.target.closest("input[data-slot]");
             if (!input || !input.files[0]) return;
             const file = input.files[0];
-            if (file.size > 10 * 1024 * 1024) {
-                byId("productFeedback").textContent = "Imagem maior que 10 MB.";
-                byId("productFeedback").className = "text-sm text-red-600";
-                return;
-            }
+            if (file.size > 10 * 1024 * 1024) { setFb(byId("productFeedback"), "Imagem maior que 10 MB.", "err"); input.value = ""; return; }
             slotFiles[Number(input.dataset.slot)] = file;
             renderSlots();
         });
-
         byId("photoSlots").addEventListener("click", (e) => {
             const btn = e.target.closest("button[data-remove]");
             if (!btn) return;
             e.preventDefault();
             const i = Number(btn.dataset.remove);
-            slotUrls[i] = null;
-            slotFiles[i] = null;
+            slotUrls[i] = null; slotFiles[i] = null;
             renderSlots();
         });
-
         byId("productDescription").addEventListener("input", (e) => {
             byId("descCounter").textContent = `${e.target.value.length} / 1500`;
         });
@@ -903,38 +824,38 @@
             try {
                 const snap = await db.collection("products").orderBy("createdAt", "desc").get();
                 const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                if (!products.length) {
-                    list.innerHTML = '<p class="text-slate-500">Nenhum produto cadastrado.</p>';
-                    return;
-                }
+                if (!products.length) { list.innerHTML = '<p class="text-slate-500">Nenhum produto cadastrado.</p>'; return; }
                 list.innerHTML = products.map(p => {
                     const imgs = p.imageUrls && p.imageUrls.length ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
                     const main = imgs[0]
                         ? `<img src="${esc(imgs[0])}" class="w-24 h-24 object-contain bg-white border border-slate-200 rounded-lg shrink-0">`
                         : '<div class="w-24 h-24 bg-slate-100 rounded-lg flex items-center justify-center text-slate-300 shrink-0"><i class="fa-solid fa-plane text-2xl"></i></div>';
-                    const small = imgs.slice(1, 4).map(u =>
-                        `<img src="${esc(u)}" class="w-9 h-9 object-contain bg-white border border-slate-200 rounded">`).join("");
+                    const small = imgs.slice(1, 4).map(u => `<img src="${esc(u)}" class="w-9 h-9 object-contain bg-white border border-slate-200 rounded">`).join("");
                     return `<div class="border border-slate-200 rounded-xl p-3 flex gap-3 items-start">
                         ${main}
                         <div class="min-w-0 flex-1">
                             <p class="font-semibold text-slate-900 break-words">${esc(p.name)}</p>
+                            ${p.code ? `<p class="text-xs text-slate-500">${esc(p.code)}</p>` : ""}
                             <span class="inline-block text-[10px] font-bold uppercase tracking-wide text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full mt-1">${esc(p.category || "")}</span>
                             <p class="text-slate-500 text-xs mt-1 line-clamp-2">${esc(p.description || "")}</p>
                             ${small ? `<div class="flex gap-1 mt-2">${small}</div>` : ""}
                         </div>
                         <div class="flex flex-col gap-2 shrink-0">
-                            <button type="button" data-edit="${esc(p.id)}" class="px-3 py-1 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 text-xs font-semibold">Editar</button>
-                            <button type="button" data-delete="${esc(p.id)}" class="px-3 py-1 rounded-lg bg-red-50 text-red-700 hover:bg-red-100 text-xs font-semibold">Excluir</button>
+                            <button type="button" data-edit="${esc(p.id)}" class="mini bg-blue-50 text-blue-700 hover:bg-blue-100">Editar</button>
+                            <button type="button" data-delete="${esc(p.id)}" class="mini bg-red-50 text-red-700 hover:bg-red-100">Excluir</button>
                         </div>
                     </div>`;
                 }).join("");
-                list.querySelectorAll("[data-edit]").forEach(b => b.addEventListener("click", () => editProduct(b.dataset.edit)));
-                list.querySelectorAll("[data-delete]").forEach(b => b.addEventListener("click", () => deleteProduct(b.dataset.delete)));
             } catch (e) {
                 console.error(e);
                 list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
             }
         }
+        byId("adminProductsList").addEventListener("click", (e) => {
+            const ed = e.target.closest("[data-edit]"), del = e.target.closest("[data-delete]");
+            if (ed) editProduct(ed.dataset.edit);
+            if (del) deleteProduct(del.dataset.delete);
+        });
 
         async function editProduct(id) {
             try {
@@ -943,17 +864,16 @@
                 const p = doc.data();
                 byId("productId").value = id;
                 byId("productName").value = p.name || "";
+                byId("productCode").value = p.code || "";
                 byId("productCategory").value = p.category || "Instrumentos";
                 byId("productDescription").value = p.description || "";
                 byId("descCounter").textContent = `${(p.description || "").length} / 1500`;
                 byId("productFormTitle").textContent = "Editando produto";
                 byId("productFeedback").textContent = "";
-
                 const imgs = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
-                slotUrls  = [imgs[0] || null, imgs[1] || null, imgs[2] || null, imgs[3] || null];
+                slotUrls = [imgs[0] || null, imgs[1] || null, imgs[2] || null, imgs[3] || null];
                 slotFiles = [null, null, null, null];
                 renderSlots();
-
                 byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
             } catch (e) { console.error(e); }
         }
@@ -963,10 +883,7 @@
             try {
                 await db.collection("products").doc(id).delete();
                 await loadAdminProducts();
-            } catch (e) {
-                console.error(e);
-                alert("Não foi possível excluir.");
-            }
+            } catch (e) { console.error(e); alert("Não foi possível excluir."); }
         }
 
         window.resetProductForm = () => {
@@ -975,42 +892,30 @@
             byId("productFeedback").textContent = "";
             byId("productFormTitle").textContent = "Novo produto";
             byId("descCounter").textContent = "0 / 1500";
-            slotUrls  = [null, null, null, null];
+            slotUrls = [null, null, null, null];
             slotFiles = [null, null, null, null];
             renderSlots();
         };
 
         byId("productForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const fb  = byId("productFeedback");
-            const btn = byId("productSaveBtn");
-            const id  = byId("productId").value;
-
-            if (!slotUrls.some(Boolean) && !slotFiles.some(Boolean)) {
-                fb.textContent = "Adicione pelo menos a foto principal.";
-                fb.className = "text-sm text-red-600";
-                return;
-            }
-
-            btn.disabled = true;
-            btn.textContent = "Salvando...";
+            const fb = byId("productFeedback"), btn = byId("productSaveBtn"), id = byId("productId").value;
+            if (!slotUrls.some(Boolean) && !slotFiles.some(Boolean)) { setFb(fb, "Adicione pelo menos a foto principal.", "err"); return; }
+            btn.disabled = true; btn.textContent = "Salvando...";
             try {
-                fb.textContent = "Enviando imagens...";
-                fb.className = "text-sm text-slate-500";
+                setFb(fb, "Enviando imagens...");
                 const finalUrls = await Promise.all([0, 1, 2, 3].map(async (i) =>
-                    slotFiles[i] ? await uploadImage(slotFiles[i], "products") : slotUrls[i]
-                ));
+                    slotFiles[i] ? await uploadImage(slotFiles[i], "products") : slotUrls[i]));
                 const imageUrls = finalUrls.filter(Boolean);
-
                 const payload = {
                     name: byId("productName").value.trim(),
+                    code: byId("productCode").value.trim(),
                     category: byId("productCategory").value,
                     description: byId("productDescription").value.trim(),
                     imageUrls,
                     imageUrl: imageUrls[0] || "",
                     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
                 };
-
                 if (id) {
                     await db.collection("products").doc(id).update(payload);
                 } else {
@@ -1018,20 +923,16 @@
                     await db.collection("products").add(payload);
                 }
                 resetProductForm();
-                fb.textContent = "✓ Produto salvo!";
-                fb.className = "text-sm text-emerald-600";
+                setFb(fb, "✓ Produto salvo!", "ok");
                 setTimeout(() => { fb.textContent = ""; }, 3000);
                 await loadAdminProducts();
             } catch (err) {
                 console.error(err);
-                fb.textContent = `Erro ao salvar: ${err.message}`;
-                fb.className = "text-sm text-red-600";
+                setFb(fb, `Erro ao salvar: ${err.message}`, "err");
             } finally {
-                btn.disabled = false;
-                btn.textContent = "Salvar produto";
+                btn.disabled = false; btn.textContent = "Salvar produto";
             }
         });
-
         renderSlots();
 
         // ---------- Mensagens recebidas ----------
@@ -1040,14 +941,11 @@
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
             try {
                 const snap = await db.collection("inquiries").orderBy("createdAt", "desc").limit(100).get();
-                if (snap.empty) {
-                    list.innerHTML = '<p class="text-slate-500">Nenhuma mensagem recebida ainda.</p>';
-                    return;
-                }
+                if (snap.empty) { list.innerHTML = '<p class="text-slate-500">Nenhuma mensagem recebida ainda.</p>'; return; }
                 list.innerHTML = snap.docs.map(d => {
                     const m = d.data();
                     const date = m.createdAt?.toDate?.().toLocaleString("pt-BR") || "";
-                    return `<div class="bg-white rounded-xl shadow-sm border border-slate-200 p-5">
+                    return `<div class="card">
                         <div class="flex justify-between items-start gap-3 mb-2">
                             <div>
                                 <p class="font-bold text-slate-900">${esc(m.name || "—")}</p>
@@ -1056,7 +954,7 @@
                             <span class="text-xs text-slate-400 whitespace-nowrap">${esc(date)}</span>
                         </div>
                         <p class="text-slate-700 whitespace-pre-line">${esc(m.message || "")}</p>
-                        <button onclick="deleteInquiry('${esc(d.id)}')" class="text-xs text-red-600 underline mt-3">Excluir</button>
+                        <button data-delinq="${esc(d.id)}" class="text-xs text-red-600 underline mt-3">Excluir</button>
                     </div>`;
                 }).join("");
             } catch (e) {
@@ -1064,21 +962,132 @@
                 list.innerHTML = '<p class="text-red-600">Falha ao carregar mensagens.</p>';
             }
         }
+        byId("inquiriesList").addEventListener("click", async (e) => {
+            const b = e.target.closest("[data-delinq]");
+            if (!b || !confirm("Excluir esta mensagem?")) return;
+            try { await db.collection("inquiries").doc(b.dataset.delinq).delete(); await loadInquiries(); }
+            catch (err) { console.error(err); }
+        });
 
-        window.deleteInquiry = async (id) => {
-            if (!confirm("Excluir esta mensagem?")) return;
+        // ---------- ADMINISTRADORES ----------
+        async function loadAdmins() {
+            const list = byId("adminsList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
             try {
-                await db.collection("inquiries").doc(id).delete();
-                await loadInquiries();
-            } catch (e) { console.error(e); }
-        };
+                const snap = await db.collection("admins").get();
+                const me = auth.currentUser?.uid;
+                list.innerHTML = snap.docs.map(d => {
+                    const a = d.data(), self = d.id === me, on = a.active === true;
+                    return `<div class="border border-slate-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+                        <div class="min-w-0">
+                            <p class="font-semibold break-all">${esc(a.email || d.id)} ${self ? '<span class="text-[10px] bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full">você</span>' : ""}</p>
+                            <p class="text-xs ${on ? "text-emerald-600" : "text-red-600"}">${on ? "Ativo" : "Desativado"}</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            ${a.email ? `<button data-reset="${esc(a.email)}" class="mini bg-blue-50 text-blue-700 hover:bg-blue-100">Enviar redefinição de senha</button>` : ""}
+                            ${self ? "" : `<button data-toggle="${esc(d.id)}" data-on="${on ? 1 : 0}" class="mini bg-amber-50 text-amber-700 hover:bg-amber-100">${on ? "Desativar" : "Ativar"}</button>
+                            <button data-remove="${esc(d.id)}" class="mini bg-red-50 text-red-700 hover:bg-red-100">Remover</button>`}
+                        </div>
+                    </div>`;
+                }).join("") || '<p class="text-slate-500">Nenhum administrador.</p>';
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+            }
+        }
+
+        byId("adminsList").addEventListener("click", async (e) => {
+            const fb = byId("adminsFeedback");
+            const rs = e.target.closest("[data-reset]"), tg = e.target.closest("[data-toggle]"), rm = e.target.closest("[data-remove]");
+            try {
+                if (rs) {
+                    await auth.sendPasswordResetEmail(rs.dataset.reset);
+                    setFb(fb, `✓ Link de redefinição enviado para ${rs.dataset.reset}.`, "ok");
+                } else if (tg) {
+                    await db.collection("admins").doc(tg.dataset.toggle).update({ active: tg.dataset.on !== "1" });
+                    await loadAdmins();
+                } else if (rm) {
+                    if (!confirm("Remover o acesso deste administrador ao painel?")) return;
+                    await db.collection("admins").doc(rm.dataset.remove).delete();
+                    await loadAdmins();
+                }
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+
+        function secondaryAuth() {
+            let app;
+            try { app = firebase.app("secondary"); } catch (_) { app = firebase.initializeApp(firebaseConfig, "secondary"); }
+            return app.auth();
+        }
+
+        byId("addAdminForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("addAdminFeedback"), btn = byId("addAdminBtn");
+            const email = byId("newAdminEmail").value.trim(), pass = byId("newAdminPassword").value;
+            btn.disabled = true; setFb(fb, "Criando...");
+            const sec = secondaryAuth();
+            try {
+                let cred;
+                try {
+                    cred = await sec.createUserWithEmailAndPassword(email, pass);
+                } catch (err) {
+                    if (err.code === "auth/email-already-in-use") cred = await sec.signInWithEmailAndPassword(email, pass);
+                    else throw err;
+                }
+                await db.collection("admins").doc(cred.user.uid).set({
+                    email, active: true,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    createdBy: auth.currentUser.email || auth.currentUser.uid
+                });
+                e.currentTarget.reset();
+                setFb(fb, "✓ Administrador adicionado!", "ok");
+                await loadAdmins();
+            } catch (err) {
+                console.error(err);
+                setFb(fb, err.code === "auth/invalid-credential" ? "Este e-mail já existe com outra senha. Use a senha correta ou peça redefinição." : authMsg(err), "err");
+            } finally {
+                try { await sec.signOut(); } catch (_) {}
+                btn.disabled = false;
+            }
+        });
+
+        // ---------- MINHA CONTA ----------
+        async function reauth(pw) {
+            const u = auth.currentUser;
+            await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email, pw));
+            return u;
+        }
+
+        byId("changePwForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("changePwFeedback");
+            const n1 = byId("pwNew").value, n2 = byId("pwNew2").value;
+            if (n1 !== n2) { setFb(fb, "As senhas novas não são iguais.", "err"); return; }
+            try {
+                setFb(fb, "Alterando...");
+                const u = await reauth(byId("pwCurrent").value);
+                await u.updatePassword(n1);
+                e.currentTarget.reset();
+                setFb(fb, "✓ Senha alterada!", "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+
+        byId("changeEmailForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("changeEmailFeedback"), novo = byId("emailNew").value.trim();
+            try {
+                setFb(fb, "Enviando...");
+                const u = await reauth(byId("emailPw").value);
+                await u.verifyBeforeUpdateEmail(novo);
+                e.currentTarget.reset();
+                setFb(fb, `✓ Enviamos um link de confirmação para ${novo}. Clique nele para concluir.`, "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
 
         // ---------- Contato público ----------
         byId("contactForm").addEventListener("submit", async (e) => {
             e.preventDefault();
-            const form = e.currentTarget;
-            const fb = byId("contactFeedback");
-            const data = new FormData(form);
+            const form = e.currentTarget, fb = byId("contactFeedback"), data = new FormData(form);
             fb.textContent = "Enviando...";
             try {
                 await db.collection("inquiries").add({
@@ -1099,6 +1108,7 @@
         });
 
         // ---------- Misc ----------
+        buildTextsForm();
         byId("mobileMenuBtn")?.addEventListener("click", () => byId("mobileMenu").classList.toggle("hidden"));
         byId("mobileMenu")?.querySelectorAll("a").forEach(a => a.addEventListener("click", () => byId("mobileMenu").classList.add("hidden")));
         byId("footerYear").textContent = new Date().getFullYear();
