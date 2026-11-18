@@ -163,9 +163,7 @@
                     <h2 data-t="catalog.title" data-label="Catálogo - título" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">Componentes e Instrumentos Certificados</h2>
                     <p data-t="catalog.subtitle" data-label="Catálogo - subtítulo" class="text-slate-600">Explore nosso inventário de peças e sistemas para aviação geral e comercial.</p>
                     <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8">
-                        <button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm">Todos</button>
-                        <button onclick="filterCatalog('Aviónicos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Aviónicos</button>
-                        <button onclick="filterCatalog('Instrumentos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Instrumentos</button>
+                        <!-- Gerado dinamicamente -->
                     </div>
                 </div>
                 <div id="catalogContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
@@ -197,6 +195,11 @@
                     <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
                         <h3 data-t="form.title" data-label="Formulário - título" class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
                         <form id="contactForm" class="space-y-4">
+                            <input type="hidden" id="selectedProductField" name="product_info" value="">
+                            <div id="selectedProductBanner" class="hidden bg-sky-500/20 border border-sky-500/30 p-3 rounded-lg text-sm text-sky-200 flex items-center justify-between">
+                                <span>Solicitando orçamento para: <strong id="selectedProductName"></strong></span>
+                                <button type="button" onclick="clearSelectedProduct()" class="text-xs text-red-400 hover:text-red-300 font-bold ml-2">Remover</button>
+                            </div>
                             <input name="name" required maxlength="150" placeholder="Seu nome" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="email" type="email" required maxlength="150" placeholder="Seu e-mail" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="phone" maxlength="40" placeholder="Telefone (opcional)" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
@@ -262,7 +265,7 @@
                 <nav class="flex md:flex-col gap-1 p-2 md:p-3">
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="texts"><i class="fa-solid fa-pen mr-2"></i> Textos do site</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="images"><i class="fa-solid fa-image mr-2"></i> Banner e logomarca</button>
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo e Categorias</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="inquiries"><i class="fa-solid fa-envelope mr-2"></i> Mensagens</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="admins"><i class="fa-solid fa-users-gear mr-2"></i> Administradores</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="account"><i class="fa-solid fa-key mr-2"></i> Meu login e senha</button>
@@ -322,10 +325,22 @@
                     </div>
                 </section>
 
-                <!-- PRODUTOS -->
+                <!-- PRODUTOS E CATEGORIAS -->
                 <section class="admin-section hidden" data-section="products">
-                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
-                    <p class="text-sm text-slate-500 mb-6">Cada produto: identificação, 1 foto principal, 3 fotos menores e descrição.</p>
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo e Categorias</h2>
+                    <p class="text-sm text-slate-500 mb-6">Gerencie as categorias de produtos e os itens do inventário.</p>
+                    
+                    <!-- Gerenciamento de Categorias -->
+                    <div class="card mb-8 max-w-4xl">
+                        <h3 class="font-bold text-lg mb-3">Gerenciar Categorias</h3>
+                        <form id="categoryForm" class="flex gap-3 mb-4">
+                            <input id="newCategoryName" required placeholder="Nome da nova categoria" class="inp flex-1">
+                            <button type="submit" class="btn shrink-0">Adicionar Categoria</button>
+                        </form>
+                        <div id="adminCategoriesList" class="flex flex-wrap gap-2"></div>
+                        <p id="categoryFeedback" class="text-sm mt-2"></p>
+                    </div>
+
                     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
                         <form id="productForm" class="card space-y-4">
                             <div class="flex items-center justify-between">
@@ -341,8 +356,7 @@
                             </label>
                             <label class="block text-sm font-semibold">Categoria
                                 <select id="productCategory" class="inp">
-                                    <option value="Aviónicos">Aviónicos</option>
-                                    <option value="Instrumentos">Instrumentos</option>
+                                    <!-- Preenchido dinamicamente -->
                                 </select>
                             </label>
                             <div>
@@ -369,7 +383,7 @@
                 <!-- MENSAGENS -->
                 <section class="admin-section hidden" data-section="inquiries">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Mensagens recebidas</h2>
-                    <p class="text-sm text-slate-500 mb-6">Mensagens enviadas pelo formulário de contato.</p>
+                    <p class="text-sm text-slate-500 mb-6">Mensagens e solicitações de orçamento enviadas pelo site.</p>
                     <div id="inquiriesList" class="space-y-3 max-w-4xl"><p class="text-slate-500">Carregando...</p></div>
                 </section>
 
@@ -561,7 +575,7 @@
                 b.classList.toggle("hover:bg-slate-100", !active);
             });
             $$(".admin-section").forEach(s => s.classList.toggle("hidden", s.dataset.section !== name));
-            if (name === "products") loadAdminProducts();
+            if (name === "products") { loadCategories(); loadAdminProducts(); }
             if (name === "inquiries") loadInquiries();
             if (name === "admins") loadAdmins();
         }
@@ -655,7 +669,7 @@
             await saveSection("texts", data, "textsFeedback");
         });
 
-        // ---------- IMAGENS (logo, banner, quem somos) ----------
+        // ---------- IMAGENS ----------
         const heroDefaultBg = byId("heroBackground").style.backgroundImage;
         const aboutDefaultSrc = byId("aboutImage").getAttribute("src");
         let images = {};
@@ -705,7 +719,78 @@
             });
         });
 
-        // ---------- Catálogo público ----------
+        // ---------- CATEGORIAS DINÂMICAS ----------
+        let allCategories = ["Aviónicos", "Instrumentos"]; // padrão caso vazio
+
+        db.collection("siteContent").doc("categories").onSnapshot((doc) => {
+            if (doc.exists && doc.data().list) {
+                allCategories = doc.data().list;
+            }
+            renderCategoryFilters();
+            updateProductCategorySelect();
+            renderAdminCategories();
+        });
+
+        async function saveCategories(newList) {
+            await db.collection("siteContent").doc("categories").set({ list: newList });
+        }
+
+        function renderCategoryFilters() {
+            const container = byId("categoryFilters");
+            if (!container) return;
+            let html = `<button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold ${currentFilter === 'all' ? 'bg-aero-primary text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} transition shadow-sm">Todos</button>`;
+            allCategories.forEach(cat => {
+                const active = currentFilter === cat;
+                html += `<button onclick="filterCatalog('${esc(cat)}')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold ${active ? 'bg-aero-primary text-white' : 'bg-slate-100 text-slate-700 hover:bg-slate-200'} transition">${esc(cat)}</button>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateProductCategorySelect() {
+            const select = byId("productCategory");
+            if (!select) return;
+            select.innerHTML = allCategories.map(cat => `<option value="${esc(cat)}">${esc(cat)}</option>`).join("");
+        }
+
+        function renderAdminCategories() {
+            const list = byId("adminCategoriesList");
+            if (!list) return;
+            list.innerHTML = allCategories.map(cat => `
+                <div class="flex items-center gap-2 bg-slate-100 border border-slate-200 px-3 py-1.5 rounded-lg text-sm font-medium">
+                    <span>${esc(cat)}</span>
+                    <button type="button" onclick="deleteCategory('${esc(cat)}')" class="text-red-600 hover:text-red-800 font-bold ml-1">&times;</button>
+                </div>
+            `).join("");
+        }
+
+        byId("categoryForm")?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const input = byId("newCategoryName");
+            const val = input.value.trim();
+            const fb = byId("categoryFeedback");
+            if (!val) return;
+            if (allCategories.includes(val)) {
+                setFb(fb, "Esta categoria já existe.", "err");
+                return;
+            }
+            const updated = [...allCategories, val];
+            try {
+                await saveCategories(updated);
+                input.value = "";
+                setFb(fb, "✓ Categoria adicionada!", "ok");
+                setTimeout(() => { fb.textContent = ""; }, 3000);
+            } catch (err) {
+                setFb(fb, "Erro ao salvar categoria.", "err");
+            }
+        });
+
+        window.deleteCategory = async (cat) => {
+            if (!confirm(`Deseja remover a categoria "${cat}"?`)) return;
+            const updated = allCategories.filter(c => c !== cat);
+            await saveCategories(updated);
+        };
+
+        // ---------- Catálogo público e Solicitação de Orçamento ----------
         let allProducts = [];
         let currentFilter = "all";
 
@@ -716,16 +801,17 @@
 
         function renderCatalog() {
             const c = byId("catalogContainer");
+            if (!c) return;
             const products = currentFilter === "all" ? allProducts : allProducts.filter(p => p.category === currentFilter);
             if (!products.length) {
-                c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
+                c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado nesta categoria.</p>';
                 return;
             }
             c.innerHTML = products.map(p => {
                 const name = esc(p.name || "Produto");
-                const cat = esc(p.category || "Instrumentos");
+                const cat = esc(p.category || "");
                 const desc = esc(p.description || "");
-                const code = p.code ? `<p class="text-xs font-semibold text-slate-500 mt-1">${esc(p.code)}</p>` : "";
+                const code = p.code ? `<p class="text-xs font-semibold text-slate-500 mt-1">P/N: ${esc(p.code)}</p>` : "";
                 const images = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
                 const mainImage = images[0] || "";
                 const mainImgHtml = mainImage
@@ -744,13 +830,28 @@
                         <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
                         ${code}
                         <p class="text-slate-600 mt-3 whitespace-pre-line flex-grow">${desc}</p>
-                        <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center">${esc(T("catalog.quote"))}</a>
+                        <button type="button" onclick="requestQuote('${esc(p.name)}', '${esc(p.code || '')}')" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center transition cursor-pointer">${esc(T("catalog.quote"))}</button>
                     </div>
                 </article>`;
             }).join("");
         }
 
-        byId("catalogContainer").addEventListener("click", (e) => {
+        window.requestQuote = (productName, productCode) => {
+            const label = productCode ? `${productName} (P/N: ${productCode})` : productName;
+            byId("selectedProductField").value = label;
+            byId("selectedProductName").textContent = label;
+            byId("selectedProductBanner").classList.remove("hidden");
+            window.location.hash = "#contact";
+            byId("contactForm").querySelector("textarea[name='message']").focus();
+        };
+
+        window.clearSelectedProduct = () => {
+            byId("selectedProductField").value = "";
+            byId("selectedProductName").textContent = "";
+            byId("selectedProductBanner").classList.add("hidden");
+        };
+
+        byId("catalogContainer")?.addEventListener("click", (e) => {
             const t = e.target.closest("[data-thumb]");
             if (!t) return;
             const mainImg = byId(`main-img-${t.dataset.pid}`);
@@ -768,17 +869,11 @@
 
         window.filterCatalog = (cat) => {
             currentFilter = cat;
+            renderCategoryFilters();
             renderCatalog();
-            $$(".cat-btn").forEach(b => {
-                const active = (cat === "all" && b.textContent.trim() === "Todos") || b.getAttribute("onclick")?.includes(`'${cat}'`);
-                b.classList.toggle("bg-aero-primary", active);
-                b.classList.toggle("text-white", active);
-                b.classList.toggle("bg-slate-100", !active);
-                b.classList.toggle("text-slate-700", !active);
-            });
         };
 
-        // ---------- ADMIN: produtos (1 principal + 3 menores) ----------
+        // ---------- ADMIN: produtos ----------
         let slotUrls = [null, null, null, null];
         let slotFiles = [null, null, null, null];
 
@@ -798,7 +893,7 @@
             }).join("");
         }
 
-        byId("photoSlots").addEventListener("change", (e) => {
+        byId("photoSlots")?.addEventListener("change", (e) => {
             const input = e.target.closest("input[data-slot]");
             if (!input || !input.files[0]) return;
             const file = input.files[0];
@@ -806,7 +901,7 @@
             slotFiles[Number(input.dataset.slot)] = file;
             renderSlots();
         });
-        byId("photoSlots").addEventListener("click", (e) => {
+        byId("photoSlots")?.addEventListener("click", (e) => {
             const btn = e.target.closest("button[data-remove]");
             if (!btn) return;
             e.preventDefault();
@@ -814,12 +909,13 @@
             slotUrls[i] = null; slotFiles[i] = null;
             renderSlots();
         });
-        byId("productDescription").addEventListener("input", (e) => {
+        byId("productDescription")?.addEventListener("input", (e) => {
             byId("descCounter").textContent = `${e.target.value.length} / 1500`;
         });
 
         async function loadAdminProducts() {
             const list = byId("adminProductsList");
+            if (!list) return;
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
             try {
                 const snap = await db.collection("products").orderBy("createdAt", "desc").get();
@@ -835,7 +931,7 @@
                         ${main}
                         <div class="min-w-0 flex-1">
                             <p class="font-semibold text-slate-900 break-words">${esc(p.name)}</p>
-                            ${p.code ? `<p class="text-xs text-slate-500">${esc(p.code)}</p>` : ""}
+                            ${p.code ? `<p class="text-xs text-slate-500">P/N: ${esc(p.code)}</p>` : ""}
                             <span class="inline-block text-[10px] font-bold uppercase tracking-wide text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full mt-1">${esc(p.category || "")}</span>
                             <p class="text-slate-500 text-xs mt-1 line-clamp-2">${esc(p.description || "")}</p>
                             ${small ? `<div class="flex gap-1 mt-2">${small}</div>` : ""}
@@ -848,10 +944,11 @@
                 }).join("");
             } catch (e) {
                 console.error(e);
-                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar produtos.</p>';
             }
         }
-        byId("adminProductsList").addEventListener("click", (e) => {
+
+        byId("adminProductsList")?.addEventListener("click", (e) => {
             const ed = e.target.closest("[data-edit]"), del = e.target.closest("[data-delete]");
             if (ed) editProduct(ed.dataset.edit);
             if (del) deleteProduct(del.dataset.delete);
@@ -865,7 +962,8 @@
                 byId("productId").value = id;
                 byId("productName").value = p.name || "";
                 byId("productCode").value = p.code || "";
-                byId("productCategory").value = p.category || "Instrumentos";
+                updateProductCategorySelect();
+                byId("productCategory").value = p.category || allCategories[0];
                 byId("productDescription").value = p.description || "";
                 byId("descCounter").textContent = `${(p.description || "").length} / 1500`;
                 byId("productFormTitle").textContent = "Editando produto";
@@ -897,7 +995,7 @@
             renderSlots();
         };
 
-        byId("productForm").addEventListener("submit", async (e) => {
+        byId("productForm")?.addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("productFeedback"), btn = byId("productSaveBtn"), id = byId("productId").value;
             if (!slotUrls.some(Boolean) && !slotFiles.some(Boolean)) { setFb(fb, "Adicione pelo menos a foto principal.", "err"); return; }
@@ -935,9 +1033,10 @@
         });
         renderSlots();
 
-        // ---------- Mensagens recebidas ----------
+        // ---------- MENSAGENS E CONTROLE DE STATUS ----------
         async function loadInquiries() {
             const list = byId("inquiriesList");
+            if (!list) return;
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
             try {
                 const snap = await db.collection("inquiries").orderBy("createdAt", "desc").limit(100).get();
@@ -945,16 +1044,37 @@
                 list.innerHTML = snap.docs.map(d => {
                     const m = d.data();
                     const date = m.createdAt?.toDate?.().toLocaleString("pt-BR") || "";
-                    return `<div class="card">
+                    const isRead = m.read === true;
+                    const isReplied = m.replied === true;
+                    
+                    let statusBadge = `<span class="inline-block px-2 py-0.5 text-xs font-bold rounded-full bg-amber-100 text-amber-800">Nova</span>`;
+                    if (isReplied) statusBadge = `<span class="inline-block px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-100 text-emerald-800">Respondida</span>`;
+                    else if (isRead) statusBadge = `<span class="inline-block px-2 py-0.5 text-xs font-bold rounded-full bg-blue-100 text-blue-800">Lida</span>`;
+
+                    const prodInfo = m.productInfo ? `<div class="mt-2 text-xs bg-sky-50 border border-sky-200 p-2 rounded text-sky-900"><strong>Produto de Interesse:</strong> ${esc(m.productInfo)}</div>` : "";
+
+                    return `<div class="card ${!isRead ? 'border-l-4 border-l-aero-primary' : ''}">
                         <div class="flex justify-between items-start gap-3 mb-2">
                             <div>
-                                <p class="font-bold text-slate-900">${esc(m.name || "—")}</p>
+                                <div class="flex items-center gap-2">
+                                    <p class="font-bold text-slate-900">${esc(m.name || "—")}</p>
+                                    ${statusBadge}
+                                </div>
                                 <p class="text-sm text-slate-500">${esc(m.email || "")}${m.phone ? " · " + esc(m.phone) : ""}</p>
                             </div>
                             <span class="text-xs text-slate-400 whitespace-nowrap">${esc(date)}</span>
                         </div>
-                        <p class="text-slate-700 whitespace-pre-line">${esc(m.message || "")}</p>
-                        <button data-delinq="${esc(d.id)}" class="text-xs text-red-600 underline mt-3">Excluir</button>
+                        ${prodInfo}
+                        <p class="text-slate-700 whitespace-pre-line mt-2">${esc(m.message || "")}</p>
+                        <div class="flex flex-wrap items-center gap-2 mt-4 pt-3 border-t border-slate-100">
+                            <button data-toggle-read="${esc(d.id)}" data-current="${isRead ? 1 : 0}" class="mini bg-slate-100 hover:bg-slate-200 text-slate-700">
+                                ${isRead ? 'Marcar como não lida' : 'Marcar como lida'}
+                            </button>
+                            <button data-toggle-replied="${esc(d.id)}" data-current="${isReplied ? 1 : 0}" class="mini ${isReplied ? 'bg-slate-200 text-slate-700' : 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100'}">
+                                ${isReplied ? 'Desmarcar respondida' : 'Marcar como respondida'}
+                            </button>
+                            <button data-delinq="${esc(d.id)}" class="mini bg-red-50 text-red-700 hover:bg-red-100 ml-auto">Excluir</button>
+                        </div>
                     </div>`;
                 }).join("");
             } catch (e) {
@@ -962,16 +1082,33 @@
                 list.innerHTML = '<p class="text-red-600">Falha ao carregar mensagens.</p>';
             }
         }
-        byId("inquiriesList").addEventListener("click", async (e) => {
-            const b = e.target.closest("[data-delinq]");
-            if (!b || !confirm("Excluir esta mensagem?")) return;
-            try { await db.collection("inquiries").doc(b.dataset.delinq).delete(); await loadInquiries(); }
-            catch (err) { console.error(err); }
+
+        byId("inquiriesList")?.addEventListener("click", async (e) => {
+            const del = e.target.closest("[data-delinq]");
+            const readBtn = e.target.closest("[data-toggle-read]");
+            const repliedBtn = e.target.closest("[data-toggle-replied]");
+            try {
+                if (del && confirm("Excluir esta mensagem?")) {
+                    await db.collection("inquiries").doc(del.dataset.delinq).delete();
+                    await loadInquiries();
+                } else if (readBtn) {
+                    const id = readBtn.dataset.toggleRead;
+                    const current = readBtn.dataset.current === "1";
+                    await db.collection("inquiries").doc(id).update({ read: !current });
+                    await loadInquiries();
+                } else if (repliedBtn) {
+                    const id = repliedBtn.dataset.toggleReplied;
+                    const current = repliedBtn.dataset.current === "1";
+                    await db.collection("inquiries").doc(id).update({ replied: !current, read: true });
+                    await loadInquiries();
+                }
+            } catch (err) { console.error(err); }
         });
 
         // ---------- ADMINISTRADORES ----------
         async function loadAdmins() {
             const list = byId("adminsList");
+            if (!list) return;
             list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
             try {
                 const snap = await db.collection("admins").get();
@@ -992,11 +1129,11 @@
                 }).join("") || '<p class="text-slate-500">Nenhum administrador.</p>';
             } catch (e) {
                 console.error(e);
-                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar administradores.</p>';
             }
         }
 
-        byId("adminsList").addEventListener("click", async (e) => {
+        byId("adminsList")?.addEventListener("click", async (e) => {
             const fb = byId("adminsFeedback");
             const rs = e.target.closest("[data-reset]"), tg = e.target.closest("[data-toggle]"), rm = e.target.closest("[data-remove]");
             try {
@@ -1020,7 +1157,7 @@
             return app.auth();
         }
 
-        byId("addAdminForm").addEventListener("submit", async (e) => {
+        byId("addAdminForm")?.addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("addAdminFeedback"), btn = byId("addAdminBtn");
             const email = byId("newAdminEmail").value.trim(), pass = byId("newAdminPassword").value;
@@ -1058,7 +1195,7 @@
             return u;
         }
 
-        byId("changePwForm").addEventListener("submit", async (e) => {
+        byId("changePwForm")?.addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("changePwFeedback");
             const n1 = byId("pwNew").value, n2 = byId("pwNew2").value;
@@ -1072,7 +1209,7 @@
             } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
         });
 
-        byId("changeEmailForm").addEventListener("submit", async (e) => {
+        byId("changeEmailForm")?.addEventListener("submit", async (e) => {
             e.preventDefault();
             const fb = byId("changeEmailFeedback"), novo = byId("emailNew").value.trim();
             try {
@@ -1084,25 +1221,55 @@
             } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
         });
 
-        // ---------- Contato público ----------
-        byId("contactForm").addEventListener("submit", async (e) => {
+        // ---------- Contato público e Notificação por E-mail ----------
+        byId("contactForm")?.addEventListener("submit", async (e) => {
             e.preventDefault();
             const form = e.currentTarget, fb = byId("contactFeedback"), data = new FormData(form);
             fb.textContent = "Enviando...";
+            const productInfo = String(data.get("product_info") || "").trim();
+            const name = String(data.get("name") || "").trim();
+            const email = String(data.get("email") || "").trim();
+            const phone = String(data.get("phone") || "").trim();
+            const message = String(data.get("message") || "").trim();
+
             try {
+                // 1. Salva no Firestore
                 await db.collection("inquiries").add({
-                    name: String(data.get("name") || "").trim(),
-                    email: String(data.get("email") || "").trim(),
-                    phone: String(data.get("phone") || "").trim(),
-                    message: String(data.get("message") || "").trim(),
+                    name,
+                    email,
+                    phone,
+                    message,
+                    productInfo,
+                    read: false,
+                    replied: false,
                     createdAt: firebase.firestore.FieldValue.serverTimestamp()
                 });
+
+                // 2. Dispara e-mail para administradores via Webhook gratuito (ex: EmailJS ou Web3Forms / Formspree) ou simulação segura
+                // Vamos usar uma requisição fetch para um serviço padrão de envio (como Web3Forms para simplificar sem backend complexo)
+                try {
+                    await fetch("https://api.web3forms.com/submit", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json", "Accept": "application/json" },
+                        body: JSON.stringify({
+                            access_key: "YOUR_WEB3FORMS_ACCESS_KEY", // Pode substituir pela chave gratuita do Web3Forms configurada para contato@smartaviation.com.br
+                            subject: `Nova Cotação/Mensagem - Smart Aviation (${name})`,
+                            from_name: name,
+                            email: email,
+                            message: `Nome: ${name}\nE-mail: ${email}\nTelefone: ${phone}\nProduto de Interesse: ${productInfo || 'Nenhum específico'}\n\nMensagem:\n${message}`
+                        })
+                    });
+                } catch (mailErr) {
+                    console.error("Aviso no disparo automático de e-mail:", mailErr);
+                }
+
                 form.reset();
-                fb.textContent = "Mensagem enviada. Obrigado!";
+                clearSelectedProduct();
+                fb.textContent = "Mensagem enviada com sucesso! Entraremos em contato em breve.";
                 fb.className = "text-sm text-emerald-400";
             } catch (err) {
                 console.error(err);
-                fb.textContent = "Não foi possível enviar agora.";
+                fb.textContent = "Não foi possível enviar agora. Tente novamente mais tarde.";
                 fb.className = "text-sm text-red-400";
             }
         });
