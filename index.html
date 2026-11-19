@@ -96,10 +96,11 @@
     </header>
 
     <main class="flex-grow">
-        <section id="home" class="relative bg-aero-dark text-white py-24 lg:py-32 overflow-hidden">
-            <div id="heroBackground" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
-            <div class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
-            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="home" class="relative bg-slate-950 text-white min-h-[280px] sm:min-h-[360px] lg:min-h-[460px] overflow-hidden">
+            <div id="heroBackground" class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
+            <img id="heroPromoImage" class="hidden absolute inset-0 w-full h-full object-contain bg-slate-950" alt="Banner promocional Smart Aviation">
+            <div id="heroOverlay" class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
+            <div id="heroContent" class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
                 <div class="max-w-3xl">
                     <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/20 text-sky-300 border border-sky-500/30 mb-6">
                         <i class="fa-solid fa-plane-circle-check"></i> <span data-t="hero.badge" data-label="Banner - selo">Excelência em Manutenção e Componentes Aeronáuticos</span>
@@ -112,6 +113,7 @@
                     </div>
                 </div>
             </div>
+            <div id="heroIndicators" class="hidden absolute bottom-4 left-0 right-0 justify-center gap-2 z-10"></div>
         </section>
 
         <section class="bg-white border-b border-slate-200 py-8">
@@ -304,19 +306,14 @@
                             </div>
                         </div>
                         <div class="card" data-img="hero">
-                            <h3 class="font-bold text-lg mb-1">Banners superiores (carrossel automático)</h3>
-                            <p class="text-xs text-slate-500 mb-3">Recomendado: 1920 × 650 px · JPG, PNG ou WebP · máximo 10 MB por imagem. Selecione várias imagens de uma vez; elas serão exibidas em rotação automática.</p>
+                            <h3 class="font-bold text-lg mb-1">Banners publicitários (carrossel automático)</h3>
+                            <p class="text-xs text-slate-500 mb-3">Envie artes completas de produtos, campanhas e promoções. Recomendado: 1920 × 650 px · JPG, PNG ou WebP · máximo 10 MB por imagem. Selecione várias imagens de uma vez; cada arte será exibida inteira, sem o filtro azul do banner institucional.</p>
                             <div id="heroBannerPreviews" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3"></div>
                             <input type="file" accept="image/png,image/jpeg,image/webp" multiple id="heroBannerFiles" class="block w-full text-sm text-slate-500 mb-3">
                             <div class="flex flex-wrap items-center gap-3">
                                 <button type="button" id="heroBannerSave" class="btn">Enviar banners selecionados</button>
                                 <button type="button" id="heroBannerClear" class="btn2">Remover todos os banners</button>
                                 <span id="heroBannerFeedback" class="text-sm"></span>
-                            </div>
-                            <div class="flex flex-wrap items-center gap-3">
-                                <button type="button" class="img-save btn">Enviar e salvar</button>
-                                <button type="button" class="img-clear btn2">Voltar à imagem original</button>
-                                <span class="img-fb text-sm"></span>
                             </div>
                         </div>
                         <div class="card" data-img="about">
@@ -719,16 +716,74 @@
             heroSlides = (urls || []).filter(Boolean);
             heroSlideIndex = 0;
             if (heroSlideTimer) clearInterval(heroSlideTimer);
+
+            const promoImage = byId("heroPromoImage");
+            const heroBackground = byId("heroBackground");
+            const overlay = byId("heroOverlay");
+            const content = byId("heroContent");
+            const indicators = byId("heroIndicators");
+
             const show = () => {
-                const url = heroSlides[heroSlideIndex];
-                byId("heroBackground").style.backgroundImage = url ? `url("${url}")` : heroDefaultBg;
+                if (heroSlides.length) {
+                    promoImage.src = heroSlides[heroSlideIndex];
+                    promoImage.classList.remove("hidden");
+                    heroBackground.classList.add("hidden");
+                    overlay.classList.add("hidden");
+                    content.classList.add("hidden");
+                } else {
+                    promoImage.classList.add("hidden");
+                    promoImage.removeAttribute("src");
+                    heroBackground.classList.remove("hidden");
+                    heroBackground.style.backgroundImage = heroDefaultBg;
+                    overlay.classList.remove("hidden");
+                    content.classList.remove("hidden");
+                }
+                if (indicators) {
+                    indicators.innerHTML = heroSlides.length > 1 ? heroSlides.map((_, i) =>
+                        `<button type="button" aria-label="Mostrar banner ${i + 1}" data-hero-index="${i}" class="w-2.5 h-2.5 rounded-full border border-white ${i === heroSlideIndex ? "bg-white" : "bg-white/30"}"></button>`
+                    ).join("") : "";
+                    indicators.classList.toggle("hidden", heroSlides.length < 2);
+                    indicators.classList.toggle("flex", heroSlides.length > 1);
+                }
                 if (heroSlides.length > 1) heroSlideIndex = (heroSlideIndex + 1) % heroSlides.length;
             };
+
             show();
             if (heroSlides.length > 1) heroSlideTimer = setInterval(show, 6000);
+
             const preview = byId("heroBannerPreviews");
-            if (preview) preview.innerHTML = heroSlides.length ? heroSlides.map((url, i) => `<div class="relative"><img src="${esc(url)}" class="w-full h-24 object-cover rounded-lg border border-slate-200"><span class="absolute bottom-1 left-1 bg-slate-900/75 text-white text-[10px] px-2 py-0.5 rounded">Banner ${i + 1}</span></div>`).join("") : '<p class="text-xs text-slate-400">Nenhum banner personalizado cadastrado.</p>';
+            if (preview) preview.innerHTML = heroSlides.length ? heroSlides.map((url, i) =>
+                `<div class="relative"><img src="${esc(url)}" class="w-full h-24 object-contain bg-slate-100 rounded-lg border border-slate-200"><span class="absolute bottom-1 left-1 bg-slate-900/75 text-white text-[10px] px-2 py-0.5 rounded">Banner ${i + 1}</span><button type="button" data-remove-banner="${i}" class="absolute top-1 right-1 bg-red-600 hover:bg-red-700 text-white text-xs rounded-full w-6 h-6" aria-label="Remover banner ${i + 1}">&times;</button></div>`
+            ).join("") : '<p class="text-xs text-slate-400">Nenhum banner personalizado cadastrado.</p>';
         }
+
+        byId("heroIndicators")?.addEventListener("click", (event) => {
+            const button = event.target.closest("[data-hero-index]");
+            if (!button || !heroSlides.length) return;
+            heroSlideIndex = Number(button.dataset.heroIndex);
+            if (heroSlideTimer) clearInterval(heroSlideTimer);
+            const promoImage = byId("heroPromoImage");
+            promoImage.src = heroSlides[heroSlideIndex];
+            if (heroSlides.length > 1) heroSlideIndex = (heroSlideIndex + 1) % heroSlides.length;
+            heroSlideTimer = setInterval(() => {
+                promoImage.src = heroSlides[heroSlideIndex];
+                heroSlideIndex = (heroSlideIndex + 1) % heroSlides.length;
+            }, 6000);
+        });
+
+        byId("heroBannerPreviews")?.addEventListener("click", async (event) => {
+            const button = event.target.closest("[data-remove-banner]");
+            if (!button) return;
+            const index = Number(button.dataset.removeBanner);
+            const updated = heroSlides.filter((_, i) => i !== index);
+            try {
+                await db.collection("siteContent").doc("images").set({ heroUrls: updated.length ? updated : firebase.firestore.FieldValue.delete(), heroUrl: firebase.firestore.FieldValue.delete() }, { merge: true });
+                setFb(byId("heroBannerFeedback"), "Banner removido.", "ok");
+            } catch (err) {
+                console.error(err);
+                setFb(byId("heroBannerFeedback"), authMsg(err), "err");
+            }
+        });
 
         db.collection("siteContent").doc("images").onSnapshot((doc) => {
             images = doc.exists ? doc.data() : {};
