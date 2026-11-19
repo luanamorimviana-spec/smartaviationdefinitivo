@@ -97,7 +97,7 @@
 
     <main class="flex-grow">
         <section id="home" class="relative bg-aero-dark text-white py-24 lg:py-32 overflow-hidden">
-            <div id="heroBackground" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay transition-all duration-700" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
+            <div id="heroBackground" class="absolute inset-0 opacity-25 bg-cover bg-center mix-blend-overlay" style="background-image: url('https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&q=80&w=1920');"></div>
             <div class="absolute inset-0 bg-gradient-to-r from-aero-dark via-aero-primary/80 to-transparent"></div>
             <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="max-w-3xl">
@@ -111,7 +111,6 @@
                         <a href="#contact" data-t="hero.btn2" data-label="Banner - botão 2" class="inline-flex items-center justify-center px-8 py-4 rounded-xl font-bold text-slate-800 bg-white hover:bg-slate-100 transition">Fale com um Especialista</a>
                     </div>
                 </div>
-                <div id="heroDots" class="hidden items-center gap-2 mt-10"></div>
             </div>
         </section>
 
@@ -163,7 +162,11 @@
                     <span data-t="catalog.eyebrow" data-label="Catálogo - etiqueta" class="text-aero-light font-bold text-sm tracking-widest uppercase">Catálogo de Produtos</span>
                     <h2 data-t="catalog.title" data-label="Catálogo - título" class="text-3xl sm:text-4xl font-black text-slate-900 mt-2 mb-4">Componentes e Instrumentos Certificados</h2>
                     <p data-t="catalog.subtitle" data-label="Catálogo - subtítulo" class="text-slate-600">Explore nosso inventário de peças e sistemas para aviação geral e comercial.</p>
-                    <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8"></div>
+                    <div id="categoryFilters" class="flex flex-wrap justify-center gap-2 mt-8">
+                        <button onclick="filterCatalog('all')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-aero-primary text-white transition shadow-sm">Todos</button>
+                        <button onclick="filterCatalog('Aviónicos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Aviónicos</button>
+                        <button onclick="filterCatalog('Instrumentos')" class="cat-btn px-5 py-2 rounded-full text-sm font-semibold bg-slate-100 text-slate-700 hover:bg-slate-200 transition">Instrumentos</button>
+                    </div>
                 </div>
                 <div id="catalogContainer" class="grid grid-cols-1 lg:grid-cols-2 gap-8"></div>
             </div>
@@ -194,11 +197,6 @@
                     <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-xl">
                         <h3 data-t="form.title" data-label="Formulário - título" class="text-xl font-bold mb-6">Envie sua Mensagem</h3>
                         <form id="contactForm" class="space-y-4">
-                            <input type="hidden" id="selectedProductField" name="product_info" value="">
-                            <div id="selectedProductBanner" class="hidden bg-sky-500/20 border border-sky-500/30 p-3 rounded-lg text-sm text-sky-200 flex items-center justify-between">
-                                <span>Solicitando orçamento para: <strong id="selectedProductName"></strong></span>
-                                <button type="button" onclick="clearSelectedProduct()" class="text-xs text-red-400 hover:text-red-300 font-bold ml-2">Remover</button>
-                            </div>
                             <input name="name" required maxlength="150" placeholder="Seu nome" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="email" type="email" required maxlength="150" placeholder="Seu e-mail" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
                             <input name="phone" maxlength="40" placeholder="Telefone (opcional)" class="w-full rounded-lg bg-slate-900 border border-slate-600 px-4 py-3 text-white">
@@ -264,7 +262,7 @@
                 <nav class="flex md:flex-col gap-1 p-2 md:p-3">
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="texts"><i class="fa-solid fa-pen mr-2"></i> Textos do site</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="images"><i class="fa-solid fa-image mr-2"></i> Banner e logomarca</button>
-                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo e Categorias</button>
+                    <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="products"><i class="fa-solid fa-boxes-stacked mr-2"></i> Catálogo</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="inquiries"><i class="fa-solid fa-envelope mr-2"></i> Mensagens</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="admins"><i class="fa-solid fa-users-gear mr-2"></i> Administradores</button>
                     <button class="admin-tab whitespace-nowrap text-left px-4 py-3 rounded-lg text-sm font-medium" data-tab="account"><i class="fa-solid fa-key mr-2"></i> Meu login e senha</button>
@@ -289,58 +287,832 @@
                 <!-- IMAGENS -->
                 <section class="admin-section hidden" data-section="images">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Banner e logomarca</h2>
-                    <p class="text-sm text-slate-500 mb-6">Gerencie os banners rotativos, a logomarca e as imagens das seções do site.</p>
-
-                    <div class="grid gap-6 max-w-5xl">
-                        <!-- Guia de Formatos e Tamanhos -->
-                        <div class="card bg-sky-50/60 border-sky-200">
-                            <h3 class="font-bold text-base text-aero-dark mb-3 flex items-center gap-2">
-                                <i class="fa-solid fa-circle-info text-aero-light"></i> Guia de Formatos e Tamanhos Recomendados
-                            </h3>
-                            <p class="text-xs text-slate-600 mb-3">Limite máximo por arquivo: <strong>10 MB</strong>. Formatos aceitos: <strong>JPG/JPEG, PNG e WEBP</strong>.</p>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-left border-collapse text-xs sm:text-sm">
-                                    <thead>
-                                        <tr class="border-b border-sky-200 text-aero-dark">
-                                            <th class="py-2 pr-3 font-bold">Espaço no site</th>
-                                            <th class="py-2 px-3 font-bold">Formato ideal</th>
-                                            <th class="py-2 px-3 font-bold">Proporção / Orientação</th>
-                                            <th class="py-2 pl-3 font-bold">Tamanho recomendado</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="divide-y divide-sky-100 text-slate-700">
-                                        <tr>
-                                            <td class="py-2 pr-3 font-semibold">Logomarca</td>
-                                            <td class="py-2 px-3">PNG (fundo transparente)</td>
-                                            <td class="py-2 px-3">Horizontal</td>
-                                            <td class="py-2 pl-3">480 × 140 px (altura 120–240 px)</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 pr-3 font-semibold">Banners Rotativos (Topo)</td>
-                                            <td class="py-2 px-3">JPG ou WEBP</td>
-                                            <td class="py-2 px-3">Paisagem (ampla)</td>
-                                            <td class="py-2 pl-3">1920 × 800 px (mín. 1280 × 600 px)</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 pr-3 font-semibold">Imagem "Quem Somos"</td>
-                                            <td class="py-2 px-3">JPG ou WEBP</td>
-                                            <td class="py-2 px-3">Horizontal (4:3 ou 16:10)</td>
-                                            <td class="py-2 pl-3">1200 × 800 px</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="py-2 pr-3 font-semibold">Fotos do Catálogo (1ª + 3 extras)</td>
-                                            <td class="py-2 px-3">PNG ou JPG</td>
-                                            <td class="py-2 px-3">Quadrada (1:1) ou 4:3</td>
-                                            <td class="py-2 pl-3">1000 × 1000 px ou 1200 × 900 px</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <p class="text-sm text-slate-500 mb-6">Escolha a imagem e clique em "Enviar e salvar". Para a logomarca, use PNG com fundo transparente.</p>
+                    <div class="grid gap-6 max-w-4xl">
+                        <div class="card" data-img="logo">
+                            <h3 class="font-bold text-lg mb-3">Logomarca (topo do site)</h3>
+                            <img class="img-prev hidden h-20 object-contain mb-3 border border-slate-200 rounded bg-white p-2" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Remover (voltar ao texto)</button>
+                                <span class="img-fb text-sm"></span>
                             </div>
                         </div>
+                        <div class="card" data-img="hero">
+                            <h3 class="font-bold text-lg mb-3">Banner superior (imagem de fundo)</h3>
+                            <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Voltar à imagem original</button>
+                                <span class="img-fb text-sm"></span>
+                            </div>
+                        </div>
+                        <div class="card" data-img="about">
+                            <h3 class="font-bold text-lg mb-3">Imagem da seção "Quem Somos"</h3>
+                            <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
+                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" class="img-save btn">Enviar e salvar</button>
+                                <button type="button" class="img-clear btn2">Voltar à imagem original</button>
+                                <span class="img-fb text-sm"></span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
-                        <!-- Banners Rotativos -->
+                <!-- PRODUTOS -->
+                <section class="admin-section hidden" data-section="products">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo</h2>
+                    <p class="text-sm text-slate-500 mb-6">Cada produto: identificação, 1 foto principal, 3 fotos menores e descrição.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="productForm" class="card space-y-4">
+                            <div class="flex items-center justify-between">
+                                <h3 id="productFormTitle" class="font-bold text-lg text-slate-900">Novo produto</h3>
+                                <span id="productFeedback" class="text-sm"></span>
+                            </div>
+                            <input id="productId" type="hidden">
+                            <label class="block text-sm font-semibold">Nome do produto
+                                <input id="productName" required maxlength="120" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Identificação (código / Part Number)
+                                <input id="productCode" maxlength="80" placeholder="Ex.: P/N 1234-ABC" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Categoria
+                                <select id="productCategory" class="inp">
+                                    <option value="Aviónicos">Aviónicos</option>
+                                    <option value="Instrumentos">Instrumentos</option>
+                                </select>
+                            </label>
+                            <div>
+                                <label class="block text-sm font-semibold mb-1">Fotos do produto</label>
+                                <p class="text-xs text-slate-400 mb-3">1 foto principal (grande) + até 3 fotos menores. Clique no quadro para escolher a imagem.</p>
+                                <div id="photoSlots" class="grid grid-cols-3 gap-3"></div>
+                            </div>
+                            <label class="block text-sm font-semibold">Descrição
+                                <textarea id="productDescription" rows="5" maxlength="1500" class="inp"></textarea>
+                                <span id="descCounter" class="text-xs text-slate-400 font-normal">0 / 1500</span>
+                            </label>
+                            <div class="flex items-center gap-3 pt-2">
+                                <button id="productSaveBtn" type="submit" class="btn">Salvar produto</button>
+                                <button type="button" onclick="resetProductForm()" class="btn2">Limpar</button>
+                            </div>
+                        </form>
                         <div class="card">
-                            <h3 class="font-bold text-lg mb-1">Banner superior rotativo (múltiplos banners)</h3>
-                            <p class="text-xs text-slate-500 mb-4">Adicione quantos banners quiser. Quando houver mais de 1, o site alterna automaticamente entre eles.</p>
+                            <h3 class="font-bold text-lg mb-4">Produtos cadastrados</h3>
+                            <div id="adminProductsList" class="space-y-3 text-sm"><p class="text-slate-500">Carregando...</p></div>
+                        </div>
+                    </div>
+                </section>
 
-                            <form
+                <!-- MENSAGENS -->
+                <section class="admin-section hidden" data-section="inquiries">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Mensagens recebidas</h2>
+                    <p class="text-sm text-slate-500 mb-6">Mensagens enviadas pelo formulário de contato.</p>
+                    <div id="inquiriesList" class="space-y-3 max-w-4xl"><p class="text-slate-500">Carregando...</p></div>
+                </section>
+
+                <!-- ADMINISTRADORES -->
+                <section class="admin-section hidden" data-section="admins">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Administradores</h2>
+                    <p class="text-sm text-slate-500 mb-6">Quem pode entrar neste painel.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="addAdminForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Adicionar administrador</h3>
+                            <label class="block text-sm font-semibold">E-mail
+                                <input id="newAdminEmail" type="email" required class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Senha (mínimo 6 caracteres)
+                                <input id="newAdminPassword" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <button id="addAdminBtn" type="submit" class="btn">Adicionar</button>
+                                <span id="addAdminFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
+                        <div class="card">
+                            <h3 class="font-bold text-lg mb-1">Administradores cadastrados</h3>
+                            <p class="text-xs text-slate-400 mb-4">Para trocar a senha de outro administrador, envie o e-mail de redefinição. "Remover" tira o acesso ao painel.</p>
+                            <div id="adminsList" class="space-y-3 text-sm"><p class="text-slate-500">Carregando...</p></div>
+                            <p id="adminsFeedback" class="text-sm mt-3"></p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- MINHA CONTA -->
+                <section class="admin-section hidden" data-section="account">
+                    <h2 class="text-2xl font-bold text-slate-900 mb-1">Meu login e senha</h2>
+                    <p class="text-sm text-slate-500 mb-6">Por segurança, informe sua senha atual para qualquer alteração.</p>
+                    <div class="grid grid-cols-1 xl:grid-cols-2 gap-6 max-w-6xl">
+                        <form id="changePwForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Trocar senha</h3>
+                            <label class="block text-sm font-semibold">Senha atual
+                                <input id="pwCurrent" type="password" required autocomplete="current-password" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Nova senha (mínimo 6 caracteres)
+                                <input id="pwNew" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Repita a nova senha
+                                <input id="pwNew2" type="password" minlength="6" required autocomplete="new-password" class="inp">
+                            </label>
+                            <div class="flex items-center gap-3">
+                                <button type="submit" class="btn">Trocar senha</button>
+                                <span id="changePwFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
+                        <form id="changeEmailForm" class="card space-y-4">
+                            <h3 class="font-bold text-lg">Trocar e-mail de login</h3>
+                            <label class="block text-sm font-semibold">Novo e-mail
+                                <input id="emailNew" type="email" required class="inp">
+                            </label>
+                            <label class="block text-sm font-semibold">Senha atual
+                                <input id="emailPw" type="password" required autocomplete="current-password" class="inp">
+                            </label>
+                            <p class="text-xs text-slate-400">Enviaremos um link de confirmação para o novo e-mail. O login só muda depois de clicar no link.</p>
+                            <div class="flex items-center gap-3">
+                                <button type="submit" class="btn">Trocar e-mail</button>
+                                <span id="changeEmailFeedback" class="text-sm"></span>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+
+            </main>
+        </div>
+    </div>
+
+    <script>
+    (() => {
+        "use strict";
+
+        // ---------- Firebase ----------
+        let db, auth;
+        try {
+            db = firebase.firestore();
+            auth = firebase.auth();
+        } catch (e) {
+            console.error("Firebase init falhou:", e);
+            alert("Firebase não inicializou. Confira o console.");
+            return;
+        }
+
+        const byId = (id) => document.getElementById(id);
+        const $$ = (s, r = document) => [...r.querySelectorAll(s)];
+        const esc = (v) => String(v ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+        const setFb = (el, msg, kind) => {
+            el.textContent = msg;
+            el.className = "text-sm " + (kind === "ok" ? "text-emerald-600" : kind === "err" ? "text-red-600" : "text-slate-500");
+        };
+        const authMsg = (err) => ({
+            "auth/invalid-credential": "E-mail ou senha incorretos.",
+            "auth/wrong-password": "Senha incorreta.",
+            "auth/user-not-found": "Conta não encontrada.",
+            "auth/too-many-requests": "Muitas tentativas. Aguarde um pouco.",
+            "auth/invalid-email": "E-mail inválido.",
+            "auth/weak-password": "Senha fraca: use pelo menos 6 caracteres.",
+            "auth/email-already-in-use": "Este e-mail já está em uso.",
+            "auth/requires-recent-login": "Saia e entre de novo antes de fazer esta alteração.",
+            "auth/network-request-failed": "Falha de conexão.",
+            "auth/operation-not-allowed": "Login por e-mail/senha não está ativado no Firebase Console.",
+            "permission-denied": "Sem permissão. Confira as regras do Firestore."
+        }[err.code] || ("Erro: " + (err.message || err.code)));
+
+        // ---------- Upload de Imagem (Cloudinary) ----------
+        async function uploadImage(file, folder) {
+            const cloudName = "vz7fqonx";
+            const uploadPreset = "smart_aviation";
+            const formData = new FormData();
+            formData.append("file", file);
+            formData.append("upload_preset", uploadPreset);
+            formData.append("folder", folder);
+            const response = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/image/upload`, { method: "POST", body: formData });
+            if (!response.ok) {
+                let msg = "Erro no upload para o Cloudinary";
+                try { const errorData = await response.json(); msg = errorData.error?.message || msg; } catch (_) {}
+                throw new Error(msg);
+            }
+            const data = await response.json();
+            return data.secure_url;
+        }
+
+        // ---------- Login ----------
+        window.openAdminLogin = () => {
+            byId("adminLoginModal").classList.remove("hidden");
+            byId("adminLoginFeedback").textContent = "";
+            setTimeout(() => byId("adminEmail")?.focus(), 50);
+        };
+        window.closeAdminLogin = () => byId("adminLoginModal").classList.add("hidden");
+
+        byId("adminAccessBtn").addEventListener("click", () => {
+            if (auth.currentUser) openAdminDashboard(auth.currentUser); else openAdminLogin();
+        });
+        byId("adminLoginModal").addEventListener("click", (e) => {
+            if (e.target === byId("adminLoginModal")) closeAdminLogin();
+        });
+
+        byId("adminLoginForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = byId("adminLoginButton"), fb = byId("adminLoginFeedback");
+            btn.disabled = true; btn.textContent = "Entrando..."; fb.textContent = "";
+            try {
+                await auth.signInWithEmailAndPassword(byId("adminEmail").value.trim(), byId("adminPassword").value);
+                byId("adminPassword").value = "";
+            } catch (err) {
+                console.error("Erro no login:", err);
+                fb.className = "text-sm text-red-600";
+                fb.textContent = authMsg(err);
+            } finally {
+                btn.disabled = false; btn.textContent = "Entrar";
+            }
+        });
+
+        byId("forgotPwBtn").addEventListener("click", async () => {
+            const fb = byId("adminLoginFeedback"), email = byId("adminEmail").value.trim();
+            if (!email) { fb.className = "text-sm text-red-600"; fb.textContent = "Digite seu e-mail acima primeiro."; return; }
+            try {
+                await auth.sendPasswordResetEmail(email);
+                fb.className = "text-sm text-emerald-600";
+                fb.textContent = "Se o e-mail existir, enviamos um link para redefinir a senha.";
+            } catch (err) { fb.className = "text-sm text-red-600"; fb.textContent = authMsg(err); }
+        });
+
+        window.adminLogout = async () => {
+            await auth.signOut();
+            closeAdminDashboard();
+            openAdminLogin();
+        };
+
+        // ---------- Dashboard ----------
+        window.openAdminDashboard = (user) => {
+            closeAdminLogin();
+            byId("adminDashboard").classList.remove("hidden");
+            byId("adminSignedInAs").textContent = user.email || user.uid;
+            switchTab("texts");
+        };
+        window.closeAdminDashboard = () => byId("adminDashboard").classList.add("hidden");
+
+        function switchTab(name) {
+            $$(".admin-tab").forEach(b => {
+                const active = b.dataset.tab === name;
+                b.classList.toggle("bg-aero-primary", active);
+                b.classList.toggle("text-white", active);
+                b.classList.toggle("text-slate-700", !active);
+                b.classList.toggle("hover:bg-slate-100", !active);
+            });
+            $$(".admin-section").forEach(s => s.classList.toggle("hidden", s.dataset.section !== name));
+            if (name === "products") loadAdminProducts();
+            if (name === "inquiries") loadInquiries();
+            if (name === "admins") loadAdmins();
+        }
+        $$(".admin-tab").forEach(b => b.addEventListener("click", () => switchTab(b.dataset.tab)));
+
+        // ---------- Auth state ----------
+        auth.onAuthStateChanged(async (user) => {
+            if (!user) { closeAdminDashboard(); return; }
+            try {
+                const ref = db.collection("admins").doc(user.uid);
+                const doc = await ref.get();
+                if (!doc.exists || doc.data().active !== true) {
+                    await auth.signOut();
+                    openAdminLogin();
+                    byId("adminLoginFeedback").className = "text-sm text-red-600";
+                    byId("adminLoginFeedback").textContent = "Esta conta não tem permissão administrativa.";
+                    return;
+                }
+                if (doc.data().email !== user.email) ref.update({ email: user.email }).catch(() => {});
+                openAdminDashboard(user);
+            } catch (err) {
+                console.error("Erro ao validar admin:", err);
+                byId("adminLoginFeedback").textContent = "Erro ao validar admin. Verifique as regras do Firestore.";
+            }
+        });
+
+        // ---------- TEXTOS EDITÁVEIS ----------
+        const GROUPS = { logo:"Logomarca (texto)", nav:"Menu e topo", hero:"Banner superior", stats:"Estatísticas", about:"Quem Somos", catalog:"Catálogo", contact:"Contato", form:"Formulário de contato", footer:"Rodapé" };
+        const defaults = {}, labels = {};
+        $$("[data-t]").forEach(el => {
+            const k = el.dataset.t;
+            if (!(k in defaults)) { defaults[k] = el.textContent.trim(); labels[k] = el.dataset.label || k; }
+        });
+        defaults["catalog.quote"] = "Solicitar cotação";
+        labels["catalog.quote"] = "Botão dos cartões de produto";
+
+        let texts = {};
+        const T = (k) => (texts[k] && String(texts[k]).trim()) || defaults[k] || "";
+        function applyTexts() {
+            $$("[data-t]").forEach(el => { el.textContent = T(el.dataset.t); });
+            renderCatalog();
+            fillTextsForm();
+        }
+
+        function buildTextsForm() {
+            const groups = {};
+            Object.keys(defaults).forEach(k => { (groups[k.split(".")[0]] ||= []).push(k); });
+            byId("textsFields").innerHTML = Object.entries(groups).map(([g, keys]) => `
+                <fieldset class="card">
+                    <legend class="px-2 font-bold text-aero-primary">${esc(GROUPS[g] || g)}</legend>
+                    <div class="grid gap-4 sm:grid-cols-2">
+                        ${keys.map(k => {
+                            const long = defaults[k].length > 70;
+                            return `<label class="block text-sm font-semibold ${long ? "sm:col-span-2" : ""}">${esc(labels[k])}
+                                ${long ? `<textarea data-key="${esc(k)}" rows="3" class="inp"></textarea>` : `<input data-key="${esc(k)}" class="inp">`}
+                            </label>`;
+                        }).join("")}
+                    </div>
+                </fieldset>`).join("");
+            fillTextsForm();
+        }
+        function fillTextsForm() {
+            $$("[data-key]", byId("textsForm")).forEach(i => { if (document.activeElement !== i) i.value = T(i.dataset.key); });
+        }
+
+        db.collection("siteContent").doc("texts").onSnapshot((doc) => {
+            const d = doc.exists ? doc.data() : {};
+            texts = {};
+            Object.keys(d).forEach(f => { texts[f.replace(/__/g, ".")] = d[f]; });
+            applyTexts();
+        }, (error) => console.error("Erro ao ouvir textos:", error));
+
+        async function saveSection(docId, data, feedbackId) {
+            const fb = byId(feedbackId);
+            setFb(fb, "Salvando...");
+            try {
+                const timeout = new Promise((_, reject) => setTimeout(() => reject(new Error("Tempo esgotado. O Firestore não respondeu.")), 10000));
+                await Promise.race([db.collection("siteContent").doc(docId).set(data, { merge: true }), timeout]);
+                setFb(fb, "✓ Salvo com sucesso!", "ok");
+                setTimeout(() => { fb.textContent = ""; }, 3000);
+            } catch (e) {
+                console.error("Erro ao salvar:", e);
+                setFb(fb, authMsg(e), "err");
+            }
+        }
+
+        byId("textsForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const data = {};
+            $$("[data-key]", e.currentTarget).forEach(i => { data[i.dataset.key.replace(/\./g, "__")] = i.value.trim(); });
+            await saveSection("texts", data, "textsFeedback");
+        });
+
+        // ---------- IMAGENS (logo, banner, quem somos) ----------
+        const heroDefaultBg = byId("heroBackground").style.backgroundImage;
+        const aboutDefaultSrc = byId("aboutImage").getAttribute("src");
+        let images = {};
+        function applyImages() {
+            const logo = byId("siteLogo");
+            if (images.logoUrl) {
+                logo.src = images.logoUrl;
+                logo.classList.remove("hidden");
+                byId("logoText").classList.add("hidden");
+            } else {
+                logo.classList.add("hidden");
+                byId("logoText").classList.remove("hidden");
+            }
+            byId("heroBackground").style.backgroundImage = images.heroUrl ? `url("${images.heroUrl}")` : heroDefaultBg;
+            byId("aboutImage").src = images.aboutUrl || aboutDefaultSrc;
+            $$("[data-img]").forEach(card => {
+                const u = images[card.dataset.img + "Url"], p = card.querySelector(".img-prev");
+                if (u) { p.src = u; p.classList.remove("hidden"); } else p.classList.add("hidden");
+            });
+        }
+        db.collection("siteContent").doc("images").onSnapshot((doc) => {
+            images = doc.exists ? doc.data() : {};
+            applyImages();
+        }, (error) => console.error("Erro ao ouvir imagens:", error));
+
+        $$("[data-img]").forEach(card => {
+            const key = card.dataset.img + "Url", fb = card.querySelector(".img-fb");
+            card.querySelector(".img-save").addEventListener("click", async () => {
+                const file = card.querySelector(".img-file").files[0];
+                if (!file) { setFb(fb, "Escolha uma imagem primeiro.", "err"); return; }
+                if (file.size > 10 * 1024 * 1024) { setFb(fb, "Imagem maior que 10 MB.", "err"); return; }
+                try {
+                    setFb(fb, "Enviando imagem...");
+                    const url = await uploadImage(file, card.dataset.img);
+                    await db.collection("siteContent").doc("images").set({ [key]: url }, { merge: true });
+                    card.querySelector(".img-file").value = "";
+                    setFb(fb, "✓ Salvo!", "ok");
+                    setTimeout(() => { fb.textContent = ""; }, 3000);
+                } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+            });
+            card.querySelector(".img-clear").addEventListener("click", async () => {
+                try {
+                    await db.collection("siteContent").doc("images").set({ [key]: firebase.firestore.FieldValue.delete() }, { merge: true });
+                    setFb(fb, "✓ Removido.", "ok");
+                    setTimeout(() => { fb.textContent = ""; }, 3000);
+                } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+            });
+        });
+
+        // ---------- Catálogo público ----------
+        let allProducts = [];
+        let currentFilter = "all";
+
+        db.collection("products").orderBy("createdAt", "desc").onSnapshot((snap) => {
+            allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+            renderCatalog();
+        }, (error) => console.error("Erro ao ouvir produtos:", error));
+
+        function renderCatalog() {
+            const c = byId("catalogContainer");
+            const products = currentFilter === "all" ? allProducts : allProducts.filter(p => p.category === currentFilter);
+            if (!products.length) {
+                c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado ainda.</p>';
+                return;
+            }
+            c.innerHTML = products.map(p => {
+                const name = esc(p.name || "Produto");
+                const cat = esc(p.category || "Instrumentos");
+                const desc = esc(p.description || "");
+                const code = p.code ? `<p class="text-xs font-semibold text-slate-500 mt-1">${esc(p.code)}</p>` : "";
+                const images = p.imageUrls && p.imageUrls.length > 0 ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
+                const mainImage = images[0] || "";
+                const mainImgHtml = mainImage
+                    ? `<img id="main-img-${esc(p.id)}" src="${esc(mainImage)}" alt="${name}" class="w-full h-80 object-contain bg-white transition-opacity duration-300">`
+                    : '<div class="w-full h-80 bg-slate-100 flex items-center justify-center text-slate-400"><i class="fa-solid fa-plane text-4xl"></i></div>';
+                const thumbsHtml = images.length > 1 ? `
+                    <div class="flex gap-2 mt-3 justify-center">
+                        ${images.slice(0, 4).map((img, idx) => `
+                            <img src="${esc(img)}" data-thumb data-pid="${esc(p.id)}" data-src="${esc(img)}" alt=""
+                                 class="w-16 h-16 object-contain bg-white border-2 ${idx === 0 ? "border-aero-primary" : "border-slate-200"} rounded cursor-pointer hover:border-aero-light transition-all">`).join("")}
+                    </div>` : "";
+                return `<article class="product-card bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm flex flex-col">
+                    <div class="p-4 bg-slate-50 border-b border-slate-100">${mainImgHtml}${thumbsHtml}</div>
+                    <div class="p-6 flex-grow flex flex-col">
+                        <span class="text-xs font-bold uppercase tracking-wide text-sky-700">${cat}</span>
+                        <h3 class="text-xl font-bold text-slate-900 mt-2">${name}</h3>
+                        ${code}
+                        <p class="text-slate-600 mt-3 whitespace-pre-line flex-grow">${desc}</p>
+                        <a href="#contact" class="inline-flex mt-5 rounded-lg bg-aero-primary hover:bg-aero-dark text-white font-semibold px-4 py-2 justify-center">${esc(T("catalog.quote"))}</a>
+                    </div>
+                </article>`;
+            }).join("");
+        }
+
+        byId("catalogContainer").addEventListener("click", (e) => {
+            const t = e.target.closest("[data-thumb]");
+            if (!t) return;
+            const mainImg = byId(`main-img-${t.dataset.pid}`);
+            if (!mainImg) return;
+            const newSrc = t.dataset.src;
+            mainImg.style.opacity = 0;
+            setTimeout(() => { mainImg.src = newSrc; mainImg.style.opacity = 1; }, 150);
+            const card = t.closest(".product-card");
+            $$("[data-thumb]", card).forEach(img => {
+                const sel = img.dataset.src === newSrc;
+                img.classList.toggle("border-aero-primary", sel);
+                img.classList.toggle("border-slate-200", !sel);
+            });
+        });
+
+        window.filterCatalog = (cat) => {
+            currentFilter = cat;
+            renderCatalog();
+            $$(".cat-btn").forEach(b => {
+                const active = (cat === "all" && b.textContent.trim() === "Todos") || b.getAttribute("onclick")?.includes(`'${cat}'`);
+                b.classList.toggle("bg-aero-primary", active);
+                b.classList.toggle("text-white", active);
+                b.classList.toggle("bg-slate-100", !active);
+                b.classList.toggle("text-slate-700", !active);
+            });
+        };
+
+        // ---------- ADMIN: produtos (1 principal + 3 menores) ----------
+        let slotUrls = [null, null, null, null];
+        let slotFiles = [null, null, null, null];
+
+        function renderSlots() {
+            byId("photoSlots").innerHTML = [0, 1, 2, 3].map(i => {
+                const big = i === 0;
+                const src = slotFiles[i] ? URL.createObjectURL(slotFiles[i]) : slotUrls[i];
+                const box = big ? "col-span-3 h-56" : "h-28";
+                const label = big ? "Foto principal" : `Foto ${i}`;
+                return `<div class="${box} relative rounded-xl border-2 ${src ? "border-aero-primary" : "border-dashed border-slate-300"} bg-slate-50 overflow-hidden flex items-center justify-center hover:border-aero-light transition">
+                    ${src ? `<img src="${esc(src)}" class="w-full h-full object-contain bg-white">`
+                          : `<div class="text-center text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-image text-2xl block mb-1"></i>${label}</div>`}
+                    ${big ? '<span class="absolute top-2 left-2 bg-aero-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">PRINCIPAL</span>' : ""}
+                    <label class="absolute inset-0 cursor-pointer"><input type="file" accept="image/*" data-slot="${i}" class="hidden"></label>
+                    ${src ? `<button type="button" data-remove="${i}" title="Remover" class="absolute top-2 right-2 z-10 bg-red-600 hover:bg-red-700 text-white w-7 h-7 rounded-full text-sm leading-none">&times;</button>` : ""}
+                </div>`;
+            }).join("");
+        }
+
+        byId("photoSlots").addEventListener("change", (e) => {
+            const input = e.target.closest("input[data-slot]");
+            if (!input || !input.files[0]) return;
+            const file = input.files[0];
+            if (file.size > 10 * 1024 * 1024) { setFb(byId("productFeedback"), "Imagem maior que 10 MB.", "err"); input.value = ""; return; }
+            slotFiles[Number(input.dataset.slot)] = file;
+            renderSlots();
+        });
+        byId("photoSlots").addEventListener("click", (e) => {
+            const btn = e.target.closest("button[data-remove]");
+            if (!btn) return;
+            e.preventDefault();
+            const i = Number(btn.dataset.remove);
+            slotUrls[i] = null; slotFiles[i] = null;
+            renderSlots();
+        });
+        byId("productDescription").addEventListener("input", (e) => {
+            byId("descCounter").textContent = `${e.target.value.length} / 1500`;
+        });
+
+        async function loadAdminProducts() {
+            const list = byId("adminProductsList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
+            try {
+                const snap = await db.collection("products").orderBy("createdAt", "desc").get();
+                const products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                if (!products.length) { list.innerHTML = '<p class="text-slate-500">Nenhum produto cadastrado.</p>'; return; }
+                list.innerHTML = products.map(p => {
+                    const imgs = p.imageUrls && p.imageUrls.length ? p.imageUrls : (p.imageUrl ? [p.imageUrl] : []);
+                    const main = imgs[0]
+                        ? `<img src="${esc(imgs[0])}" class="w-24 h-24 object-contain bg-white border border-slate-200 rounded-lg shrink-0">`
+                        : '<div class="w-24 h-24 bg-slate-100 rounded-lg flex items-center justify-center text-slate-300 shrink-0"><i class="fa-solid fa-plane text-2xl"></i></div>';
+                    const small = imgs.slice(1, 4).map(u => `<img src="${esc(u)}" class="w-9 h-9 object-contain bg-white border border-slate-200 rounded">`).join("");
+                    return `<div class="border border-slate-200 rounded-xl p-3 flex gap-3 items-start">
+                        ${main}
+                        <div class="min-w-0 flex-1">
+                            <p class="font-semibold text-slate-900 break-words">${esc(p.name)}</p>
+                            ${p.code ? `<p class="text-xs text-slate-500">${esc(p.code)}</p>` : ""}
+                            <span class="inline-block text-[10px] font-bold uppercase tracking-wide text-sky-700 bg-sky-50 px-2 py-0.5 rounded-full mt-1">${esc(p.category || "")}</span>
+                            <p class="text-slate-500 text-xs mt-1 line-clamp-2">${esc(p.description || "")}</p>
+                            ${small ? `<div class="flex gap-1 mt-2">${small}</div>` : ""}
+                        </div>
+                        <div class="flex flex-col gap-2 shrink-0">
+                            <button type="button" data-edit="${esc(p.id)}" class="mini bg-blue-50 text-blue-700 hover:bg-blue-100">Editar</button>
+                            <button type="button" data-delete="${esc(p.id)}" class="mini bg-red-50 text-red-700 hover:bg-red-100">Excluir</button>
+                        </div>
+                    </div>`;
+                }).join("");
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+            }
+        }
+        byId("adminProductsList").addEventListener("click", (e) => {
+            const ed = e.target.closest("[data-edit]"), del = e.target.closest("[data-delete]");
+            if (ed) editProduct(ed.dataset.edit);
+            if (del) deleteProduct(del.dataset.delete);
+        });
+
+        async function editProduct(id) {
+            try {
+                const doc = await db.collection("products").doc(id).get();
+                if (!doc.exists) return;
+                const p = doc.data();
+                byId("productId").value = id;
+                byId("productName").value = p.name || "";
+                byId("productCode").value = p.code || "";
+                byId("productCategory").value = p.category || "Instrumentos";
+                byId("productDescription").value = p.description || "";
+                byId("descCounter").textContent = `${(p.description || "").length} / 1500`;
+                byId("productFormTitle").textContent = "Editando produto";
+                byId("productFeedback").textContent = "";
+                const imgs = p.imageUrls || (p.imageUrl ? [p.imageUrl] : []);
+                slotUrls = [imgs[0] || null, imgs[1] || null, imgs[2] || null, imgs[3] || null];
+                slotFiles = [null, null, null, null];
+                renderSlots();
+                byId("productForm").scrollIntoView({ behavior: "smooth", block: "start" });
+            } catch (e) { console.error(e); }
+        }
+
+        async function deleteProduct(id) {
+            if (!confirm("Excluir este produto?")) return;
+            try {
+                await db.collection("products").doc(id).delete();
+                await loadAdminProducts();
+            } catch (e) { console.error(e); alert("Não foi possível excluir."); }
+        }
+
+        window.resetProductForm = () => {
+            byId("productForm").reset();
+            byId("productId").value = "";
+            byId("productFeedback").textContent = "";
+            byId("productFormTitle").textContent = "Novo produto";
+            byId("descCounter").textContent = "0 / 1500";
+            slotUrls = [null, null, null, null];
+            slotFiles = [null, null, null, null];
+            renderSlots();
+        };
+
+        byId("productForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("productFeedback"), btn = byId("productSaveBtn"), id = byId("productId").value;
+            if (!slotUrls.some(Boolean) && !slotFiles.some(Boolean)) { setFb(fb, "Adicione pelo menos a foto principal.", "err"); return; }
+            btn.disabled = true; btn.textContent = "Salvando...";
+            try {
+                setFb(fb, "Enviando imagens...");
+                const finalUrls = await Promise.all([0, 1, 2, 3].map(async (i) =>
+                    slotFiles[i] ? await uploadImage(slotFiles[i], "products") : slotUrls[i]));
+                const imageUrls = finalUrls.filter(Boolean);
+                const payload = {
+                    name: byId("productName").value.trim(),
+                    code: byId("productCode").value.trim(),
+                    category: byId("productCategory").value,
+                    description: byId("productDescription").value.trim(),
+                    imageUrls,
+                    imageUrl: imageUrls[0] || "",
+                    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                if (id) {
+                    await db.collection("products").doc(id).update(payload);
+                } else {
+                    payload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+                    await db.collection("products").add(payload);
+                }
+                resetProductForm();
+                setFb(fb, "✓ Produto salvo!", "ok");
+                setTimeout(() => { fb.textContent = ""; }, 3000);
+                await loadAdminProducts();
+            } catch (err) {
+                console.error(err);
+                setFb(fb, `Erro ao salvar: ${err.message}`, "err");
+            } finally {
+                btn.disabled = false; btn.textContent = "Salvar produto";
+            }
+        });
+        renderSlots();
+
+        // ---------- Mensagens recebidas ----------
+        async function loadInquiries() {
+            const list = byId("inquiriesList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
+            try {
+                const snap = await db.collection("inquiries").orderBy("createdAt", "desc").limit(100).get();
+                if (snap.empty) { list.innerHTML = '<p class="text-slate-500">Nenhuma mensagem recebida ainda.</p>'; return; }
+                list.innerHTML = snap.docs.map(d => {
+                    const m = d.data();
+                    const date = m.createdAt?.toDate?.().toLocaleString("pt-BR") || "";
+                    return `<div class="card">
+                        <div class="flex justify-between items-start gap-3 mb-2">
+                            <div>
+                                <p class="font-bold text-slate-900">${esc(m.name || "—")}</p>
+                                <p class="text-sm text-slate-500">${esc(m.email || "")}${m.phone ? " · " + esc(m.phone) : ""}</p>
+                            </div>
+                            <span class="text-xs text-slate-400 whitespace-nowrap">${esc(date)}</span>
+                        </div>
+                        <p class="text-slate-700 whitespace-pre-line">${esc(m.message || "")}</p>
+                        <button data-delinq="${esc(d.id)}" class="text-xs text-red-600 underline mt-3">Excluir</button>
+                    </div>`;
+                }).join("");
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar mensagens.</p>';
+            }
+        }
+        byId("inquiriesList").addEventListener("click", async (e) => {
+            const b = e.target.closest("[data-delinq]");
+            if (!b || !confirm("Excluir esta mensagem?")) return;
+            try { await db.collection("inquiries").doc(b.dataset.delinq).delete(); await loadInquiries(); }
+            catch (err) { console.error(err); }
+        });
+
+        // ---------- ADMINISTRADORES ----------
+        async function loadAdmins() {
+            const list = byId("adminsList");
+            list.innerHTML = '<p class="text-slate-500">Carregando...</p>';
+            try {
+                const snap = await db.collection("admins").get();
+                const me = auth.currentUser?.uid;
+                list.innerHTML = snap.docs.map(d => {
+                    const a = d.data(), self = d.id === me, on = a.active === true;
+                    return `<div class="border border-slate-200 rounded-xl p-3 flex flex-wrap items-center justify-between gap-3">
+                        <div class="min-w-0">
+                            <p class="font-semibold break-all">${esc(a.email || d.id)} ${self ? '<span class="text-[10px] bg-sky-100 text-sky-700 px-2 py-0.5 rounded-full">você</span>' : ""}</p>
+                            <p class="text-xs ${on ? "text-emerald-600" : "text-red-600"}">${on ? "Ativo" : "Desativado"}</p>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            ${a.email ? `<button data-reset="${esc(a.email)}" class="mini bg-blue-50 text-blue-700 hover:bg-blue-100">Enviar redefinição de senha</button>` : ""}
+                            ${self ? "" : `<button data-toggle="${esc(d.id)}" data-on="${on ? 1 : 0}" class="mini bg-amber-50 text-amber-700 hover:bg-amber-100">${on ? "Desativar" : "Ativar"}</button>
+                            <button data-remove="${esc(d.id)}" class="mini bg-red-50 text-red-700 hover:bg-red-100">Remover</button>`}
+                        </div>
+                    </div>`;
+                }).join("") || '<p class="text-slate-500">Nenhum administrador.</p>';
+            } catch (e) {
+                console.error(e);
+                list.innerHTML = '<p class="text-red-600">Falha ao carregar. Verifique as regras do Firestore.</p>';
+            }
+        }
+
+        byId("adminsList").addEventListener("click", async (e) => {
+            const fb = byId("adminsFeedback");
+            const rs = e.target.closest("[data-reset]"), tg = e.target.closest("[data-toggle]"), rm = e.target.closest("[data-remove]");
+            try {
+                if (rs) {
+                    await auth.sendPasswordResetEmail(rs.dataset.reset);
+                    setFb(fb, `✓ Link de redefinição enviado para ${rs.dataset.reset}.`, "ok");
+                } else if (tg) {
+                    await db.collection("admins").doc(tg.dataset.toggle).update({ active: tg.dataset.on !== "1" });
+                    await loadAdmins();
+                } else if (rm) {
+                    if (!confirm("Remover o acesso deste administrador ao painel?")) return;
+                    await db.collection("admins").doc(rm.dataset.remove).delete();
+                    await loadAdmins();
+                }
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+
+        function secondaryAuth() {
+            let app;
+            try { app = firebase.app("secondary"); } catch (_) { app = firebase.initializeApp(firebaseConfig, "secondary"); }
+            return app.auth();
+        }
+
+        byId("addAdminForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("addAdminFeedback"), btn = byId("addAdminBtn");
+            const email = byId("newAdminEmail").value.trim(), pass = byId("newAdminPassword").value;
+            btn.disabled = true; setFb(fb, "Criando...");
+            const sec = secondaryAuth();
+            try {
+                let cred;
+                try {
+                    cred = await sec.createUserWithEmailAndPassword(email, pass);
+                } catch (err) {
+                    if (err.code === "auth/email-already-in-use") cred = await sec.signInWithEmailAndPassword(email, pass);
+                    else throw err;
+                }
+                await db.collection("admins").doc(cred.user.uid).set({
+                    email, active: true,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+                    createdBy: auth.currentUser.email || auth.currentUser.uid
+                });
+                e.currentTarget.reset();
+                setFb(fb, "✓ Administrador adicionado!", "ok");
+                await loadAdmins();
+            } catch (err) {
+                console.error(err);
+                setFb(fb, err.code === "auth/invalid-credential" ? "Este e-mail já existe com outra senha. Use a senha correta ou peça redefinição." : authMsg(err), "err");
+            } finally {
+                try { await sec.signOut(); } catch (_) {}
+                btn.disabled = false;
+            }
+        });
+
+        // ---------- MINHA CONTA ----------
+        async function reauth(pw) {
+            const u = auth.currentUser;
+            await u.reauthenticateWithCredential(firebase.auth.EmailAuthProvider.credential(u.email, pw));
+            return u;
+        }
+
+        byId("changePwForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("changePwFeedback");
+            const n1 = byId("pwNew").value, n2 = byId("pwNew2").value;
+            if (n1 !== n2) { setFb(fb, "As senhas novas não são iguais.", "err"); return; }
+            try {
+                setFb(fb, "Alterando...");
+                const u = await reauth(byId("pwCurrent").value);
+                await u.updatePassword(n1);
+                e.currentTarget.reset();
+                setFb(fb, "✓ Senha alterada!", "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+
+        byId("changeEmailForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const fb = byId("changeEmailFeedback"), novo = byId("emailNew").value.trim();
+            try {
+                setFb(fb, "Enviando...");
+                const u = await reauth(byId("emailPw").value);
+                await u.verifyBeforeUpdateEmail(novo);
+                e.currentTarget.reset();
+                setFb(fb, `✓ Enviamos um link de confirmação para ${novo}. Clique nele para concluir.`, "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+
+        // ---------- Contato público ----------
+        byId("contactForm").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const form = e.currentTarget, fb = byId("contactFeedback"), data = new FormData(form);
+            fb.textContent = "Enviando...";
+            try {
+                await db.collection("inquiries").add({
+                    name: String(data.get("name") || "").trim(),
+                    email: String(data.get("email") || "").trim(),
+                    phone: String(data.get("phone") || "").trim(),
+                    message: String(data.get("message") || "").trim(),
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                form.reset();
+                fb.textContent = "Mensagem enviada. Obrigado!";
+                fb.className = "text-sm text-emerald-400";
+            } catch (err) {
+                console.error(err);
+                fb.textContent = "Não foi possível enviar agora.";
+                fb.className = "text-sm text-red-400";
+            }
+        });
+
+        // ---------- Misc ----------
+        buildTextsForm();
+        byId("mobileMenuBtn")?.addEventListener("click", () => byId("mobileMenu").classList.toggle("hidden"));
+        byId("mobileMenu")?.querySelectorAll("a").forEach(a => a.addEventListener("click", () => byId("mobileMenu").classList.add("hidden")));
+        byId("footerYear").textContent = new Date().getFullYear();
+    })();
+    </script>
+</body>
+</html>
