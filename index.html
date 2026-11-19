@@ -290,12 +290,13 @@
                 <!-- IMAGENS -->
                 <section class="admin-section hidden" data-section="images">
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Banner e logomarca</h2>
-                    <p class="text-sm text-slate-500 mb-6">Escolha a imagem e clique em "Enviar e salvar". Para a logomarca, use PNG com fundo transparente.</p>
+                    <p class="text-sm text-slate-500 mb-6">Envie imagens em JPG, PNG ou WebP, com até 10 MB cada. As dimensões abaixo são recomendações para melhor qualidade no site.</p>
                     <div class="grid gap-6 max-w-4xl">
                         <div class="card" data-img="logo">
-                            <h3 class="font-bold text-lg mb-3">Logomarca (topo do site)</h3>
+                            <h3 class="font-bold text-lg mb-1">Logomarca (topo do site)</h3>
+                            <p class="text-xs text-slate-500 mb-3">Recomendado: 500 × 200 px · PNG ou WebP com fundo transparente · máximo 10 MB.</p>
                             <img class="img-prev hidden h-20 object-contain mb-3 border border-slate-200 rounded bg-white p-2" alt="">
-                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <input type="file" accept="image/png,image/jpeg,image/webp" class="img-file block w-full text-sm text-slate-500 mb-3">
                             <div class="flex flex-wrap items-center gap-3">
                                 <button type="button" class="img-save btn">Enviar e salvar</button>
                                 <button type="button" class="img-clear btn2">Remover (voltar ao texto)</button>
@@ -303,9 +304,15 @@
                             </div>
                         </div>
                         <div class="card" data-img="hero">
-                            <h3 class="font-bold text-lg mb-3">Banner superior (imagem de fundo)</h3>
-                            <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
-                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <h3 class="font-bold text-lg mb-1">Banners superiores (carrossel automático)</h3>
+                            <p class="text-xs text-slate-500 mb-3">Recomendado: 1920 × 650 px · JPG, PNG ou WebP · máximo 10 MB por imagem. Selecione várias imagens de uma vez; elas serão exibidas em rotação automática.</p>
+                            <div id="heroBannerPreviews" class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-3"></div>
+                            <input type="file" accept="image/png,image/jpeg,image/webp" multiple id="heroBannerFiles" class="block w-full text-sm text-slate-500 mb-3">
+                            <div class="flex flex-wrap items-center gap-3">
+                                <button type="button" id="heroBannerSave" class="btn">Enviar banners selecionados</button>
+                                <button type="button" id="heroBannerClear" class="btn2">Remover todos os banners</button>
+                                <span id="heroBannerFeedback" class="text-sm"></span>
+                            </div>
                             <div class="flex flex-wrap items-center gap-3">
                                 <button type="button" class="img-save btn">Enviar e salvar</button>
                                 <button type="button" class="img-clear btn2">Voltar à imagem original</button>
@@ -313,9 +320,10 @@
                             </div>
                         </div>
                         <div class="card" data-img="about">
-                            <h3 class="font-bold text-lg mb-3">Imagem da seção "Quem Somos"</h3>
+                            <h3 class="font-bold text-lg mb-1">Imagem da seção "Quem Somos"</h3>
+                            <p class="text-xs text-slate-500 mb-3">Recomendado: 900 × 700 px · JPG, PNG ou WebP · máximo 10 MB.</p>
                             <img class="img-prev hidden h-32 object-cover mb-3 border border-slate-200 rounded" alt="">
-                            <input type="file" accept="image/*" class="img-file block w-full text-sm text-slate-500 mb-3">
+                            <input type="file" accept="image/png,image/jpeg,image/webp" class="img-file block w-full text-sm text-slate-500 mb-3">
                             <div class="flex flex-wrap items-center gap-3">
                                 <button type="button" class="img-save btn">Enviar e salvar</button>
                                 <button type="button" class="img-clear btn2">Voltar à imagem original</button>
@@ -330,6 +338,19 @@
                     <h2 class="text-2xl font-bold text-slate-900 mb-1">Catálogo e Categorias</h2>
                     <p class="text-sm text-slate-500 mb-6">Gerencie as categorias de produtos e os itens do inventário.</p>
                     
+                    <div class="card mb-6 max-w-4xl">
+                        <h3 class="font-bold text-lg mb-2">Visibilidade do catálogo público</h3>
+                        <p class="text-sm text-slate-500 mb-3">Desativado: nenhum produto aparece no site público. Os registros e as imagens continuam salvos no Firebase/Cloudinary e permanecem disponíveis nesta área administrativa.</p>
+                        <label class="flex items-center gap-3 font-semibold text-sm">
+                            <input id="catalogPublicEnabled" type="checkbox" class="h-5 w-5 accent-blue-700">
+                            Exibir produtos no catálogo público
+                        </label>
+                        <div class="flex items-center gap-3 mt-3">
+                            <button type="button" id="saveCatalogVisibility" class="btn">Salvar visibilidade</button>
+                            <span id="catalogVisibilityFeedback" class="text-sm"></span>
+                        </div>
+                    </div>
+
                     <!-- Gerenciamento de Categorias -->
                     <div class="card mb-8 max-w-4xl">
                         <h3 class="font-bold text-lg mb-3">Gerenciar Categorias</h3>
@@ -361,7 +382,7 @@
                             </label>
                             <div>
                                 <label class="block text-sm font-semibold mb-1">Fotos do produto</label>
-                                <p class="text-xs text-slate-400 mb-3">1 foto principal (grande) + até 3 fotos menores. Clique no quadro para escolher a imagem.</p>
+                                <p class="text-xs text-slate-500 mb-3">1 foto principal + até 3 fotos adicionais. Recomendado: 1200 × 1200 px · JPG, PNG ou WebP · máximo 10 MB por foto.</p>
                                 <div id="photoSlots" class="grid grid-cols-3 gap-3"></div>
                             </div>
                             <label class="block text-sm font-semibold">Descrição
@@ -683,19 +704,38 @@
                 logo.classList.add("hidden");
                 byId("logoText").classList.remove("hidden");
             }
-            byId("heroBackground").style.backgroundImage = images.heroUrl ? `url("${images.heroUrl}")` : heroDefaultBg;
+            const heroList = Array.isArray(images.heroUrls) && images.heroUrls.length ? images.heroUrls : (images.heroUrl ? [images.heroUrl] : []);
+            setHeroSlides(heroList);
             byId("aboutImage").src = images.aboutUrl || aboutDefaultSrc;
-            $$("[data-img]").forEach(card => {
+            $$("[data-img]:not([data-img=\"hero\"])").forEach(card => {
                 const u = images[card.dataset.img + "Url"], p = card.querySelector(".img-prev");
                 if (u) { p.src = u; p.classList.remove("hidden"); } else p.classList.add("hidden");
             });
         }
+        let heroSlides = [];
+        let heroSlideIndex = 0;
+        let heroSlideTimer = null;
+        function setHeroSlides(urls) {
+            heroSlides = (urls || []).filter(Boolean);
+            heroSlideIndex = 0;
+            if (heroSlideTimer) clearInterval(heroSlideTimer);
+            const show = () => {
+                const url = heroSlides[heroSlideIndex];
+                byId("heroBackground").style.backgroundImage = url ? `url("${url}")` : heroDefaultBg;
+                if (heroSlides.length > 1) heroSlideIndex = (heroSlideIndex + 1) % heroSlides.length;
+            };
+            show();
+            if (heroSlides.length > 1) heroSlideTimer = setInterval(show, 6000);
+            const preview = byId("heroBannerPreviews");
+            if (preview) preview.innerHTML = heroSlides.length ? heroSlides.map((url, i) => `<div class="relative"><img src="${esc(url)}" class="w-full h-24 object-cover rounded-lg border border-slate-200"><span class="absolute bottom-1 left-1 bg-slate-900/75 text-white text-[10px] px-2 py-0.5 rounded">Banner ${i + 1}</span></div>`).join("") : '<p class="text-xs text-slate-400">Nenhum banner personalizado cadastrado.</p>';
+        }
+
         db.collection("siteContent").doc("images").onSnapshot((doc) => {
             images = doc.exists ? doc.data() : {};
             applyImages();
         }, (error) => console.error("Erro ao ouvir imagens:", error));
 
-        $$("[data-img]").forEach(card => {
+        $$("[data-img]:not([data-img=\"hero\"])").forEach(card => {
             const key = card.dataset.img + "Url", fb = card.querySelector(".img-fb");
             card.querySelector(".img-save").addEventListener("click", async () => {
                 const file = card.querySelector(".img-file").files[0];
@@ -717,6 +757,30 @@
                     setTimeout(() => { fb.textContent = ""; }, 3000);
                 } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
             });
+        });
+
+        byId("heroBannerSave")?.addEventListener("click", async () => {
+            const input = byId("heroBannerFiles"), fb = byId("heroBannerFeedback");
+            const files = [...(input.files || [])];
+            if (!files.length) { setFb(fb, "Selecione uma ou mais imagens.", "err"); return; }
+            if (files.some(f => f.size > 10 * 1024 * 1024)) { setFb(fb, "Cada imagem deve ter no máximo 10 MB.", "err"); return; }
+            if (files.some(f => !["image/jpeg", "image/png", "image/webp"].includes(f.type))) { setFb(fb, "Formato inválido. Use JPG, PNG ou WebP.", "err"); return; }
+            try {
+                setFb(fb, "Enviando banners...");
+                const uploaded = await Promise.all(files.map(f => uploadImage(f, "hero-banners")));
+                const existing = Array.isArray(images.heroUrls) ? images.heroUrls : (images.heroUrl ? [images.heroUrl] : []);
+                await db.collection("siteContent").doc("images").set({ heroUrls: [...existing, ...uploaded], heroUrl: firebase.firestore.FieldValue.delete() }, { merge: true });
+                input.value = "";
+                setFb(fb, "✓ Banners adicionados e salvos.", "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
+        byId("heroBannerClear")?.addEventListener("click", async () => {
+            if (!confirm("Remover todos os banners personalizados?")) return;
+            const fb = byId("heroBannerFeedback");
+            try {
+                await db.collection("siteContent").doc("images").set({ heroUrls: firebase.firestore.FieldValue.delete(), heroUrl: firebase.firestore.FieldValue.delete() }, { merge: true });
+                setFb(fb, "✓ Banners removidos.", "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
         });
 
         // ---------- CATEGORIAS DINÂMICAS ----------
@@ -793,6 +857,22 @@
         // ---------- Catálogo público e Solicitação de Orçamento ----------
         let allProducts = [];
         let currentFilter = "all";
+        let catalogPublicEnabled = false;
+        db.collection("siteContent").doc("catalogSettings").onSnapshot((doc) => {
+            catalogPublicEnabled = doc.exists && doc.data().publicEnabled === true;
+            const toggle = byId("catalogPublicEnabled");
+            if (toggle) toggle.checked = catalogPublicEnabled;
+            renderCatalog();
+        }, (error) => console.error("Erro ao carregar configuração do catálogo:", error));
+
+        byId("saveCatalogVisibility")?.addEventListener("click", async () => {
+            const fb = byId("catalogVisibilityFeedback");
+            try {
+                const enabled = byId("catalogPublicEnabled").checked;
+                await db.collection("siteContent").doc("catalogSettings").set({ publicEnabled: enabled, updatedAt: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+                setFb(fb, enabled ? "✓ Produtos liberados no catálogo público." : "✓ Todos os produtos foram ocultados do catálogo público.", "ok");
+            } catch (err) { console.error(err); setFb(fb, authMsg(err), "err"); }
+        });
 
         db.collection("products").orderBy("createdAt", "desc").onSnapshot((snap) => {
             allProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -802,6 +882,12 @@
         function renderCatalog() {
             const c = byId("catalogContainer");
             if (!c) return;
+            if (!catalogPublicEnabled) {
+                c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nosso catálogo está em atualização. Entre em contato para consultar nossos produtos.</p>';
+                byId("categoryFilters").classList.add("hidden");
+                return;
+            }
+            byId("categoryFilters").classList.remove("hidden");
             const products = currentFilter === "all" ? allProducts : allProducts.filter(p => p.category === currentFilter);
             if (!products.length) {
                 c.innerHTML = '<p class="col-span-full text-center text-slate-500">Nenhum produto cadastrado nesta categoria.</p>';
@@ -887,7 +973,7 @@
                     ${src ? `<img src="${esc(src)}" class="w-full h-full object-contain bg-white">`
                           : `<div class="text-center text-slate-400 text-xs pointer-events-none"><i class="fa-solid fa-image text-2xl block mb-1"></i>${label}</div>`}
                     ${big ? '<span class="absolute top-2 left-2 bg-aero-primary text-white text-[10px] font-bold px-2 py-0.5 rounded-full pointer-events-none">PRINCIPAL</span>' : ""}
-                    <label class="absolute inset-0 cursor-pointer"><input type="file" accept="image/*" data-slot="${i}" class="hidden"></label>
+                    <label class="absolute inset-0 cursor-pointer"><input type="file" accept="image/png,image/jpeg,image/webp" data-slot="${i}" class="hidden"></label>
                     ${src ? `<button type="button" data-remove="${i}" title="Remover" class="absolute top-2 right-2 z-10 bg-red-600 hover:bg-red-700 text-white w-7 h-7 rounded-full text-sm leading-none">&times;</button>` : ""}
                 </div>`;
             }).join("");
@@ -898,6 +984,7 @@
             if (!input || !input.files[0]) return;
             const file = input.files[0];
             if (file.size > 10 * 1024 * 1024) { setFb(byId("productFeedback"), "Imagem maior que 10 MB.", "err"); input.value = ""; return; }
+            if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) { setFb(byId("productFeedback"), "Formato inválido. Use JPG, PNG ou WebP.", "err"); input.value = ""; return; }
             slotFiles[Number(input.dataset.slot)] = file;
             renderSlots();
         });
